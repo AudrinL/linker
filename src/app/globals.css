@@ -1,0 +1,301 @@
+@import "tailwindcss";
+
+/* ============================================================
+   LINKER WORLD TRAVEL — DESIGN SYSTEM
+   Cinematic editorial. Deep navy canvas, warm amber key light.
+   Palette derived from the brand mark: navy · cyan · amber · verdant
+   ============================================================ */
+
+@theme {
+  /* — Core canvas: near-black navy, never pure black — */
+  --color-abyss: #03080f;
+  --color-ink: #061320;
+  --color-ink-soft: #0a1c2e;
+  --color-slate: #143046;
+
+  /* — Brand blues, lifted from the globe — */
+  --color-deep: #0a3b57;
+  --color-azure: #1e88c7;
+  --color-cyan: #12a5c8;
+  --color-sky: #6cc9e3;
+
+  /* — Warm key light, lifted from the swoosh — */
+  --color-amber: #f0801e;
+  --color-gold: #f5a623;
+  --color-ember: #d9621a;
+
+  /* — Verdant, lifted from the landmass — */
+  --color-verdant: #3fa96b;
+
+  /* — Neutrals — */
+  --color-bone: #f6f2ea;
+  --color-mist: #c3d0dc;
+  --color-muted: #7f93a5;
+
+  /* — Type — */
+  --font-display: var(--font-instrument), Georgia, serif;
+  --font-sans: var(--font-geist), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* — Radii: Apple-soft, never sharp — */
+  --radius-xs: 12px;
+  --radius-sm: 16px;
+  --radius-md: 22px;
+  --radius-lg: 28px;
+  --radius-xl: 36px;
+  --radius-2xl: 44px;
+
+  /* — Motion: one easing language throughout — */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    /* Nav height, referenced by scroll-margin and hero sizing */
+    --nav-h: 76px;
+  }
+
+  * {
+    /* Hairlines throughout are warm-neutral, never pure white */
+    border-color: color-mix(in oklab, var(--color-mist) 12%, transparent);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  /* Lenis owns scrolling when active; disable native smooth to avoid fighting */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  html.lenis {
+    scroll-behavior: auto;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  body {
+    background: var(--color-abyss);
+    color: var(--color-bone);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: var(--color-amber);
+    color: var(--color-abyss);
+  }
+
+  /* Focus ring: visible, warm, never suppressed */
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 0.95;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Anchored sections clear the fixed nav */
+  section[id] {
+    scroll-margin-top: calc(var(--nav-h) + 16px);
+  }
+}
+
+@layer utilities {
+  /* — Fluid display scale. Clamps mean the type never breaks at any width. — */
+  /* Height-aware: on short/landscape viewports the headline must not push the
+     fold furniture off screen, so vh caps the vw-driven size. */
+  .text-display {
+    font-size: clamp(2.9rem, min(10.5vw, 14.5vh), 10rem);
+    line-height: 0.9;
+    letter-spacing: -0.035em;
+  }
+  .text-headline {
+    font-size: clamp(2.4rem, 6.2vw, 5.4rem);
+    line-height: 0.96;
+    letter-spacing: -0.028em;
+  }
+  .text-title {
+    font-size: clamp(1.75rem, 3.4vw, 3rem);
+    line-height: 1.04;
+    letter-spacing: -0.022em;
+  }
+  .text-lede {
+    font-size: clamp(1.05rem, 1.45vw, 1.3rem);
+    line-height: 1.62;
+    letter-spacing: -0.011em;
+  }
+
+  /* — Eyebrow: the small caps label that opens every section — */
+  .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+
+  /* — The signature warm-to-cool text wash — */
+  .text-gradient-warm {
+    background: linear-gradient(
+      104deg,
+      var(--color-bone) 0%,
+      var(--color-gold) 46%,
+      var(--color-amber) 74%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-gradient-cool {
+    background: linear-gradient(
+      104deg,
+      var(--color-bone) 0%,
+      var(--color-sky) 58%,
+      var(--color-cyan) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* — Frosted panel. Used sparingly: nav, floating cards, form shells. — */
+  .glass {
+    background: color-mix(in oklab, var(--color-ink) 58%, transparent);
+    backdrop-filter: blur(22px) saturate(155%);
+    -webkit-backdrop-filter: blur(22px) saturate(155%);
+    border: 1px solid color-mix(in oklab, var(--color-mist) 13%, transparent);
+  }
+
+  .glass-strong {
+    background: color-mix(in oklab, var(--color-ink) 82%, transparent);
+    backdrop-filter: blur(30px) saturate(170%);
+    -webkit-backdrop-filter: blur(30px) saturate(170%);
+    border: 1px solid color-mix(in oklab, var(--color-mist) 16%, transparent);
+  }
+
+  /* — Film grain. Ties the AI photography and the UI into one medium. — */
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: -50%;
+    pointer-events: none;
+    opacity: 0.16;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* — Cinematic vignette for full-bleed imagery — */
+  .vignette::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 120% 78% at 50% 42%,
+      transparent 32%,
+      color-mix(in oklab, var(--color-abyss) 88%, transparent) 100%
+    );
+  }
+
+  /* — Edge fades so sections dissolve into one another rather than stack — */
+  .fade-top::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 22vh;
+    pointer-events: none;
+    z-index: 2;
+    background: linear-gradient(to bottom, var(--color-abyss), transparent);
+  }
+  .fade-bottom::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 26vh;
+    pointer-events: none;
+    z-index: 2;
+    background: linear-gradient(to top, var(--color-abyss), transparent);
+  }
+
+  /* — Shell: the one horizontal rhythm the whole site obeys — */
+  .shell {
+    width: 100%;
+    margin-inline: auto;
+    max-width: 88rem;
+    padding-inline: clamp(1.25rem, 5vw, 4.5rem);
+  }
+
+  /* — Reveal primitives. GSAP drives these; CSS defines rest state. — */
+  .will-reveal {
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+
+  /* Staggered groups hide their children, not themselves */
+  [data-stagger] > * {
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+
+  /* Masked line reveal: each line rides up out of its own clip box */
+  .line-mask {
+    display: block;
+    overflow: hidden;
+  }
+  .line-mask > span {
+    display: block;
+    will-change: transform;
+  }
+
+  .hide-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ============================================================
+   Accessibility: honour reduced-motion completely.
+   Every GSAP timeline also checks this at runtime.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .will-reveal,
+  [data-stagger] > *,
+  .line-mask > span {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
