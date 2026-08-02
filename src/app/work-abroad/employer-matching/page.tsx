@@ -1,33 +1,25 @@
-"use client";
-
 import { PageHero } from "@/components/ui/PageHero";
-import { PlaceholderSection } from "@/components/ui/PlaceholderSection";
+import { BentoGrid } from "@/components/ui/BentoGrid";
+import { RichCTA } from "@/components/ui/RichCTA";
 
-export default function WorkAbroadEmployerMatchingPage() {
+const highlights = [
+  { title: "Precision Profiling", description: "We analyze technical skills and cultural fit.", className: "md:col-span-1" },
+  { title: "Verified Credentials", description: "Every candidate undergoes strict background checks.", className: "md:col-span-2" },
+  { title: "Speed to Hire", description: "Access a pre-vetted pool of ready-to-deploy talent.", className: "md:col-span-2" },
+  { title: "Long-term Success", description: "High retention rates through better matching.", className: "md:col-span-1" },
+];
+
+export default function EmployerMatchingPage() {
   return (
     <div className="min-h-screen">
-      <PageHero 
-        title="Employer Matching"
-        subtitle="Tailored placement services ensuring the right fit for both candidate and company."
-      />
-      <main className="shell py-16 lg:py-24 space-y-12">
-        <PlaceholderSection 
-          title="Matching Portal / Steps"
-          description="Infographic or step-by-step section explaining the matching criteria."
-          height="min-h-[500px]"
-        />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <PlaceholderSection 
-            title="Additional Info"
-            description="Content block for details or FAQs."
-            height="min-h-[300px]"
-          />
-          <PlaceholderSection 
-            title="Call to Action"
-            description="A localized CTA or contact form snippet."
-            height="min-h-[300px]"
-          />
+      <PageHero title="Employer Matching" subtitle="Tailored placement services ensuring the right fit for both candidate and company." />
+      <main className="shell py-16 lg:py-24 space-y-16">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <h2 className="font-display text-3xl text-bone mb-6">Why Our Matching Works</h2>
+          <p className="text-mist text-lg">We go beyond resumes. Our matching algorithm combined with human expertise ensures that employers get candidates who will thrive and stay long-term.</p>
         </div>
+        <BentoGrid items={highlights} />
+        <RichCTA title="Start Building Your Team" description="Tell us your hiring needs and let our experts find the perfect match." buttonText="Request Talent" buttonHref="/contact" />
       </main>
     </div>
   );

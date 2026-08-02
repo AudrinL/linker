@@ -1,33 +1,21 @@
-"use client";
-
 import { PageHero } from "@/components/ui/PageHero";
-import { PlaceholderSection } from "@/components/ui/PlaceholderSection";
+import { BentoGrid } from "@/components/ui/BentoGrid";
+import { RichCTA } from "@/components/ui/RichCTA";
 
-export default function StudyAbroadAdmissionGuidancePage() {
+const highlights = [
+  { title: "Course Selection", description: "We map your career goals to the right programs.", className: "md:col-span-1" },
+  { title: "Essay & SOP Reviews", description: "Stand out with compelling personal statements.", className: "md:col-span-2" },
+  { title: "Scholarship Sourcing", description: "Find funding opportunities to reduce costs.", className: "md:col-span-2" },
+  { title: "Application Tracking", description: "We manage deadlines and submissions for you.", className: "md:col-span-1" },
+];
+
+export default function AdmissionGuidancePage() {
   return (
     <div className="min-h-screen">
-      <PageHero 
-        title="Admission Guidance"
-        subtitle="From application essays to scholarships, we guide you every step of the way."
-      />
-      <main className="shell py-16 lg:py-24 space-y-12">
-        <PlaceholderSection 
-          title="Consultation Services"
-          description="Booking form for 1-on-1 counseling and success stories."
-          height="min-h-[500px]"
-        />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <PlaceholderSection 
-            title="Additional Info"
-            description="Content block for details or FAQs."
-            height="min-h-[300px]"
-          />
-          <PlaceholderSection 
-            title="Call to Action"
-            description="A localized CTA or contact form snippet."
-            height="min-h-[300px]"
-          />
-        </div>
+      <PageHero title="Admission Guidance" subtitle="From application essays to scholarships, we guide you every step of the way." />
+      <main className="shell py-16 lg:py-24 space-y-16">
+        <BentoGrid items={highlights} />
+        <RichCTA title="Secure Your Spot" description="Let us handle the stress of university applications so you can focus on your studies." buttonText="Get Started" buttonHref="/contact" />
       </main>
     </div>
   );
