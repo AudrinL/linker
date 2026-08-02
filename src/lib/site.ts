@@ -40,16 +40,46 @@ export const site = {
   ],
 } as const;
 
-export const nav = [
-  { label: "About", href: "/about" },
-  { label: "Recruitment", href: "/recruitment" },
-  { label: "Visa Services", href: "/visa-services" },
-  { label: "Travel", href: "/travel-services" },
-  { label: "Safari & Tours", href: "/safari-tours" },
-  { label: "Vehicles", href: "/vehicle-import-export" },
-  { label: "Vacancies", href: "/vacancies" },
-  { label: "Journal", href: "/blog" },
-] as const;
+export type NavItem = {
+  label: string;
+  href: string;
+  items?: { label: string; href: string }[];
+};
+
+export const nav: NavItem[] = [
+  { 
+    label: "Work Abroad", 
+    href: "/work-abroad",
+    items: [
+      { label: "Jobs", href: "/work-abroad/jobs" },
+      { label: "Recruitment", href: "/work-abroad/recruitment" },
+      { label: "Employer Matching", href: "/work-abroad/employer-matching" },
+      { label: "Work Permits", href: "/work-abroad/work-permits" },
+    ]
+  },
+  {
+    label: "Study Abroad",
+    href: "/study-abroad",
+    items: [
+      { label: "Universities", href: "/study-abroad/universities" },
+      { label: "Study Visa", href: "/study-abroad/study-visa" },
+      { label: "Admission Guidance", href: "/study-abroad/admission-guidance" },
+    ]
+  },
+  {
+    label: "Travel",
+    href: "/travel",
+    items: [
+      { label: "Flight Booking", href: "/travel/flight-booking" },
+      { label: "Hotels", href: "/travel/hotels" },
+      { label: "Holiday Packages", href: "/travel/holiday-packages" },
+      { label: "Visa Services", href: "/travel/visa-services" },
+    ]
+  },
+  { label: "Safaris", href: "/safari-tours" },
+  { label: "Vehicle Import", href: "/vehicle-import-export" },
+  { label: "Blog", href: "/blog" },
+];
 
 export const footerNav = [
   {

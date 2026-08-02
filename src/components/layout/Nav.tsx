@@ -6,8 +6,127 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
-import { nav, site } from "@/lib/site";
+import { motion, AnimatePresence } from "framer-motion";
+import { nav, site, type NavItem } from "@/lib/site";
 import { cn, prefersReducedMotion } from "@/lib/utils";
+
+function DesktopNavItem({ item, pathname }: { item: NavItem, pathname: string }) {
+  const [isHovered, setIsHovered] = useState(false);
+  const active = pathname === item.href || item.items?.some(sub => pathname === sub.href);
+  const hasDropdown = !!item.items?.length;
+
+  return (
+    <div
+      className="relative"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <Link
+        href={item.href}
+        className={cn(
+          "relative flex items-center gap-1 rounded-full px-3.5 py-2 text-[0.82rem] font-medium tracking-tight transition-colors duration-300",
+          active ? "text-gold" : "text-mist/75 hover:text-bone",
+        )}
+      >
+        {item.label}
+        {hasDropdown && (
+          <svg className={cn("size-3.5 transition-transform duration-300", isHovered && "rotate-180")} viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
+          </svg>
+        )}
+        {active && (
+          <span className="absolute inset-x-3.5 -bottom-0.5 h-px bg-gold/70" />
+        )}
+      </Link>
+      
+      {hasDropdown && (
+        <AnimatePresence>
+          {isHovered && (
+            <motion.div
+              initial={{ opacity: 0, y: 10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.95 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="absolute left-1/2 top-full z-[100] mt-2 w-56 -translate-x-1/2 rounded-2xl border border-mist/10 bg-abyss/85 p-2 shadow-2xl backdrop-blur-xl"
+            >
+              {item.items!.map((sub) => (
+                <Link
+                  key={sub.href}
+                  href={sub.href}
+                  className="block rounded-xl px-4 py-2.5 text-sm font-medium text-mist transition-colors hover:bg-mist/10 hover:text-bone"
+                >
+                  {sub.label}
+                </Link>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
+    </div>
+  );
+}
+
+function MobileNavItem({ item, open, pathname }: { item: NavItem, open: boolean, pathname: string }) {
+  const [expanded, setExpanded] = useState(false);
+  const hasDropdown = !!item.items?.length;
+  
+  // Close the expanded accordion if the main menu closes
+  useEffect(() => {
+    if (!open) setExpanded(false);
+  }, [open]);
+
+  return (
+    <div className="flex flex-col">
+      <div className="line-mask flex items-center justify-between">
+        <Link
+          href={item.href}
+          data-menu-item
+          tabIndex={open ? 0 : -1}
+          className="block py-1.5 font-display text-[clamp(2.1rem,10vw,3.4rem)] leading-[1.02] tracking-tight text-bone transition-colors duration-300 hover:text-gold"
+        >
+          {item.label}
+        </Link>
+        {hasDropdown && (
+          <button 
+            data-menu-item
+            onClick={() => setExpanded(!expanded)} 
+            className="p-2 text-mist transition-colors hover:text-gold"
+            aria-label="Toggle submenu"
+          >
+            <svg className={cn("size-8 transition-transform duration-300", expanded && "rotate-180")} viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
+            </svg>
+          </button>
+        )}
+      </div>
+      {hasDropdown && (
+        <AnimatePresence>
+          {expanded && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              className="overflow-hidden"
+            >
+              <div className="flex flex-col gap-2 py-4 pl-4 border-l border-mist/20 ml-2">
+                {item.items!.map((sub) => (
+                  <Link
+                    key={sub.href}
+                    href={sub.href}
+                    tabIndex={open ? 0 : -1}
+                    className="block font-display text-2xl text-mist transition-colors hover:text-bone"
+                  >
+                    {sub.label}
+                  </Link>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
+    </div>
+  );
+}
 
 /**
  * Fixed navigation. Transparent over the hero, condensing into a frosted pill
@@ -107,26 +226,10 @@ export default function Nav() {
             </Link>
 
             <nav className="hidden items-center gap-0.5 lg:flex">
-              {nav.map((item) => {
-                const active = pathname === item.href;
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={cn(
-                      "relative rounded-full px-3.5 py-2 text-[0.82rem] font-medium tracking-tight transition-colors duration-300",
-                      active
-                        ? "text-gold"
-                        : "text-mist/75 hover:text-bone",
-                    )}
-                  >
-                    {item.label}
-                    {active && (
-                      <span className="absolute inset-x-3.5 -bottom-0.5 h-px bg-gold/70" />
-                    )}
-                  </Link>
-                );
-              })}
+              <DesktopNavItem item={{ label: "Home", href: "/" }} pathname={pathname} />
+              {nav.map((item) => (
+                <DesktopNavItem key={item.href} item={item} pathname={pathname} />
+              ))}
             </nav>
 
             <div className="flex items-center gap-2">
@@ -170,25 +273,17 @@ export default function Nav() {
         ref={panel}
         aria-hidden={!open}
         className={cn(
-          "fixed inset-0 z-[60] flex flex-col justify-center bg-abyss/97 backdrop-blur-2xl transition-opacity duration-500 lg:hidden",
+          "fixed inset-0 z-[60] overflow-y-auto bg-abyss/97 backdrop-blur-2xl transition-opacity duration-500 lg:hidden",
           open
             ? "pointer-events-auto opacity-100"
             : "pointer-events-none opacity-0",
         )}
       >
-        <div className="shell">
+        <div className="shell flex min-h-full flex-col justify-center py-24">
           <nav className="flex flex-col gap-1">
-            {[{ label: "Home", href: "/" }, ...nav].map((item) => (
-              <span key={item.href} className="line-mask">
-                <Link
-                  href={item.href}
-                  data-menu-item
-                  tabIndex={open ? 0 : -1}
-                  className="block py-1.5 font-display text-[clamp(2.1rem,10vw,3.4rem)] leading-[1.02] tracking-tight text-bone transition-colors duration-300 hover:text-gold"
-                >
-                  {item.label}
-                </Link>
-              </span>
+            <MobileNavItem item={{ label: "Home", href: "/" }} open={open} pathname={pathname} />
+            {nav.map((item) => (
+              <MobileNavItem key={item.href} item={item} open={open} pathname={pathname} />
             ))}
           </nav>
 
