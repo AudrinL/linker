@@ -28,7 +28,7 @@ export default function WhatsAppFab() {
       rel="noopener noreferrer"
       aria-label="Chat with us on WhatsApp"
       className={cn(
-        "group fixed bottom-6 right-5 z-50 flex items-center gap-3 rounded-full bg-[#1eb355] py-3.5 pl-4 pr-4 text-abyss shadow-[0_16px_50px_-12px_rgba(30,179,85,0.6)] transition-all duration-700 sm:bottom-8 sm:right-8",
+        "group fixed bottom-6 right-5 z-50 flex items-center gap-3 rounded-full bg-[#1eb355] py-3.5 pl-4 pr-4 text-white shadow-[0_16px_50px_-12px_rgba(30,179,85,0.6)] transition-all duration-700 sm:bottom-8 sm:right-8",
         visible
           ? "pointer-events-auto translate-y-0 opacity-100"
           : "pointer-events-none translate-y-6 opacity-0",

@@ -59,7 +59,7 @@ export default function MagneticButton({
 
   const styles = {
     solid:
-      "bg-gold text-abyss hover:bg-bone shadow-[0_10px_40px_-12px_rgba(245,166,35,0.55)]",
+      "bg-gold text-white hover:bg-bone shadow-[0_10px_40px_-12px_rgba(180,83,9,0.4)]",
     outline:
       "border border-mist/25 text-bone hover:border-gold/70 hover:text-gold",
     ghost: "text-bone/80 hover:text-gold",

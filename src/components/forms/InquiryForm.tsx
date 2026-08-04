@@ -101,7 +101,7 @@ export default function InquiryForm() {
             href={whatsappLink(site.whatsapp, composed())}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full bg-gold px-6 py-3 text-sm font-medium text-abyss transition-colors hover:bg-bone"
+            className="rounded-full bg-gold px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-bone"
           >
             Open WhatsApp again
           </a>
@@ -240,7 +240,7 @@ export default function InquiryForm() {
       <div className="mt-7 flex flex-wrap items-center gap-4">
         <button
           type="submit"
-          className="rounded-full bg-gold px-7 py-3.5 text-sm font-medium tracking-tight text-abyss transition-colors duration-500 hover:bg-bone"
+          className="rounded-full bg-gold px-7 py-3.5 text-sm font-medium tracking-tight text-white transition-colors duration-500 hover:bg-bone"
         >
           Send via WhatsApp
         </button>

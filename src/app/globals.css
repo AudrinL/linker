@@ -7,30 +7,30 @@
    ============================================================ */
 
 @theme {
-  /* — Core canvas: near-black navy, never pure black — */
-  --color-abyss: #03080f;
-  --color-ink: #061320;
-  --color-ink-soft: #0a1c2e;
-  --color-slate: #143046;
+  /* — Core canvas: warm cream, never pure white — */
+  --color-abyss: #f7f4ee;
+  --color-ink: #ffffff;
+  --color-ink-soft: #f1eee8;
+  --color-slate: #e2e7ed;
 
   /* — Brand blues, lifted from the globe — */
-  --color-deep: #0a3b57;
+  --color-deep: #1e5e88;
   --color-azure: #1e88c7;
-  --color-cyan: #12a5c8;
-  --color-sky: #6cc9e3;
+  --color-cyan: #0b94b0;
+  --color-sky: #7cc4dd;
 
-  /* — Warm key light, lifted from the swoosh — */
-  --color-amber: #f0801e;
-  --color-gold: #f5a623;
-  --color-ember: #d9621a;
+  /* — Warm key light, deepened for contrast on the cream canvas — */
+  --color-amber: #d97706;
+  --color-gold: #b45309;
+  --color-ember: #c2410c;
 
   /* — Verdant, lifted from the landmass — */
   --color-verdant: #3fa96b;
 
-  /* — Neutrals — */
-  --color-bone: #f6f2ea;
-  --color-mist: #c3d0dc;
-  --color-muted: #7f93a5;
+  /* — Neutrals: deep navy type on the cream canvas — */
+  --color-bone: #0b1c2b;
+  --color-mist: #5a6b7d;
+  --color-muted: #64748b;
 
   /* — Type — */
   --font-display: var(--font-instrument), Georgia, serif;
@@ -52,7 +52,7 @@
 
 @layer base {
   :root {
-    color-scheme: dark;
+    color-scheme: light;
     /* Nav height, referenced by scroll-margin and hero sizing */
     --nav-h: 76px;
   }
@@ -90,8 +90,8 @@
   }
 
   ::selection {
-    background: var(--color-amber);
-    color: var(--color-abyss);
+    background: var(--color-gold);
+    color: var(--color-bone);
   }
 
   /* Focus ring: visible, warm, never suppressed */
@@ -173,7 +173,7 @@
     background: linear-gradient(
       104deg,
       var(--color-bone) 0%,
-      var(--color-sky) 58%,
+      var(--color-azure) 58%,
       var(--color-cyan) 100%
     );
     -webkit-background-clip: text;

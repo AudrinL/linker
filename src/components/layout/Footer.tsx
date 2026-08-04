@@ -14,7 +14,7 @@ export default function Footer() {
       {/* Warm horizon glow rising behind the wordmark */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-[70%] opacity-45"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[70%] opacity-30"
         style={{
           background:
             "radial-gradient(ellipse 70% 100% at 50% 118%, var(--color-amber) 0%, transparent 62%)",
@@ -25,7 +25,7 @@ export default function Footer() {
         <div className="grid gap-14 lg:grid-cols-[1.4fr_1fr_1fr_1.1fr]">
           <div>
             <Link href="/" className="flex items-center gap-3.5">
-              <span className="relative block size-12 overflow-hidden rounded-2xl bg-bone ring-1 ring-mist/15">
+              <span className="relative block size-12 overflow-hidden rounded-2xl bg-white ring-1 ring-mist/15">
                 <Image
                   src="/img/logo.jpeg"
                   alt=""

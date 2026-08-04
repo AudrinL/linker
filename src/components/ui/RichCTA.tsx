@@ -28,7 +28,7 @@ export function RichCTA({ title, description, buttonText, buttonHref, className 
         <div className="mt-10">
           <Link
             href={buttonHref}
-            className="inline-flex rounded-full bg-gold px-8 py-4 text-sm font-medium text-abyss transition-colors hover:bg-bone"
+            className="inline-flex rounded-full bg-gold px-8 py-4 text-sm font-medium text-white transition-colors hover:bg-bone"
           >
             {buttonText}
           </Link>

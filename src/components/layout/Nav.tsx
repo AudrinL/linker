@@ -205,7 +205,7 @@ export default function Nav() {
               className="flex shrink-0 items-center gap-3"
               aria-label={`${site.name} — home`}
             >
-              <span className="relative block size-10 overflow-hidden rounded-full bg-bone/95 ring-1 ring-mist/20">
+              <span className="relative block size-10 overflow-hidden rounded-full bg-white ring-1 ring-mist/20">
                 <Image
                   src="/img/logo.jpeg"
                   alt=""
@@ -235,7 +235,7 @@ export default function Nav() {
             <div className="flex items-center gap-2">
               <Link
                 href="/contact"
-                className="hidden rounded-full bg-gold px-5 py-2.5 text-[0.82rem] font-medium tracking-tight text-abyss transition-colors duration-500 hover:bg-bone md:inline-block"
+                className="hidden rounded-full bg-gold px-5 py-2.5 text-[0.82rem] font-medium tracking-tight text-white transition-colors duration-500 hover:bg-bone md:inline-block"
               >
                 Start your journey
               </Link>
@@ -301,7 +301,7 @@ export default function Nav() {
             <Link
               href="/contact"
               tabIndex={open ? 0 : -1}
-              className="mt-2 inline-flex w-fit rounded-full bg-gold px-7 py-3.5 text-sm font-medium text-abyss"
+              className="mt-2 inline-flex w-fit rounded-full bg-gold px-7 py-3.5 text-sm font-medium text-white"
             >
               Start your journey
             </Link>

@@ -126,7 +126,7 @@ export default function Services() {
 
                     <Link
                       href={s.href}
-                      className="group mt-9 inline-flex items-center gap-3 rounded-full border border-mist/25 py-3 pl-6 pr-4 text-sm font-medium tracking-tight transition-all duration-500 hover:border-gold/70 hover:bg-gold hover:text-abyss"
+                      className="group mt-9 inline-flex items-center gap-3 rounded-full border border-mist/25 py-3 pl-6 pr-4 text-sm font-medium tracking-tight transition-all duration-500 hover:border-gold/70 hover:bg-gold hover:text-white"
                       style={{ transitionTimingFunction: "var(--ease-out-expo)" }}
                     >
                       {s.kicker}

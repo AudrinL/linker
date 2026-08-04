@@ -77,8 +77,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#03080f",
-  colorScheme: "dark",
+  themeColor: "#f7f4ee",
+  colorScheme: "light",
 };
 
 /** Organization schema — helps search engines render a rich business panel. */
@@ -115,7 +115,7 @@ export default function RootLayout({
         <SmoothScroll />
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-6 focus:top-6 focus:z-[100] focus:rounded-full focus:bg-gold focus:px-5 focus:py-2.5 focus:text-sm focus:font-medium focus:text-abyss"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-6 focus:top-6 focus:z-[100] focus:rounded-full focus:bg-gold focus:px-5 focus:py-2.5 focus:text-sm focus:font-medium focus:text-white"
         >
           Skip to content
         </a>
