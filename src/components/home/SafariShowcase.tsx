@@ -93,7 +93,7 @@ export default function SafariShowcase() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to top, color-mix(in oklab, var(--color-abyss) 58%, transparent) 0%, color-mix(in oklab, var(--color-abyss) 28%, transparent) 38%, transparent 58%), linear-gradient(to right, color-mix(in oklab, var(--color-abyss) 26%, transparent) 0%, transparent 36%)",
+              "linear-gradient(to top, color-mix(in oklab, var(--color-abyss) 72%, transparent) 0%, color-mix(in oklab, var(--color-abyss) 42%, transparent) 38%, transparent 62%), linear-gradient(to right, color-mix(in oklab, var(--color-abyss) 34%, transparent) 0%, transparent 44%)",
           }}
         />
         <div className="vignette absolute inset-0" />
@@ -117,13 +117,13 @@ export default function SafariShowcase() {
               <h2 className="mt-4 text-headline font-display">
                 {destinations[active].country}
               </h2>
-              <p className="mt-3 font-display text-[clamp(1.2rem,2.2vw,1.75rem)] italic text-mist/80">
+              <p className="mt-3 font-display text-[clamp(1.2rem,2.2vw,1.75rem)] italic text-mist">
                 {destinations[active].headline}
               </p>
             </div>
 
             <div>
-              <p className="max-w-md text-[1.02rem] leading-relaxed text-mist/85">
+              <p className="max-w-md text-[1.02rem] leading-relaxed text-mist">
                 {destinations[active].copy}
               </p>
 

@@ -99,7 +99,7 @@ export default function Services() {
                 className="absolute inset-0"
                 style={{
                   background:
-                    "linear-gradient(to top, color-mix(in oklab, var(--color-abyss) 62%, transparent) 0%, color-mix(in oklab, var(--color-abyss) 30%, transparent) 34%, transparent 55%), linear-gradient(to right, color-mix(in oklab, var(--color-abyss) 30%, transparent) 0%, transparent 38%)",
+                    "linear-gradient(to top, color-mix(in oklab, var(--color-abyss) 74%, transparent) 0%, color-mix(in oklab, var(--color-abyss) 44%, transparent) 34%, transparent 60%), linear-gradient(to right, color-mix(in oklab, var(--color-abyss) 38%, transparent) 0%, transparent 48%)",
                 }}
               />
 
@@ -111,7 +111,7 @@ export default function Services() {
                         {s.index}
                       </span>
                       <span className="h-px flex-1 max-w-24 bg-gold/40" />
-                      <span className="text-[0.7rem] font-medium uppercase tracking-[0.2em] text-mist/70">
+                      <span className="text-[0.7rem] font-medium uppercase tracking-[0.2em] text-mist/85">
                         {s.kicker}
                       </span>
                     </div>
@@ -120,7 +120,7 @@ export default function Services() {
                       {s.title}
                     </h3>
 
-                    <p className="mt-6 max-w-lg text-[1.02rem] leading-relaxed text-mist/85">
+                    <p className="mt-6 max-w-lg text-[1.02rem] leading-relaxed text-mist">
                       {s.blurb}
                     </p>
 
@@ -151,7 +151,7 @@ export default function Services() {
                     {s.points.map((p) => (
                       <li
                         key={p}
-                        className="flex items-start gap-3.5 border-b border-mist/10 py-3.5 text-[0.92rem] leading-snug text-mist/90 last:border-0 last:pb-0 first:pt-0"
+                        className="flex items-start gap-3.5 border-b border-mist/10 py-3.5 text-[0.92rem] leading-snug text-mist last:border-0 last:pb-0 first:pt-0"
                       >
                         <span className="mt-[0.42rem] size-1.5 shrink-0 rounded-full bg-gold" />
                         {p}

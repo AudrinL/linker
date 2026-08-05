@@ -81,13 +81,14 @@ export default function Hero() {
           className="object-cover object-center"
         />
         {/* Grade: deepen the shadows, keep the amber, seat it in the palette.
-            Kept tight — the image stays visible except where the copy sits. */}
+            Dense at the base where the copy sits, clear above so the
+            photography stays the hero. */}
         <div
           aria-hidden
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to top, color-mix(in oklab, var(--color-abyss) 58%, transparent) 0%, color-mix(in oklab, var(--color-abyss) 30%, transparent) 26%, transparent 50%), linear-gradient(to right, color-mix(in oklab, var(--color-abyss) 28%, transparent) 0%, transparent 34%)",
+              "linear-gradient(to top, color-mix(in oklab, var(--color-abyss) 74%, transparent) 0%, color-mix(in oklab, var(--color-abyss) 46%, transparent) 26%, transparent 55%), linear-gradient(to right, color-mix(in oklab, var(--color-abyss) 40%, transparent) 0%, transparent 48%)",
           }}
         />
         <div className="vignette absolute inset-0" />
@@ -112,7 +113,7 @@ export default function Hero() {
             ]}
           />
 
-          <p className="mt-6 max-w-xl text-lede text-mist/90">
+          <p className="mt-6 max-w-xl text-lede text-mist">
             A career abroad. A visa approved. A morning in the Volcanoes with
             gorillas. For eleven years we have moved people and possibilities
             between Africa and the world.
@@ -147,7 +148,7 @@ export default function Hero() {
               <li key={m} className="shrink-0">
                 <Link
                   href="/services"
-                  className="text-[0.72rem] font-medium uppercase tracking-[0.2em] text-mist/65 transition-colors duration-300 hover:text-gold"
+                  className="text-[0.72rem] font-medium uppercase tracking-[0.2em] text-mist/85 transition-colors duration-300 hover:text-gold"
                 >
                   {m}
                 </Link>
