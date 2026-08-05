@@ -72,8 +72,8 @@ export default function Hero() {
       {/* Photographic plate */}
       <div ref={plate} className="absolute inset-0 -z-10 will-change-transform">
         <Image
-          src="/img/hero-savanna.png"
-          alt="A commercial airliner crossing the East African savanna at golden hour, with herds visible on the plains below"
+          src="/assets/travel.png"
+          alt="Travel across Africa and beyond — the world Linker World Travel opens to you"
           fill
           priority
           quality={88}

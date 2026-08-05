@@ -28,7 +28,7 @@ export const services: Service[] = [
       "Pre-departure briefing and orientation",
       "Ongoing support after you arrive",
     ],
-    image: "/img/recruitment-worker.png",
+    image: "/assets/work%20abroad%20(2).jpg",
     href: "/work-abroad/recruitment",
   },
   {
@@ -124,7 +124,7 @@ export const destinations: Destination[] = [
     experience: "Gorilla Trekking",
     copy:
       "An hour uphill through bamboo and cloud, and then you are sitting eight metres from a silverback who has decided you are not worth standing up for. Rwanda protects roughly a third of the world's remaining mountain gorillas.",
-    image: "/img/safari-gorilla.png",
+    image: "/assets/rwanda-gorillas.jpg",
     highlights: ["Gorilla permits", "Golden monkey tracking", "Lake Kivu"],
   },
   {
@@ -133,7 +133,7 @@ export const destinations: Destination[] = [
     experience: "The Great Migration",
     copy:
       "Between July and October, more than a million wildebeest pour across the Mara River while crocodiles wait in the shallows. There is no footage that prepares you for the sound of it.",
-    image: "/img/safari-elephants.png",
+    image: "/assets/tanzania%20safari.webp",
     highlights: ["River crossings", "Big Five game drives", "Maasai villages"],
   },
   {
@@ -142,7 +142,7 @@ export const destinations: Destination[] = [
     experience: "Balloon Safari",
     copy:
       "Lift off before dawn and watch the plains resolve out of the dark beneath you — herds moving, dust rising gold, the crater rim holding the horizon. Breakfast is served where you land.",
-    image: "/img/safari-balloons.png",
+    image: "/assets/tanzania.png",
     highlights: ["Balloon safari", "Ngorongoro Crater", "Zanzibar extension"],
   },
   {
@@ -151,7 +151,7 @@ export const destinations: Destination[] = [
     experience: "Primate & Nile Country",
     copy:
       "Ancient rainforest that has never been logged, home to almost half the world's mountain gorillas — then north to Murchison Falls, where the entire Nile forces itself through a seven-metre gap.",
-    image: "/img/safari-gorilla.png",
+    image: "/assets/uganda%20safari.jpg",
     highlights: ["Bwindi trekking", "Murchison Falls", "Queen Elizabeth NP"],
   },
 ];

@@ -15,7 +15,7 @@ export default function ClosingCTA() {
     <section className="relative isolate grain overflow-hidden">
       <div className="absolute inset-0 -z-10">
         <Image
-          src="/img/travel-terminal.png"
+          src="/assets/move%20abroad.jpg"
           alt=""
           fill
           quality={82}
