@@ -86,7 +86,7 @@ export default function Hero() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to top, var(--color-abyss) 2%, color-mix(in oklab, var(--color-abyss) 72%, transparent) 34%, transparent 66%), linear-gradient(to right, color-mix(in oklab, var(--color-abyss) 62%, transparent) 0%, transparent 55%)",
+              "linear-gradient(to top, color-mix(in oklab, var(--color-abyss) 80%, transparent) 0%, color-mix(in oklab, var(--color-abyss) 50%, transparent) 26%, transparent 54%), linear-gradient(to right, color-mix(in oklab, var(--color-abyss) 42%, transparent) 0%, transparent 48%)",
           }}
         />
         <div className="vignette absolute inset-0" />

@@ -29,7 +29,7 @@ export const services: Service[] = [
       "Ongoing support after you arrive",
     ],
     image: "/img/recruitment-worker.png",
-    href: "/recruitment",
+    href: "/work-abroad/recruitment",
   },
   {
     slug: "visa-services",
@@ -45,7 +45,7 @@ export const services: Service[] = [
       "Honest eligibility assessment, upfront",
     ],
     image: "/img/visa-documents.png",
-    href: "/visa-services",
+    href: "/travel/visa-services",
   },
   {
     slug: "travel-services",
@@ -61,7 +61,7 @@ export const services: Service[] = [
       "Travel insurance and airport assistance",
     ],
     image: "/img/travel-terminal.png",
-    href: "/travel-services",
+    href: "/travel",
   },
   {
     slug: "safari-tours",

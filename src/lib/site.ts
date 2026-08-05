@@ -85,9 +85,9 @@ export const footerNav = [
   {
     heading: "Services",
     links: [
-      { label: "Overseas Recruitment", href: "/recruitment" },
-      { label: "Visa Services", href: "/visa-services" },
-      { label: "Flights & Hotels", href: "/travel-services" },
+      { label: "Work Abroad", href: "/work-abroad" },
+      { label: "Study Abroad", href: "/study-abroad" },
+      { label: "Travel & Visas", href: "/travel" },
       { label: "Safari & Tours", href: "/safari-tours" },
       { label: "Vehicle Import & Export", href: "/vehicle-import-export" },
     ],
@@ -96,7 +96,7 @@ export const footerNav = [
     heading: "Company",
     links: [
       { label: "About Us", href: "/about" },
-      { label: "Job Vacancies", href: "/vacancies" },
+      { label: "Job Vacancies", href: "/work-abroad/jobs" },
       { label: "Journal", href: "/blog" },
       { label: "Contact", href: "/contact" },
     ],

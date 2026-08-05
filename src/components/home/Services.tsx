@@ -99,7 +99,7 @@ export default function Services() {
                 className="absolute inset-0"
                 style={{
                   background:
-                    "linear-gradient(to top, var(--color-abyss) 4%, color-mix(in oklab, var(--color-abyss) 78%, transparent) 38%, color-mix(in oklab, var(--color-abyss) 22%, transparent) 78%), linear-gradient(to right, color-mix(in oklab, var(--color-abyss) 74%, transparent) 0%, transparent 62%)",
+                    "linear-gradient(to top, color-mix(in oklab, var(--color-abyss) 82%, transparent) 0%, color-mix(in oklab, var(--color-abyss) 52%, transparent) 32%, color-mix(in oklab, var(--color-abyss) 14%, transparent) 74%), linear-gradient(to right, color-mix(in oklab, var(--color-abyss) 46%, transparent) 0%, transparent 56%)",
                 }}
               />
 

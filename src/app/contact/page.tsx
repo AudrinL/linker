@@ -33,7 +33,7 @@ export default function ContactPage() {
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(to top, var(--color-abyss) 4%, color-mix(in oklab, var(--color-abyss) 74%, transparent) 46%, color-mix(in oklab, var(--color-abyss) 40%, transparent) 100%)",
+                "linear-gradient(to top, color-mix(in oklab, var(--color-abyss) 82%, transparent) 0%, color-mix(in oklab, var(--color-abyss) 50%, transparent) 40%, color-mix(in oklab, var(--color-abyss) 22%, transparent) 100%)",
             }}
           />
           <div className="vignette absolute inset-0" />

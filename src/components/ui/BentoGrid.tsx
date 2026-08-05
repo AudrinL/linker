@@ -35,7 +35,7 @@ export function BentoGrid({ items, className }: BentoGridProps) {
               <span className="text-xs uppercase tracking-widest text-mist">{item.imagePlaceholder} Image</span>
             </div>
           )}
-          <div className="absolute inset-0 z-10 bg-gradient-to-t from-abyss/90 via-abyss/40 to-transparent" />
+          <div className="absolute inset-0 z-10 bg-gradient-to-t from-abyss/55 via-abyss/20 to-transparent" />
           <div className="relative z-20">
             <h3 className="font-display text-2xl text-bone">{item.title}</h3>
             <p className="mt-2 text-sm text-mist">{item.description}</p>
