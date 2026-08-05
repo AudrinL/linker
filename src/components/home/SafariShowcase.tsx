@@ -186,7 +186,7 @@ export default function SafariShowcase() {
                     "mt-3 block text-left text-[0.7rem] font-medium uppercase tracking-[0.18em] transition-colors duration-500",
                     i === active
                       ? "text-bone"
-                      : "text-muted group-hover:text-mist",
+                      : "text-mist/85 group-hover:text-bone",
                   )}
                 >
                   {d.country}
