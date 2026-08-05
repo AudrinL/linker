@@ -1,25 +1,55 @@
+import type { Metadata } from "next";
+import { workComparison, workPricing, workFaqs } from "@/lib/services-data";
 import { PageHero } from "@/components/ui/PageHero";
-import { BentoGrid } from "@/components/ui/BentoGrid";
-import { RichCTA } from "@/components/ui/RichCTA";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { ComparisonTable } from "@/components/ui/ComparisonTable";
+import { PricingGrid } from "@/components/ui/PricingGrid";
+import { Faq } from "@/components/ui/Faq";
+import { StickyCTA } from "@/components/ui/StickyCTA";
 
-const highlights = [
-  { title: "Precision Profiling", description: "We analyze technical skills and cultural fit.", className: "md:col-span-1" },
-  { title: "Verified Credentials", description: "Every candidate undergoes strict background checks.", className: "md:col-span-2" },
-  { title: "Speed to Hire", description: "Access a pre-vetted pool of ready-to-deploy talent.", className: "md:col-span-2" },
-  { title: "Long-term Success", description: "High retention rates through better matching.", className: "md:col-span-1" },
-];
+export const metadata: Metadata = {
+  title: "Employer Matching — Linker World Travel",
+  description:
+    "We align your profile with vetted vacancies across our employer network — you only interview for roles you can win.",
+};
 
 export default function EmployerMatchingPage() {
   return (
     <div className="min-h-screen">
-      <PageHero title="Employer Matching" subtitle="Tailored placement services ensuring the right fit for both candidate and company." />
-      <main className="shell py-16 lg:py-24 space-y-16">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="font-display text-3xl text-bone mb-6">Why Our Matching Works</h2>
-          <p className="text-mist text-lg">We go beyond resumes. Our matching algorithm combined with human expertise ensures that employers get candidates who will thrive and stay long-term.</p>
-        </div>
-        <BentoGrid items={highlights} />
-        <RichCTA title="Start Building Your Team" description="Tell us your hiring needs and let our experts find the perfect match." buttonText="Request Talent" buttonHref="/contact" />
+      <PageHero
+        title="Employer Matching"
+        subtitle="Tailored placement services ensuring the right fit for both candidate and company."
+      />
+      <main className="shell py-16 lg:py-24 space-y-24">
+        <section>
+          <SectionHeading
+            eyebrow="Which route fits?"
+            title="Match the route to your profile"
+            lede="We go beyond resumes — human judgement on top of the paperwork, so you only interview for roles you can win."
+          />
+          <ComparisonTable comparison={workComparison} className="mt-10" />
+        </section>
+
+        <section>
+          <SectionHeading
+            eyebrow="Transparent pricing"
+            title="Fees, staged to milestones"
+            lede="No hidden fees. You only pay as each milestone actually completes."
+          />
+          <PricingGrid tiers={workPricing} className="mt-10" />
+        </section>
+
+        <section>
+          <SectionHeading eyebrow="Questions" title="Employer matching FAQs" />
+          <Faq faqs={workFaqs.slice(0, 4)} className="mt-10 max-w-3xl" />
+        </section>
+
+        <StickyCTA
+          title="See your profile in front of real employers"
+          copy="Tell us your skills and where you want to go — we match you to vetted vacancies within one working day."
+          buttonText="Start matching"
+          buttonHref="/work-abroad/apply"
+        />
       </main>
     </div>
   );

@@ -1,20 +1,32 @@
+import type { Metadata } from "next";
+import { holidayPackages, trustMarks } from "@/lib/services-data";
 import { PageHero } from "@/components/ui/PageHero";
 import { CardList } from "@/components/ui/CardList";
-import { RichCTA } from "@/components/ui/RichCTA";
+import { TrustBar } from "@/components/ui/TrustBar";
+import { StickyCTA } from "@/components/ui/StickyCTA";
 
-const packages = [
-  { id: "1", title: "Dubai Extravaganza", subtitle: "5 Days / 4 Nights", tags: ["Shopping", "Desert Safari", "Family"], description: "Experience luxury shopping and thrilling desert safaris." },
-  { id: "2", title: "European Romance", subtitle: "10 Days / 9 Nights", tags: ["Couples", "Culture", "Multi-city"], description: "Paris, Venice, and Rome in one unforgettable trip." },
-  { id: "3", title: "Seychelles Escape", subtitle: "7 Days / 6 Nights", tags: ["Beach", "Relaxation"], description: "Pristine beaches and luxury resorts in the Indian Ocean." },
-];
+export const metadata: Metadata = {
+  title: "Holiday Packages — Linker World Travel",
+  description:
+    "Curated international getaways — Dubai, Europe and the Seychelles — tailored to your preferences.",
+};
 
 export default function HolidayPackagesPage() {
   return (
     <div className="min-h-screen">
-      <PageHero title="Holiday Packages" subtitle="Curated international getaways tailored to your preferences." />
+      <PageHero
+        title="Holiday Packages"
+        subtitle="Curated international getaways tailored to your preferences."
+      />
       <main className="shell py-16 lg:py-24 space-y-16">
-        <CardList items={packages} />
-        <RichCTA title="Custom Itineraries Available" description="Want something different? We can tailor a package exactly to your dreams." buttonText="Plan My Trip" buttonHref="/contact" />
+        <CardList items={holidayPackages} />
+        <TrustBar items={trustMarks} />
+        <StickyCTA
+          title="Custom itineraries available"
+          copy="Want something different? We can tailor a package exactly to your dreams."
+          buttonText="Plan my trip"
+          buttonHref="/contact"
+        />
       </main>
     </div>
   );

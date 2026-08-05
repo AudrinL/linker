@@ -1,25 +1,48 @@
+import type { Metadata } from "next";
+import { studyProcess, studyFaqs, trustMarks } from "@/lib/services-data";
 import { PageHero } from "@/components/ui/PageHero";
-import { ProcessSteps } from "@/components/ui/ProcessSteps";
-import { RichCTA } from "@/components/ui/RichCTA";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { ProcessTimeline } from "@/components/ui/ProcessTimeline";
+import { Faq } from "@/components/ui/Faq";
+import { TrustBar } from "@/components/ui/TrustBar";
+import { StickyCTA } from "@/components/ui/StickyCTA";
 
-const steps = [
-  { title: "Acceptance Letter", description: "Ensure you have an unconditional offer from a recognized institution." },
-  { title: "Financial Proof", description: "Compile bank statements and sponsor letters demonstrating sufficient funds." },
-  { title: "Visa Application", description: "We guide you through filling out the complex student visa forms." },
-  { title: "Biometrics & Interview", description: "Prepare for your consulate appointment with our mock interview sessions." },
-  { title: "Visa Approval", description: "Receive your passport and attend our pre-departure orientation." }
-];
+export const metadata: Metadata = {
+  title: "Study Visas — Linker World Travel",
+  description:
+    "Comprehensive support for securing your international student visa — financial proof, biometrics and interview coaching, end to end.",
+};
 
 export default function StudyVisaPage() {
   return (
     <div className="min-h-screen">
-      <PageHero title="Study Visas" subtitle="Comprehensive support for securing your international student visa." />
-      <main className="shell py-16 lg:py-24 space-y-16">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="font-display text-3xl text-bone mb-10 text-center">The Student Visa Process</h2>
-          <ProcessSteps steps={steps} />
-        </div>
-        <RichCTA title="Don't Risk Rejection" description="Our experts have a 98% success rate with student visa applications." buttonText="Start Application" buttonHref="/contact" />
+      <PageHero
+        title="Study Visas"
+        subtitle="Comprehensive support for securing your international student visa."
+      />
+      <main className="shell py-16 lg:py-24 space-y-24">
+        <section>
+          <SectionHeading
+            eyebrow="The journey"
+            title="From offer to enrolment"
+            lede="Financial proof, biometrics and consulate interviews — handled in the right order."
+          />
+          <ProcessTimeline steps={studyProcess} className="mt-10 mx-auto max-w-2xl" />
+        </section>
+
+        <section>
+          <SectionHeading eyebrow="Questions" title="Student visa FAQs" />
+          <Faq faqs={studyFaqs.slice(0, 5)} className="mt-10 max-w-3xl" />
+        </section>
+
+        <TrustBar items={trustMarks} />
+
+        <StickyCTA
+          title="Don't risk a refusal"
+          copy="We build embassy-ready student visa files — and our 98% success rate is built on checking before you pay."
+          buttonText="Start your application"
+          buttonHref="/study-abroad/apply"
+        />
       </main>
     </div>
   );

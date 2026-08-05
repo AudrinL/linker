@@ -66,14 +66,17 @@ function DesktopNavItem({ item, pathname }: { item: NavItem, pathname: string })
   );
 }
 
-function MobileNavItem({ item, open, pathname }: { item: NavItem, open: boolean, pathname: string }) {
+function MobileNavItem({
+  item,
+  open,
+  onNavigate,
+}: {
+  item: NavItem;
+  open: boolean;
+  onNavigate: () => void;
+}) {
   const [expanded, setExpanded] = useState(false);
   const hasDropdown = !!item.items?.length;
-  
-  // Close the expanded accordion if the main menu closes
-  useEffect(() => {
-    if (!open) setExpanded(false);
-  }, [open]);
 
   return (
     <div className="flex flex-col">
@@ -82,14 +85,15 @@ function MobileNavItem({ item, open, pathname }: { item: NavItem, open: boolean,
           href={item.href}
           data-menu-item
           tabIndex={open ? 0 : -1}
+          onClick={onNavigate}
           className="block py-1.5 font-display text-[clamp(2.1rem,10vw,3.4rem)] leading-[1.02] tracking-tight text-bone transition-colors duration-300 hover:text-gold"
         >
           {item.label}
         </Link>
         {hasDropdown && (
-          <button 
+          <button
             data-menu-item
-            onClick={() => setExpanded(!expanded)} 
+            onClick={() => setExpanded(!expanded)}
             className="p-2 text-mist transition-colors hover:text-gold"
             aria-label="Toggle submenu"
           >
@@ -114,6 +118,7 @@ function MobileNavItem({ item, open, pathname }: { item: NavItem, open: boolean,
                     key={sub.href}
                     href={sub.href}
                     tabIndex={open ? 0 : -1}
+                    onClick={onNavigate}
                     className="block font-display text-2xl text-mist transition-colors hover:text-bone"
                   >
                     {sub.label}
@@ -148,7 +153,7 @@ export default function Nav() {
   }, []);
 
   // Close the takeover on navigation.
-  useEffect(() => setOpen(false), [pathname]);
+  const closeMenu = () => setOpen(false);
 
   // Lock the page behind the open menu, and allow Escape to dismiss it.
   useEffect(() => {
@@ -280,10 +285,13 @@ export default function Nav() {
         )}
       >
         <div className="shell flex min-h-full flex-col justify-center py-24">
-          <nav className="flex flex-col gap-1">
-            <MobileNavItem item={{ label: "Home", href: "/" }} open={open} pathname={pathname} />
+          <nav
+            key={open ? "menu-open" : "menu-closed"}
+            className="flex flex-col gap-1"
+          >
+            <MobileNavItem item={{ label: "Home", href: "/" }} open={open} onNavigate={closeMenu} />
             {nav.map((item) => (
-              <MobileNavItem key={item.href} item={item} open={open} pathname={pathname} />
+              <MobileNavItem key={item.href} item={item} open={open} onNavigate={closeMenu} />
             ))}
           </nav>
 
@@ -293,6 +301,7 @@ export default function Nav() {
                 key={p.e164}
                 href={`tel:+${p.e164}`}
                 tabIndex={open ? 0 : -1}
+                onClick={closeMenu}
                 className="text-lg tracking-tight text-mist transition-colors hover:text-gold"
               >
                 {p.display}
@@ -301,6 +310,7 @@ export default function Nav() {
             <Link
               href="/contact"
               tabIndex={open ? 0 : -1}
+              onClick={closeMenu}
               className="mt-2 inline-flex w-fit rounded-full bg-gold px-7 py-3.5 text-sm font-medium text-white"
             >
               Start your journey

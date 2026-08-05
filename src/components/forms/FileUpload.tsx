@@ -37,13 +37,10 @@ export default function FileUpload({ def, value, error, onChange }: FileUploadPr
   const [preview, setPreview] = useState<string | null>(null);
 
   useEffect(() => {
-    if (value && isImage(value)) {
-      const url = URL.createObjectURL(value);
-      setPreview(url);
-      return () => URL.revokeObjectURL(url);
-    }
-    setPreview(null);
-  }, [value]);
+    return () => {
+      if (preview) URL.revokeObjectURL(preview);
+    };
+  }, [preview]);
 
   const acceptFile = (file: File | undefined | null) => {
     setLocalError(null);
@@ -53,7 +50,15 @@ export default function FileUpload({ def, value, error, onChange }: FileUploadPr
       setLocalError(`${def.label} is ${formatBytes(file.size)} — the limit is ${def.maxMb ?? 10} MB.`);
       return;
     }
+    if (preview) URL.revokeObjectURL(preview);
+    setPreview(isImage(file) ? URL.createObjectURL(file) : null);
     onChange(file);
+  };
+
+  const remove = () => {
+    if (preview) URL.revokeObjectURL(preview);
+    setPreview(null);
+    onChange(null);
   };
 
   const icon = def.accept === "pdf" || (!def.accept && value?.type === "application/pdf")
@@ -103,7 +108,7 @@ export default function FileUpload({ def, value, error, onChange }: FileUploadPr
             </button>
             <button
               type="button"
-              onClick={() => onChange(null)}
+              onClick={remove}
               className="rounded-full border border-ember/40 px-4 py-2 text-xs font-medium text-ember transition-colors hover:border-ember hover:bg-ember hover:text-white"
             >
               Remove

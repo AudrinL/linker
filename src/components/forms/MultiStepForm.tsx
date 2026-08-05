@@ -98,7 +98,7 @@ export default function MultiStepForm({ config }: Props) {
     for (const section of config.sections) {
       const rows = section.fields
         .map((f) => (values[f.name] ? `• ${f.label}: ${values[f.name]}` : null))
-        .filter(Boolean);
+        .filter((x): x is string => Boolean(x));
       if (rows.length) {
         lines.push(section.title, ...rows, "");
       }
@@ -163,7 +163,7 @@ export default function MultiStepForm({ config }: Props) {
                 ))}
               </ul>
               <p className="mt-2 text-xs leading-relaxed text-muted">
-                We'll ask you to send these over in the chat, or upload them to
+                We will ask you to send these over in the chat, or upload them to
                 the private link we send after.
               </p>
             </div>
@@ -257,7 +257,8 @@ export default function MultiStepForm({ config }: Props) {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        isLast ? submit() : next();
+        if (isLast) submit();
+        else next();
       }}
       noValidate
       className="glass rounded-[var(--radius-lg)] p-7 sm:p-9"
