@@ -27,7 +27,7 @@ export default function ClosingCTA() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to bottom, color-mix(in oklab, var(--color-abyss) 55%, transparent) 0%, color-mix(in oklab, var(--color-abyss) 30%, transparent) 44%, color-mix(in oklab, var(--color-abyss) 78%, transparent) 100%)",
+              "linear-gradient(to bottom, color-mix(in oklab, var(--color-abyss) 18%, transparent) 0%, transparent 24%, color-mix(in oklab, var(--color-abyss) 38%, transparent) 44%, color-mix(in oklab, var(--color-abyss) 38%, transparent) 62%, transparent 76%, color-mix(in oklab, var(--color-abyss) 50%, transparent) 100%)",
           }}
         />
         <div className="vignette absolute inset-0" />

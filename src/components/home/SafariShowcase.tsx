@@ -93,7 +93,7 @@ export default function SafariShowcase() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to top, color-mix(in oklab, var(--color-abyss) 80%, transparent) 0%, color-mix(in oklab, var(--color-abyss) 50%, transparent) 36%, color-mix(in oklab, var(--color-abyss) 12%, transparent) 80%), linear-gradient(to right, color-mix(in oklab, var(--color-abyss) 44%, transparent) 0%, transparent 52%)",
+              "linear-gradient(to top, color-mix(in oklab, var(--color-abyss) 58%, transparent) 0%, color-mix(in oklab, var(--color-abyss) 28%, transparent) 38%, transparent 58%), linear-gradient(to right, color-mix(in oklab, var(--color-abyss) 26%, transparent) 0%, transparent 36%)",
           }}
         />
         <div className="vignette absolute inset-0" />

@@ -80,13 +80,14 @@ export default function Hero() {
           sizes="100vw"
           className="object-cover object-center"
         />
-        {/* Grade: deepen the shadows, keep the amber, seat it in the palette */}
+        {/* Grade: deepen the shadows, keep the amber, seat it in the palette.
+            Kept tight — the image stays visible except where the copy sits. */}
         <div
           aria-hidden
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to top, color-mix(in oklab, var(--color-abyss) 80%, transparent) 0%, color-mix(in oklab, var(--color-abyss) 50%, transparent) 26%, transparent 54%), linear-gradient(to right, color-mix(in oklab, var(--color-abyss) 42%, transparent) 0%, transparent 48%)",
+              "linear-gradient(to top, color-mix(in oklab, var(--color-abyss) 58%, transparent) 0%, color-mix(in oklab, var(--color-abyss) 30%, transparent) 26%, transparent 50%), linear-gradient(to right, color-mix(in oklab, var(--color-abyss) 28%, transparent) 0%, transparent 34%)",
           }}
         />
         <div className="vignette absolute inset-0" />

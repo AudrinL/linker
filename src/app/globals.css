@@ -215,8 +215,8 @@
     pointer-events: none;
     background: radial-gradient(
       ellipse 120% 78% at 50% 42%,
-      transparent 38%,
-      color-mix(in oklab, var(--color-abyss) 45%, transparent) 100%
+      transparent 44%,
+      color-mix(in oklab, var(--color-abyss) 22%, transparent) 100%
     );
   }
 
