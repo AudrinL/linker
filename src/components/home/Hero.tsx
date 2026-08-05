@@ -72,7 +72,7 @@ export default function Hero() {
       {/* Photographic plate */}
       <div ref={plate} className="absolute inset-0 -z-10 will-change-transform">
         <Image
-          src="/assets/travel.png"
+          src="/assets/hero%20image.png"
           alt="Travel across Africa and beyond — the world Linker World Travel opens to you"
           fill
           priority
