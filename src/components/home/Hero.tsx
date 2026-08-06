@@ -11,11 +11,18 @@ import MagneticButton from "@/components/ui/MagneticButton";
 import { prefersReducedMotion } from "@/lib/utils";
 
 const marks = [
-  "Overseas Careers",
-  "Visa Services",
-  "Flights & Hotels",
-  "Safari & Tours",
-  "Vehicle Import",
+  { label: "Overseas Careers", href: "/work-abroad" },
+  { label: "Visa Services", href: "/travel/visa-services" },
+  { label: "Flights & Hotels", href: "/travel" },
+  { label: "Safari & Tours", href: "/safari-tours" },
+  { label: "Vehicle Import", href: "/vehicle-import-export" },
+];
+
+const trustStats = [
+  { value: "2,400+", label: "people placed" },
+  { value: "96%", label: "visa success rate" },
+  { value: "38", label: "countries" },
+  { value: "11 yrs", label: "since 2014" },
 ];
 
 /**
@@ -105,7 +112,7 @@ export default function Hero() {
             as="h1"
             immediate
             delay={0.35}
-            className="mt-5 text-display font-display text-bone"
+            className="mt-5 text-display font-display text-white"
             lines={[
               "Where you go",
               'next is <em class="italic text-gradient-warm-dark">not</em>',
@@ -133,9 +140,22 @@ export default function Hero() {
                 <path d="M2 8h11M9 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </MagneticButton>
-            <MagneticButton href="/safari-tours" variant="outline">
-              Explore safaris
+            <MagneticButton href="/#services" variant="outline">
+              Explore our services
             </MagneticButton>
+          </div>
+
+          <p className="mt-4 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-white/40">
+            Free consultation · No upfront fee · We reply within one working day
+          </p>
+
+          <div className="mt-9 flex flex-wrap gap-x-8 gap-y-3">
+            {trustStats.map((s) => (
+              <div key={s.label} className="flex items-baseline gap-2">
+                <span className="font-display text-xl tracking-tight text-white">{s.value}</span>
+                <span className="text-[0.68rem] font-medium uppercase tracking-[0.15em] text-white/40">{s.label}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -145,12 +165,12 @@ export default function Hero() {
         <div className="shell flex items-center justify-between gap-8 py-5">
           <ul className="hide-scrollbar flex items-center gap-7 overflow-x-auto">
             {marks.map((m) => (
-              <li key={m} className="shrink-0">
+              <li key={m.label} className="shrink-0">
                 <Link
-                  href="/services"
+                  href={m.href}
                   className="text-[0.72rem] font-medium uppercase tracking-[0.2em] text-mist/85 transition-colors duration-300 hover:text-gold"
                 >
-                  {m}
+                  {m.label}
                 </Link>
               </li>
             ))}

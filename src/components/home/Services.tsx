@@ -129,7 +129,7 @@ export default function Services() {
                       className="group mt-9 inline-flex items-center gap-3 rounded-full border border-white/30 py-3 pl-6 pr-4 text-sm font-medium tracking-tight text-white transition-all duration-500 hover:border-gold/70 hover:bg-gold hover:text-white"
                       style={{ transitionTimingFunction: "var(--ease-out-expo)" }}
                     >
-                      {s.kicker}
+                      Learn more
                       <svg
                         viewBox="0 0 16 16"
                         className="size-3.5 transition-transform duration-500 group-hover:translate-x-1"
