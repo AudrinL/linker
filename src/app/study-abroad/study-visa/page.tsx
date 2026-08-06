@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { studyProcess, studyFaqs, trustMarks } from "@/lib/services-data";
 import { PageHero } from "@/components/ui/PageHero";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -8,7 +8,7 @@ import { TrustBar } from "@/components/ui/TrustBar";
 import { StickyCTA } from "@/components/ui/StickyCTA";
 
 export const metadata: Metadata = {
-  title: "Study Visas — Linker World Travel",
+  title: "Study Visas",
   description:
     "Comprehensive support for securing your international student visa — financial proof, biometrics and interview coaching, end to end.",
 };
@@ -17,6 +17,7 @@ export default function StudyVisaPage() {
   return (
     <div className="min-h-screen">
       <PageHero
+        eyebrow="Study Abroad"
         title="Study Visas"
         subtitle="Comprehensive support for securing your international student visa."
       />

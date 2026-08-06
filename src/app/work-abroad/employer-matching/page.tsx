@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { workComparison, workPricing, workFaqs } from "@/lib/services-data";
 import { PageHero } from "@/components/ui/PageHero";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -8,7 +8,7 @@ import { Faq } from "@/components/ui/Faq";
 import { StickyCTA } from "@/components/ui/StickyCTA";
 
 export const metadata: Metadata = {
-  title: "Employer Matching — Linker World Travel",
+  title: "Employer Matching",
   description:
     "We align your profile with vetted vacancies across our employer network — you only interview for roles you can win.",
 };
@@ -17,6 +17,7 @@ export default function EmployerMatchingPage() {
   return (
     <div className="min-h-screen">
       <PageHero
+        eyebrow="Work Abroad"
         title="Employer Matching"
         subtitle="Tailored placement services ensuring the right fit for both candidate and company."
       />

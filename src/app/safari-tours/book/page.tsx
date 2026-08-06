@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { safariForm } from "@/lib/forms";
 import { safariFaqs, trustMarks } from "@/lib/services-data";
 import { PageHero } from "@/components/ui/PageHero";
@@ -8,7 +8,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { TrustBar } from "@/components/ui/TrustBar";
 
 export const metadata: Metadata = {
-  title: "Plan Your Safari — Linker World Travel",
+  title: "Plan Your Safari",
   description:
     "Tell us your dates and group. A safari specialist replies with a day-by-day itinerary within 24 hours.",
 };
@@ -17,6 +17,7 @@ export default function SafariBookPage() {
   return (
     <div className="min-h-screen">
       <PageHero
+        eyebrow="Safari & Tours"
         title="Plan your safari"
         subtitle="Tell us about your dates and group. A safari specialist replies with a day-by-day itinerary within 24 hours."
       />

@@ -27,7 +27,7 @@ export default function ClosingCTA() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to bottom, color-mix(in oklab, var(--color-abyss) 22%, transparent) 0%, transparent 28%, color-mix(in oklab, var(--color-abyss) 46%, transparent) 44%, color-mix(in oklab, var(--color-abyss) 46%, transparent) 64%, transparent 76%, color-mix(in oklab, var(--color-abyss) 58%, transparent) 100%)",
+              "linear-gradient(to bottom, color-mix(in oklab, var(--color-bone) 58%, transparent) 0%, color-mix(in oklab, var(--color-bone) 30%, transparent) 28%, color-mix(in oklab, var(--color-bone) 30%, transparent) 72%, color-mix(in oklab, var(--color-bone) 62%, transparent) 100%)",
           }}
         />
         <div className="vignette absolute inset-0" />
@@ -45,12 +45,12 @@ export default function ClosingCTA() {
             className="mt-8 text-headline font-display"
             lines={[
               "Tell us where you",
-              'want to <em class="italic text-gradient-warm">end up.</em>',
+              'want to <em class="italic text-gradient-warm-dark">end up.</em>',
             ]}
           />
 
           <Reveal delay={0.15}>
-            <p className="mx-auto mt-8 max-w-xl text-lede text-mist">
+            <p className="mx-auto mt-8 max-w-xl text-lede text-white/75">
               One conversation is usually enough to know whether we can help —
               and we will tell you honestly if we cannot. No fee to ask.
             </p>
@@ -75,7 +75,7 @@ export default function ClosingCTA() {
           </Reveal>
 
           <Reveal delay={0.35} className="mt-14">
-            <p className="text-[0.7rem] font-medium uppercase tracking-[0.24em] text-mist/85">
+            <p className="text-[0.7rem] font-medium uppercase tracking-[0.24em] text-white/70">
               Or call us directly
             </p>
             <div className="mt-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
@@ -83,7 +83,7 @@ export default function ClosingCTA() {
                 <a
                   key={p.e164}
                   href={`tel:+${p.e164}`}
-                  className="font-display text-[clamp(1.25rem,2.4vw,1.85rem)] tracking-tight text-bone transition-colors duration-300 hover:text-gold"
+                  className="font-display text-[clamp(1.25rem,2.4vw,1.85rem)] tracking-tight text-white transition-colors duration-300 hover:text-gold"
                 >
                   {p.display}
                 </a>

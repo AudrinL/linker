@@ -4,39 +4,63 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface PageHeroProps {
+  eyebrow?: string;
   title: string;
   subtitle?: string;
   className?: string;
 }
 
-export function PageHero({ title, subtitle, className }: PageHeroProps) {
+/**
+ * Inner-page hero. No photography — instead uses the brand's warm cream canvas
+ * with an amber glow so the section feels grounded in the design system without
+ * competing with the cinematic photo heroes on the home and contact pages.
+ */
+export function PageHero({ eyebrow, title, subtitle, className }: PageHeroProps) {
   return (
-    <section className={cn("relative pt-32 pb-16 lg:pt-48 lg:pb-24 overflow-hidden", className)}>
-      <div className="absolute inset-0 bg-abyss">
-        {/* Subtle radial gradient background */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-mist/5 via-abyss to-abyss" />
-      </div>
-      
-      <div className="shell relative z-10 flex flex-col items-center text-center">
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
+    <section
+      className={cn(
+        "relative overflow-hidden bg-abyss pt-36 pb-20 lg:pt-48 lg:pb-28",
+        className,
+      )}
+    >
+      {/* Warm amber horizon glow */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[55%] opacity-20"
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 100% at 50% 120%, var(--color-amber) 0%, transparent 65%)",
+        }}
+      />
+      {/* Left-side warm wash */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 left-0 w-1/2 opacity-[0.07]"
+        style={{
+          background:
+            "radial-gradient(ellipse 100% 80% at 0% 60%, var(--color-gold) 0%, transparent 70%)",
+        }}
+      />
+
+      <div className="shell relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="font-display text-4xl tracking-tight text-bone sm:text-5xl lg:text-7xl"
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
         >
-          {title}
-        </motion.h1>
-        
-        {subtitle && (
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-            className="mt-6 max-w-2xl text-lg text-mist lg:text-xl"
-          >
-            {subtitle}
-          </motion.p>
-        )}
+          <div className="flex items-center gap-3.5">
+            <span className="h-px w-10 shrink-0 bg-gold/70" />
+            <span className="eyebrow">{eyebrow ?? "Overview"}</span>
+          </div>
+
+          <h1 className="mt-6 max-w-3xl text-headline font-display tracking-tight text-bone">
+            {title}
+          </h1>
+
+          {subtitle && (
+            <p className="mt-6 max-w-2xl text-lede text-mist/80">{subtitle}</p>
+          )}
+        </motion.div>
       </div>
     </section>
   );

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import {
   safariHighlights,
   safariPackages,
@@ -20,7 +20,7 @@ import { TrustBar } from "@/components/ui/TrustBar";
 import { StickyCTA } from "@/components/ui/StickyCTA";
 
 export const metadata: Metadata = {
-  title: "East African Safaris — Linker World Travel",
+  title: "East African Safaris",
   description:
     "Gorilla trekking, the Great Migration and Big Five drives across Rwanda, Kenya, Tanzania and Uganda — designed the way we would for family.",
 };
@@ -29,6 +29,7 @@ export default function SafariToursPage() {
   return (
     <div className="min-h-screen">
       <PageHero
+        eyebrow="Safari & Tours"
         title="East African Safaris"
         subtitle="Experience the wild beauty of Rwanda, Kenya, and Tanzania."
       />

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { hotelHighlights, trustMarks } from "@/lib/services-data";
 import { PageHero } from "@/components/ui/PageHero";
 import { BentoGrid } from "@/components/ui/BentoGrid";
@@ -6,7 +6,7 @@ import { TrustBar } from "@/components/ui/TrustBar";
 import { StickyCTA } from "@/components/ui/StickyCTA";
 
 export const metadata: Metadata = {
-  title: "Hotels & Accommodation — Linker World Travel",
+  title: "Hotels & Accommodation",
   description:
     "Premium stays anywhere in the world — luxury resorts, business hotels, boutique stays and long-term apartments.",
 };
@@ -15,6 +15,7 @@ export default function HotelsPage() {
   return (
     <div className="min-h-screen">
       <PageHero
+        eyebrow="Travel & Visas"
         title="Hotels & Accommodation"
         subtitle="Find premium stays anywhere in the world."
       />

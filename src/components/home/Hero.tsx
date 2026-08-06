@@ -88,7 +88,7 @@ export default function Hero() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to top, color-mix(in oklab, var(--color-abyss) 74%, transparent) 0%, color-mix(in oklab, var(--color-abyss) 46%, transparent) 26%, transparent 55%), linear-gradient(to right, color-mix(in oklab, var(--color-abyss) 40%, transparent) 0%, transparent 48%)",
+              "linear-gradient(to top, color-mix(in oklab, var(--color-bone) 78%, transparent) 0%, color-mix(in oklab, var(--color-bone) 48%, transparent) 28%, transparent 58%), linear-gradient(to right, color-mix(in oklab, var(--color-bone) 42%, transparent) 0%, transparent 48%)",
           }}
         />
         <div className="vignette absolute inset-0" />
@@ -108,12 +108,12 @@ export default function Hero() {
             className="mt-5 text-display font-display"
             lines={[
               "Where you go",
-              'next is <em class="italic text-gradient-warm">not</em>',
+              'next is <em class="italic text-gradient-warm-dark">not</em>',
               "a small thing.",
             ]}
           />
 
-          <p className="mt-6 max-w-xl text-lede text-mist">
+          <p className="mt-6 max-w-xl text-lede text-white/80">
             A career abroad. A visa approved. A morning in the Volcanoes with
             gorillas. For eleven years we have moved people and possibilities
             between Africa and the world.

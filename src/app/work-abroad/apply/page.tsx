@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { workForm } from "@/lib/forms";
 import { workFaqs, trustMarks } from "@/lib/services-data";
 import { PageHero } from "@/components/ui/PageHero";
@@ -8,7 +8,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { TrustBar } from "@/components/ui/TrustBar";
 
 export const metadata: Metadata = {
-  title: "Apply for Work Abroad — Linker World Travel",
+  title: "Apply for Work Abroad",
   description:
     "Apply to work in the Gulf, Europe or North America. Share your profile and documents — we reply within one working day.",
 };
@@ -17,6 +17,7 @@ export default function WorkApplyPage() {
   return (
     <div className="min-h-screen">
       <PageHero
+        eyebrow="Work Abroad"
         title="Apply for work abroad"
         subtitle="Your profile goes straight to a consultant — not an inbox. We review every application within one working day."
       />

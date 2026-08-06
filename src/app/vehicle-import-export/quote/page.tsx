@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { vehicleForm } from "@/lib/forms";
 import { vehicleFaqs, trustMarks } from "@/lib/services-data";
 import { PageHero } from "@/components/ui/PageHero";
@@ -8,7 +8,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { TrustBar } from "@/components/ui/TrustBar";
 
 export const metadata: Metadata = {
-  title: "Request a Vehicle Quote — Linker World Travel",
+  title: "Request a Vehicle Quote",
   description:
     "Request a fully itemised landed price for importing or exporting a vehicle. We reply within 24 hours.",
 };
@@ -17,6 +17,7 @@ export default function VehicleQuotePage() {
   return (
     <div className="min-h-screen">
       <PageHero
+        eyebrow="Vehicle Import"
         title="Request a vehicle quote"
         subtitle="Give us the details and we come back within 24 hours with a fully itemised landed price."
       />

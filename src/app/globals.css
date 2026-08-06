@@ -169,6 +169,19 @@
     color: transparent;
   }
 
+  /* — Warm wash for headlines sitting on dark imagery — */
+  .text-gradient-warm-dark {
+    background: linear-gradient(
+      104deg,
+      var(--color-ink) 0%,
+      var(--color-gold) 46%,
+      var(--color-amber) 74%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
   .text-gradient-cool {
     background: linear-gradient(
       104deg,
@@ -196,6 +209,14 @@
     border: 1px solid color-mix(in oklab, var(--color-mist) 16%, transparent);
   }
 
+  /* — Dark frosted panel for surfaces sitting on photography — */
+  .glass-dark {
+    background: color-mix(in oklab, var(--color-bone) 46%, transparent);
+    backdrop-filter: blur(22px) saturate(140%);
+    -webkit-backdrop-filter: blur(22px) saturate(140%);
+    border: 1px solid rgb(255 255 255 / 0.16);
+  }
+
   /* — Film grain. Ties the AI photography and the UI into one medium. — */
   .grain::after {
     content: "";
@@ -216,7 +237,7 @@
     background: radial-gradient(
       ellipse 120% 78% at 50% 42%,
       transparent 40%,
-      color-mix(in oklab, var(--color-abyss) 28%, transparent) 100%
+      color-mix(in oklab, var(--color-bone) 40%, transparent) 100%
     );
   }
 
@@ -265,9 +286,14 @@
     display: block;
     overflow: hidden;
   }
+  /* Initial hidden state owned by CSS so React's inline style prop never
+     conflicts with GSAP's animated transform. Only opacity here — adding
+     a CSS transform would be incorporated into GSAP's base offset and
+     break the yPercent: 0 end state. */
   .line-mask > span {
     display: block;
     will-change: transform;
+    opacity: 0;
   }
 
   .hide-scrollbar {

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { jobs, trustMarks } from "@/lib/services-data";
 import { PageHero } from "@/components/ui/PageHero";
 import { CardList } from "@/components/ui/CardList";
@@ -6,7 +6,7 @@ import { TrustBar } from "@/components/ui/TrustBar";
 import { StickyCTA } from "@/components/ui/StickyCTA";
 
 export const metadata: Metadata = {
-  title: "International Job Board — Linker World Travel",
+  title: "International Job Board",
   description:
     "Verified overseas opportunities with visa sponsorship and relocation support, curated for East African professionals.",
 };
@@ -15,6 +15,7 @@ export default function JobsPage() {
   return (
     <div className="min-h-screen">
       <PageHero
+        eyebrow="Work Abroad"
         title="International Job Board"
         subtitle="Find verified overseas opportunities curated for East African professionals."
       />

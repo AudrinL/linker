@@ -1,11 +1,11 @@
-import { blogPosts } from "@/lib/blog";
+﻿import { blogPosts } from "@/lib/blog";
 import { PageHero } from "@/components/ui/PageHero";
 import { PostCard } from "@/components/ui/PostCard";
 import { TrustBar } from "@/components/ui/TrustBar";
 import { trustMarks } from "@/lib/services-data";
 
 export const metadata = {
-  title: "Linker World Journal — Linker World Travel",
+  title: "Linker World Journal",
   description:
     "Insights, travel guides and success stories from the Linker World Travel community.",
 };
@@ -14,6 +14,7 @@ export default function BlogPage() {
   return (
     <div className="min-h-screen">
       <PageHero
+        eyebrow="Journal"
         title="Linker World Journal"
         subtitle="Insights, travel guides, and success stories from our community."
       />

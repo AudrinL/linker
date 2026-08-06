@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { studyComparison, studyPricing, studyGuides, studyFaqs } from "@/lib/services-data";
 import { PageHero } from "@/components/ui/PageHero";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -9,7 +9,7 @@ import { Faq } from "@/components/ui/Faq";
 import { StickyCTA } from "@/components/ui/StickyCTA";
 
 export const metadata: Metadata = {
-  title: "Admission Guidance — Linker World Travel",
+  title: "Admission Guidance",
   description:
     "Honest advice on which programs you can realistically win — course selection, essays, scholarships and applications, end to end.",
 };
@@ -18,6 +18,7 @@ export default function AdmissionGuidancePage() {
   return (
     <div className="min-h-screen">
       <PageHero
+        eyebrow="Study Abroad"
         title="Admission Guidance"
         subtitle="From application essays to scholarships, we guide you every step of the way."
       />

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { workAbroadProcess, workGuides, workFaqs } from "@/lib/services-data";
 import { PageHero } from "@/components/ui/PageHero";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -8,7 +8,7 @@ import { Faq } from "@/components/ui/Faq";
 import { StickyCTA } from "@/components/ui/StickyCTA";
 
 export const metadata: Metadata = {
-  title: "Work Permits & Visas — Linker World Travel",
+  title: "Work Permits & Visas",
   description:
     "Work permit and visa processing handled with accuracy — eligibility assessment, documents, filing and embassy liaison, end to end.",
 };
@@ -17,6 +17,7 @@ export default function WorkPermitsPage() {
   return (
     <div className="min-h-screen">
       <PageHero
+        eyebrow="Work Abroad"
         title="Work Permits & Visas"
         subtitle="Expert guidance on international labour law and permit applications."
       />

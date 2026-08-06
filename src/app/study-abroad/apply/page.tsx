@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { studyForm } from "@/lib/forms";
 import { studyFaqs, trustMarks } from "@/lib/services-data";
 import { PageHero } from "@/components/ui/PageHero";
@@ -8,7 +8,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { TrustBar } from "@/components/ui/TrustBar";
 
 export const metadata: Metadata = {
-  title: "Apply for Study Abroad — Linker World Travel",
+  title: "Apply for Study Abroad",
   description:
     "Apply for study abroad in Canada, the UK, Germany and more. We build your country and course shortlist within two working days.",
 };
@@ -17,6 +17,7 @@ export default function StudyApplyPage() {
   return (
     <div className="min-h-screen">
       <PageHero
+        eyebrow="Study Abroad"
         title="Apply for study abroad"
         subtitle="Tell us your goals and documents. We respond with a country and course shortlist within two working days."
       />

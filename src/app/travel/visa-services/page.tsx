@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import {
   visaProcess,
   visaComparison,
@@ -20,7 +20,7 @@ import { TrustBar } from "@/components/ui/TrustBar";
 import { StickyCTA } from "@/components/ui/StickyCTA";
 
 export const metadata: Metadata = {
-  title: "Travel Visa Services — Linker World Travel",
+  title: "Travel Visa Services",
   description:
     "Hassle-free tourist, business, work and student visa processing — honest eligibility checks before you pay a franc.",
 };
@@ -29,6 +29,7 @@ export default function VisaServicesPage() {
   return (
     <div className="min-h-screen">
       <PageHero
+        eyebrow="Travel & Visas"
         title="Travel Visa Services"
         subtitle="Hassle-free tourist, business, work and student visa processing."
       />

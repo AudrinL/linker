@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { trustMarks } from "@/lib/services-data";
 import { PageHero } from "@/components/ui/PageHero";
 import { ServiceCard } from "@/components/ui/ServiceCard";
@@ -8,7 +8,7 @@ import { TrustBar } from "@/components/ui/TrustBar";
 import { BentoGrid } from "@/components/ui/BentoGrid";
 
 export const metadata: Metadata = {
-  title: "Travel & Visas — Linker World Travel",
+  title: "Travel & Visas",
   description:
     "Flight booking, hotels, holiday packages and visa services — handled by a real person from Kigali, with honest eligibility checks before you pay.",
 };
@@ -55,6 +55,7 @@ export default function TravelHub() {
   return (
     <div className="min-h-screen">
       <PageHero
+        eyebrow="Travel & Visas"
         title="Travel & visas"
         subtitle="Flights, hotels, holiday packages and visas — planned by a real person in Kigali, with honest eligibility checks before you pay a franc."
       />

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import {
   studyProcess,
   studyCountries,
@@ -15,7 +15,7 @@ import { StickyCTA } from "@/components/ui/StickyCTA";
 import { TrustBar } from "@/components/ui/TrustBar";
 
 export const metadata: Metadata = {
-  title: "Study Abroad — Linker World Travel",
+  title: "Study Abroad",
   description:
     "University admissions, study visas and scholarship guidance for Canada, the UK, Germany, Australia, the US and Singapore.",
 };
@@ -48,6 +48,7 @@ export default function StudyAbroadHub() {
   return (
     <div className="min-h-screen">
       <PageHero
+        eyebrow="Study Abroad"
         title="Study abroad"
         subtitle="University admissions, study visas and scholarships — matched honestly to your grades, your budget and where you want to be."
       />

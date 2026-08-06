@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { workAbroadProcess, workFaqs, partnerMarks } from "@/lib/services-data";
 import { PageHero } from "@/components/ui/PageHero";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -8,7 +8,7 @@ import { TrustBar } from "@/components/ui/TrustBar";
 import { StickyCTA } from "@/components/ui/StickyCTA";
 
 export const metadata: Metadata = {
-  title: "Overseas Recruitment — Linker World Travel",
+  title: "Overseas Recruitment",
   description:
     "We connect skilled talent with trusted international employers — screening, verification, matching and post-placement support, end to end from Kigali.",
 };
@@ -17,6 +17,7 @@ export default function RecruitmentPage() {
   return (
     <div className="min-h-screen">
       <PageHero
+        eyebrow="Work Abroad"
         title="Overseas Recruitment"
         subtitle="We connect skilled talent with trusted international employers."
       />

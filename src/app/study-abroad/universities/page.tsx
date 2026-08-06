@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { universities, trustMarks } from "@/lib/services-data";
 import { PageHero } from "@/components/ui/PageHero";
 import { CardList } from "@/components/ui/CardList";
@@ -6,7 +6,7 @@ import { TrustBar } from "@/components/ui/TrustBar";
 import { StickyCTA } from "@/components/ui/StickyCTA";
 
 export const metadata: Metadata = {
-  title: "Partner Universities — Linker World Travel",
+  title: "Partner Universities",
   description:
     "Gain admission to top-tier institutions worldwide — Canada, the UK, Germany, Australia, the US and Singapore.",
 };
@@ -15,6 +15,7 @@ export default function UniversitiesPage() {
   return (
     <div className="min-h-screen">
       <PageHero
+        eyebrow="Study Abroad"
         title="Partner Universities"
         subtitle="Gain admission to top-tier educational institutions worldwide."
       />

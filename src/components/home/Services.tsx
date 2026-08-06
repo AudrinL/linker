@@ -99,7 +99,7 @@ export default function Services() {
                 className="absolute inset-0"
                 style={{
                   background:
-                    "linear-gradient(to top, color-mix(in oklab, var(--color-abyss) 74%, transparent) 0%, color-mix(in oklab, var(--color-abyss) 44%, transparent) 34%, transparent 60%), linear-gradient(to right, color-mix(in oklab, var(--color-abyss) 38%, transparent) 0%, transparent 48%)",
+                    "linear-gradient(to top, color-mix(in oklab, var(--color-bone) 78%, transparent) 0%, color-mix(in oklab, var(--color-bone) 46%, transparent) 34%, transparent 60%), linear-gradient(to right, color-mix(in oklab, var(--color-bone) 40%, transparent) 0%, transparent 48%)",
                 }}
               />
 
@@ -111,22 +111,22 @@ export default function Services() {
                         {s.index}
                       </span>
                       <span className="h-px flex-1 max-w-24 bg-gold/40" />
-                      <span className="text-[0.7rem] font-medium uppercase tracking-[0.2em] text-mist/85">
+                      <span className="text-[0.7rem] font-medium uppercase tracking-[0.2em] text-white/70">
                         {s.kicker}
                       </span>
                     </div>
 
-                    <h3 className="mt-5 text-headline font-display">
+                    <h3 className="mt-5 text-headline font-display text-white">
                       {s.title}
                     </h3>
 
-                    <p className="mt-6 max-w-lg text-[1.02rem] leading-relaxed text-mist">
+                    <p className="mt-6 max-w-lg text-[1.02rem] leading-relaxed text-white/75">
                       {s.blurb}
                     </p>
 
                     <Link
                       href={s.href}
-                      className="group mt-9 inline-flex items-center gap-3 rounded-full border border-mist/25 py-3 pl-6 pr-4 text-sm font-medium tracking-tight transition-all duration-500 hover:border-gold/70 hover:bg-gold hover:text-white"
+                      className="group mt-9 inline-flex items-center gap-3 rounded-full border border-white/30 py-3 pl-6 pr-4 text-sm font-medium tracking-tight text-white transition-all duration-500 hover:border-gold/70 hover:bg-gold hover:text-white"
                       style={{ transitionTimingFunction: "var(--ease-out-expo)" }}
                     >
                       {s.kicker}
@@ -147,11 +147,11 @@ export default function Services() {
                     </Link>
                   </div>
 
-                  <ul className="glass hidden rounded-[var(--radius-lg)] p-7 lg:block">
+                  <ul className="glass-dark hidden rounded-[var(--radius-lg)] p-7 lg:block">
                     {s.points.map((p) => (
                       <li
                         key={p}
-                        className="flex items-start gap-3.5 border-b border-mist/10 py-3.5 text-[0.92rem] leading-snug text-mist last:border-0 last:pb-0 first:pt-0"
+                        className="flex items-start gap-3.5 border-b border-white/12 py-3.5 text-[0.92rem] leading-snug text-white/80 last:border-0 last:pb-0 first:pt-0"
                       >
                         <span className="mt-[0.42rem] size-1.5 shrink-0 rounded-full bg-gold" />
                         {p}

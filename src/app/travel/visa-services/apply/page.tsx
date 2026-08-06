@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { visaForm } from "@/lib/forms";
 import { visaFaqs, trustMarks } from "@/lib/services-data";
 import { PageHero } from "@/components/ui/PageHero";
@@ -8,7 +8,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { TrustBar } from "@/components/ui/TrustBar";
 
 export const metadata: Metadata = {
-  title: "Start Your Visa Application — Linker World Travel",
+  title: "Start Your Visa Application",
   description:
     "Answer a few questions and upload your documents. We build an embassy-ready file and book your appointment.",
 };
@@ -17,6 +17,7 @@ export default function VisaApplyPage() {
   return (
     <div className="min-h-screen">
       <PageHero
+        eyebrow="Travel & Visas"
         title="Start your visa application"
         subtitle="Answer a few questions and upload your documents. We build an embassy-ready file and book your appointment."
       />

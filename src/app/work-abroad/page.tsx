@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import {
   workAbroadProcess,
   workCountries,
@@ -15,7 +15,7 @@ import { StickyCTA } from "@/components/ui/StickyCTA";
 import { TrustBar } from "@/components/ui/TrustBar";
 
 export const metadata: Metadata = {
-  title: "Work Abroad — Linker World Travel",
+  title: "Work Abroad",
   description:
     "Jobs, recruitment and work permits across the Gulf, Europe and North America. Vetted employers, honest eligibility checks and support from first interview to first payslip.",
 };
@@ -55,6 +55,7 @@ export default function WorkAbroadHub() {
   return (
     <div className="min-h-screen">
       <PageHero
+        eyebrow="Work Abroad"
         title="Work abroad"
         subtitle="Vetted employers, honest eligibility checks and support from first interview to first payslip — across the Gulf, Europe and North America."
       />

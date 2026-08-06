@@ -95,10 +95,10 @@ export const hotelHighlights = [
 ];
 
 export const safariHighlights = [
-  { title: "Gorilla Trekking", description: "Volcanoes National Park, Rwanda.", className: "md:col-span-2", imagePlaceholder: "Gorilla" },
-  { title: "Great Migration", description: "Serengeti & Maasai Mara.", className: "md:col-span-1", imagePlaceholder: "Migration" },
-  { title: "Big Five Drive", description: "Akagera National Park.", className: "md:col-span-1", imagePlaceholder: "Lion" },
-  { title: "Luxury Lodges", description: "Stay in the heart of the wild.", className: "md:col-span-2", imagePlaceholder: "Lodge" },
+  { title: "Gorilla Trekking", description: "Volcanoes National Park, Rwanda.", className: "md:col-span-2", image: "/img/safari-gorilla.png" },
+  { title: "Great Migration", description: "Serengeti & Maasai Mara.", className: "md:col-span-1", image: "/assets/tanzania%20safari.webp" },
+  { title: "Big Five Drive", description: "Akagera National Park.", className: "md:col-span-1", image: "/img/safari-elephants.png" },
+  { title: "Balloon Safaris", description: "Dawn flights over the savanna.", className: "md:col-span-2", image: "/img/safari-balloons.png" },
 ];
 
 /* ================================================================== */

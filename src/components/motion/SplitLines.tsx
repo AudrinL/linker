@@ -77,11 +77,7 @@ export default function SplitLines({
     <Comp ref={ref} className={className}>
       {lines.map((line, i) => (
         <span key={i} className={cn("line-mask", lineClassName)}>
-          <span
-            // Rest state before GSAP hydrates, so nothing flashes unmasked.
-            style={{ transform: "translateY(112%)", opacity: 0 }}
-            dangerouslySetInnerHTML={{ __html: line }}
-          />
+          <span dangerouslySetInnerHTML={{ __html: line }} />
         </span>
       ))}
     </Comp>

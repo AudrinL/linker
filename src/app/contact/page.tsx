@@ -32,8 +32,8 @@ export default function ContactPage() {
             aria-hidden
             className="absolute inset-0"
             style={{
-              background:
-                "linear-gradient(to top, color-mix(in oklab, var(--color-abyss) 82%, transparent) 0%, color-mix(in oklab, var(--color-abyss) 50%, transparent) 40%, color-mix(in oklab, var(--color-abyss) 22%, transparent) 100%)",
+            background:
+              "linear-gradient(to top, color-mix(in oklab, var(--color-bone) 84%, transparent) 0%, color-mix(in oklab, var(--color-bone) 52%, transparent) 40%, color-mix(in oklab, var(--color-bone) 24%, transparent) 100%)",
             }}
           />
           <div className="vignette absolute inset-0" />
@@ -51,10 +51,10 @@ export default function ContactPage() {
             className="mt-6 text-headline font-display"
             lines={[
               "Start with a",
-              '<em class="italic text-gradient-warm">conversation.</em>',
+              '<em class="italic text-gradient-warm-dark">conversation.</em>',
             ]}
           />
-          <p className="mt-7 max-w-xl text-lede text-mist/85">
+          <p className="mt-7 max-w-xl text-lede text-white/80">
             Tell us what you are planning. We will tell you honestly whether we
             can help, what it involves, and what it costs — before you commit to
             anything.

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { site } from "@/lib/site";
 import { timeline, values, stats } from "@/lib/content";
 import { partnerMarks } from "@/lib/services-data";
@@ -8,7 +8,7 @@ import { TrustBar } from "@/components/ui/TrustBar";
 import { StickyCTA } from "@/components/ui/StickyCTA";
 
 export const metadata: Metadata = {
-  title: "About — Linker World Travel",
+  title: "About",
   description:
     "Since 2014, Linker World Travel has connected people to opportunity worldwide — recruitment, visas, travel, safaris and vehicle import & export, handled end to end from Kigali.",
 };
@@ -17,6 +17,7 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen">
       <PageHero
+        eyebrow="About us"
         title="Connecting Africa to the world"
         subtitle="Since 2014, one team in Kigali has moved people and opportunity across four continents — honestly, end to end."
       />

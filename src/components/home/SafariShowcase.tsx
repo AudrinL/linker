@@ -93,7 +93,7 @@ export default function SafariShowcase() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to top, color-mix(in oklab, var(--color-abyss) 72%, transparent) 0%, color-mix(in oklab, var(--color-abyss) 42%, transparent) 38%, transparent 62%), linear-gradient(to right, color-mix(in oklab, var(--color-abyss) 34%, transparent) 0%, transparent 44%)",
+              "linear-gradient(to top, color-mix(in oklab, var(--color-bone) 76%, transparent) 0%, color-mix(in oklab, var(--color-bone) 44%, transparent) 38%, transparent 62%), linear-gradient(to right, color-mix(in oklab, var(--color-bone) 36%, transparent) 0%, transparent 44%)",
           }}
         />
         <div className="vignette absolute inset-0" />
@@ -114,16 +114,16 @@ export default function SafariShowcase() {
               >
                 {destinations[active].experience}
               </p>
-              <h2 className="mt-4 text-headline font-display">
+              <h2 className="mt-4 text-headline font-display text-white">
                 {destinations[active].country}
               </h2>
-              <p className="mt-3 font-display text-[clamp(1.2rem,2.2vw,1.75rem)] italic text-mist">
+              <p className="mt-3 font-display text-[clamp(1.2rem,2.2vw,1.75rem)] italic text-white/70">
                 {destinations[active].headline}
               </p>
             </div>
 
             <div>
-              <p className="max-w-md text-[1.02rem] leading-relaxed text-mist">
+              <p className="max-w-md text-[1.02rem] leading-relaxed text-white/75">
                 {destinations[active].copy}
               </p>
 
@@ -131,7 +131,7 @@ export default function SafariShowcase() {
                 {destinations[active].highlights.map((h) => (
                   <li
                     key={h}
-                    className="glass rounded-full px-4 py-2 text-xs font-medium tracking-tight text-mist"
+                    className="glass-dark rounded-full px-4 py-2 text-xs font-medium tracking-tight text-white/85"
                   >
                     {h}
                   </li>
@@ -170,7 +170,7 @@ export default function SafariShowcase() {
                 aria-current={i === active}
                 className="group flex-1 py-3"
               >
-                <span className="block h-px w-full bg-mist/25">
+                <span className="block h-px w-full bg-white/25">
                   <span
                     className={cn(
                       "block h-px origin-left bg-gold transition-transform duration-[900ms]",
@@ -185,8 +185,8 @@ export default function SafariShowcase() {
                   className={cn(
                     "mt-3 block text-left text-[0.7rem] font-medium uppercase tracking-[0.18em] transition-colors duration-500",
                     i === active
-                      ? "text-bone"
-                      : "text-mist/85 group-hover:text-bone",
+                      ? "text-white"
+                      : "text-white/65 group-hover:text-white",
                   )}
                 >
                   {d.country}

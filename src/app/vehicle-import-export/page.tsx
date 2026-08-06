@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import {
   vehicleProcess,
   vehicleComparison,
@@ -18,7 +18,7 @@ import { TrustBar } from "@/components/ui/TrustBar";
 import { StickyCTA } from "@/components/ui/StickyCTA";
 
 export const metadata: Metadata = {
-  title: "Vehicle Import & Export — Linker World Travel",
+  title: "Vehicle Import & Export",
   description:
     "Sourcing, shipping, clearing and delivering vehicles across continents — with independent inspection before you pay.",
 };
@@ -27,6 +27,7 @@ export default function VehicleImportExportPage() {
   return (
     <div className="min-h-screen">
       <PageHero
+        eyebrow="Vehicle Import"
         title="Vehicle Import & Export"
         subtitle="Reliable cross-border vehicle logistics and purchasing assistance."
       />
