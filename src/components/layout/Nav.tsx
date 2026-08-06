@@ -80,13 +80,13 @@ function MobileNavItem({
 
   return (
     <div className="flex flex-col">
-      <div className="line-mask flex items-center justify-between">
+      <div className="flex items-center justify-between">
         <Link
           href={item.href}
           data-menu-item
           tabIndex={open ? 0 : -1}
           onClick={onNavigate}
-          className="block py-1.5 font-display text-[clamp(2.1rem,10vw,3.4rem)] leading-[1.02] tracking-tight text-bone transition-colors duration-300 hover:text-gold"
+          className="block py-1 font-display text-[clamp(1.6rem,6.5vw,2.4rem)] leading-[1.1] tracking-tight text-bone transition-colors duration-300 hover:text-gold"
         >
           {item.label}
         </Link>
@@ -190,7 +190,7 @@ export default function Nav() {
     <>
       <header
         className={cn(
-          "fixed inset-x-0 top-0 z-50 transition-all duration-700",
+          "fixed inset-x-0 top-0 z-[65] transition-all duration-700",
           scrolled ? "py-3" : "py-5",
         )}
         style={{ transitionTimingFunction: "var(--ease-out-expo)" }}
