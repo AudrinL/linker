@@ -216,13 +216,14 @@ export default function Nav() {
                   alt=""
                   fill
                   sizes="40px"
-                  className="scale-[1.35] object-cover object-[50%_38%]"
+                  className="object-contain"
                   priority
                 />
               </span>
               <span className="hidden leading-none sm:block">
                 <span className="block font-display text-[1.05rem] tracking-tight">
-                  Linker World
+                  <span className="text-bone">Linker</span>
+                  <span className="text-gold">World</span>
                 </span>
                 <span className="block text-[0.6rem] font-medium uppercase tracking-[0.3em] text-muted">
                   Travel
