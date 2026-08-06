@@ -105,7 +105,7 @@ export default function Hero() {
             as="h1"
             immediate
             delay={0.35}
-            className="mt-5 text-display font-display"
+            className="mt-5 text-display font-display text-bone"
             lines={[
               "Where you go",
               'next is <em class="italic text-gradient-warm-dark">not</em>',

@@ -48,7 +48,7 @@ export default function ContactPage() {
             as="h1"
             immediate
             delay={0.2}
-            className="mt-6 text-headline font-display"
+            className="mt-6 text-headline font-display text-white"
             lines={[
               "Start with a",
               '<em class="italic text-gradient-warm-dark">conversation.</em>',
