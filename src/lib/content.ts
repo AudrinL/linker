@@ -45,7 +45,7 @@ export const services: Service[] = [
       "Honest eligibility assessment, upfront",
     ],
     image: "/img/visa-documents.png",
-    href: "/travel/visa-services",
+    href: "/visa-support",
   },
   {
     slug: "travel-services",

@@ -332,7 +332,7 @@ export const studyPricing: PricingTier[] = [
     note: "When you already hold an offer",
     features: ["Document review", "Financial & sponsor letters", "Biometrics booking", "Interview coaching"],
     cta: "Process my visa",
-    href: "/travel/visa-services/apply",
+    href: "/visa-support/apply",
   },
 ];
 
@@ -382,7 +382,7 @@ export const visaPricing: PricingTier[] = [
     note: "Indicative — final quote after the free check",
     features: ["Application drafting", "Document review", "Embassy booking", "Decision tracking"],
     cta: "Start the check",
-    href: "/travel/visa-services/apply",
+    href: "/visa-support/apply",
   },
   {
     name: "Priority",
@@ -390,7 +390,7 @@ export const visaPricing: PricingTier[] = [
     note: "For travel dates under three weeks away",
     features: ["Everything in Standard", "Express lane where offered", "Senior consultant review", "Direct WhatsApp updates"],
     cta: "Apply priority",
-    href: "/travel/visa-services/apply",
+    href: "/visa-support/apply",
     featured: true,
   },
   {
@@ -415,4 +415,182 @@ export const visaFaqs: Faq[] = [
 export const visaGuides: Guide[] = [
   { slug: "tourist-checklist", title: "Schengen & UK tourist visa checklist", description: "Bank statements, itineraries and cover letters that get approved first time.", meta: "6 pages · PDF · 4 min read", file: "/guides/tourist-visa-checklist.html" },
   { slug: "interview-guide", title: "Ace the embassy interview", description: "The twelve questions officers ask and the answers that build confidence.", meta: "7 pages · PDF · 5 min read", file: "/guides/embassy-interview-guide.html" },
+];
+
+/* ================================================================== */
+/*  Service inventories — what each page promises, in plain language   */
+/* ================================================================== */
+
+export type Feature = { title: string; description: string };
+
+/** Work Abroad — the eight things the service actually covers. */
+export const workServices: Feature[] = [
+  { title: "Job opportunities", description: "Verified vacancies from employers we have placed candidates with before — not scraped listings." },
+  { title: "Candidate assessment", description: "An honest read on which markets and roles your qualifications actually reach." },
+  { title: "CV preparation", description: "Your experience rewritten to the format employers in your target country expect." },
+  { title: "Interview preparation", description: "Practice rounds, common questions and what the employer is really assessing." },
+  { title: "Employer matching", description: "We put your profile in front of vacancies you can win, not every vacancy open." },
+  { title: "Work permit guidance", description: "What the permit route requires, who applies for what, and how long each stage takes." },
+  { title: "Visa support", description: "Document preparation and application guidance once an offer is in hand." },
+  { title: "Pre-departure preparation", description: "Contracts explained, travel arranged and a briefing before you fly." },
+];
+
+/** Study Abroad — the seven-part service, numbered on the page. */
+export const studyServices: Feature[] = [
+  { title: "University & college selection", description: "Institutions matched to your qualifications, career goals, destination and budget — shortlisted before you spend on applications." },
+  { title: "Course selection", description: "A program that fits your interests and where you want the qualification to take you, not just what is easiest to get into." },
+  { title: "Admission application support", description: "Help preparing and organising documents, then completing the admission application itself." },
+  { title: "Scholarship guidance", description: "Information on funding opportunities and what each one actually requires from an applicant." },
+  { title: "Student visa support", description: "Guidance through the student visa process and the documentation each destination expects." },
+  { title: "Accommodation guidance", description: "Student housing options and what to arrange before you land." },
+  { title: "Flight & travel preparation", description: "Once your place is confirmed, flight booking and pre-departure preparation." },
+];
+
+/** Visa Support — six categories we prepare files for. */
+export const visaTypes: Feature[] = [
+  { title: "Work visa", description: "For applicants taking up employment abroad — document preparation and work-permit requirements explained." },
+  { title: "Student visa", description: "For students accepted by an eligible institution, including financial and accommodation evidence." },
+  { title: "Tourist / visitor visa", description: "For holidays, family visits and short trips — itineraries, funds and cover letters." },
+  { title: "Business visa", description: "For meetings, conferences, trade fairs and other business activities." },
+  { title: "Family / visit visa", description: "For eligible family and personal visits, including invitation and relationship evidence." },
+  { title: "Transit visa", description: "Understanding whether you need one and what the transit country requires." },
+];
+
+/** Visa Support — the seven-stage service. */
+export const visaServices: Feature[] = [
+  { title: "Consultation", description: "The right visa category, the basic requirements and what the process involves for your destination." },
+  { title: "Document checklist", description: "A personalised list of what your application actually needs — nothing more, nothing missing." },
+  { title: "Document preparation", description: "Help organising and preparing the supporting documentation to embassy standard." },
+  { title: "Application support", description: "Guidance completing the forms and assembling the submission." },
+  { title: "Appointment guidance", description: "Understanding appointment booking, biometrics and interview requirements where they apply." },
+  { title: "Application follow-up", description: "Checking status and responding when the embassy requests additional documents." },
+  { title: "Travel preparation", description: "Once approved, flight booking and travel arrangements through our travel desk." },
+];
+
+/** Visa Support — the full journey, per the brief. */
+export const visaJourney: ProcessStep[] = [
+  { title: "Consultation", description: "We establish the right visa category and what your destination requires.", duration: "Same day" },
+  { title: "Document check", description: "Your documents reviewed against the checklist before anything is submitted.", duration: "1–2 days" },
+  { title: "Application preparation", description: "Forms completed and the file assembled to embassy standard.", duration: "1–3 days" },
+  { title: "Application submission", description: "The application is lodged with the embassy, consulate or visa centre.", duration: "Booking dependent" },
+  { title: "Biometrics / interview", description: "Where required — we prepare you for the appointment and what is asked.", duration: "1–2 weeks" },
+  { title: "Processing", description: "The authority assesses your file. We track it and respond to any requests.", duration: "2–8 weeks" },
+  { title: "Decision", description: "The outcome is issued by the embassy or immigration authority.", duration: "Varies" },
+  { title: "Travel preparation", description: "On approval, flights and pre-departure arrangements are made.", duration: "1–2 weeks" },
+];
+
+/** Documents an applicant may be asked for — deliberately framed as "may". */
+export const visaDocuments = [
+  "Valid passport",
+  "Passport photographs",
+  "Completed visa application form",
+  "Proof of accommodation",
+  "Flight / travel information",
+  "Bank statements or proof of funds",
+  "Employment documents",
+  "Admission letter",
+  "Employment contract",
+  "Invitation letter",
+  "Travel insurance",
+  "Academic documents",
+  "Civil documents (birth, marriage)",
+  "Other supporting documents",
+];
+
+/* ------------------------------------------------------------------ */
+/*  Study Abroad page content                                          */
+/* ------------------------------------------------------------------ */
+
+export type ProgramCategory = { title: string; items: string[] };
+
+export const studyProgramCategories: ProgramCategory[] = [
+  { title: "Undergraduate", items: ["Bachelor's degrees", "Diplomas", "Foundation programs", "Professional certificates"] },
+  { title: "Postgraduate", items: ["Master's degrees", "MBA programs", "Postgraduate diplomas", "Professional programs"] },
+  { title: "Doctoral", items: ["PhD programs", "Research programs"] },
+  { title: "Vocational & professional", items: ["Technical training", "Vocational programs", "Professional courses", "Skills-based training"] },
+  { title: "Language programs", items: ["English language courses", "German language courses", "French language courses", "Other language programs"] },
+];
+
+export const studyEligibleApplicants = [
+  "High school graduates",
+  "Diploma holders",
+  "Bachelor's degree holders",
+  "Master's degree holders",
+  "Professionals seeking further education",
+  "Students seeking vocational training",
+  "Students interested in language programs",
+];
+
+export const studyRequirements = [
+  "Valid passport",
+  "Academic certificates",
+  "Academic transcripts",
+  "CV",
+  "Motivation letter / statement of purpose",
+  "Recommendation letters",
+  "Proof of language proficiency",
+  "Proof of financial resources where required",
+  "Passport-size photographs",
+  "Other supporting documents",
+];
+
+/** The eight-step journey from first conversation to first lecture. */
+export const studyJourney: ProcessStep[] = [
+  { title: "Consultation", description: "We discuss your education background, career goals and preferred destination.", duration: "Same day" },
+  { title: "Program selection", description: "We identify suitable courses and institutions within your budget.", duration: "2–5 days" },
+  { title: "Document preparation", description: "Academic and supporting documents prepared and organised.", duration: "1–2 weeks" },
+  { title: "Application", description: "Your application is submitted to the selected institutions.", duration: "Intake dependent" },
+  { title: "Admission", description: "The institution issues its decision and we review the offer with you.", duration: "2–8 weeks" },
+  { title: "Visa preparation", description: "Student visa documents prepared and the application lodged.", duration: "3–8 weeks" },
+  { title: "Pre-departure", description: "Accommodation, travel and everything else arranged before you fly.", duration: "2–4 weeks" },
+  { title: "Start your journey", description: "You travel to your destination and begin your international education.", duration: "Your intake" },
+];
+
+export const studyBudgetItems = [
+  "Tuition fees",
+  "Application fees where applicable",
+  "Accommodation",
+  "Living expenses",
+  "Health insurance",
+  "Visa fees",
+  "Travel expenses",
+  "Other university or government charges",
+];
+
+export const scholarshipSources = [
+  "Universities",
+  "Governments",
+  "International organizations",
+  "Private institutions",
+  "Foundations",
+];
+
+export const scholarshipCategories = [
+  "University scholarships",
+  "Government scholarships",
+  "Merit-based scholarships",
+  "Research scholarships",
+  "International student scholarships",
+  "Partial tuition scholarships",
+  "Fully funded opportunities where available",
+];
+
+/* ------------------------------------------------------------------ */
+/*  Why choose us — tailored per service                               */
+/* ------------------------------------------------------------------ */
+
+export const studyWhyUs: Feature[] = [
+  { title: "Global opportunities", description: "Education opportunities across multiple international destinations." },
+  { title: "Personalised guidance", description: "We weigh your academic background, goals and preferred destination — not a generic shortlist." },
+  { title: "Application support", description: "Help organising your application and every supporting document." },
+  { title: "Visa guidance", description: "The student visa process and documentation, explained before you start." },
+  { title: "Travel support", description: "Flight booking and pre-departure preparation once your place is confirmed." },
+];
+
+export const visaWhyUs: Feature[] = [
+  { title: "Document guidance", description: "Understand exactly which supporting documents your category requires." },
+  { title: "Multiple destinations", description: "Support across work, study and travel destinations worldwide." },
+  { title: "Professional assistance", description: "Help organising and presenting your application information." },
+  { title: "Travel support", description: "After approval, arrange your journey through our flight desk." },
+  { title: "One-stop service", description: "Work abroad, study abroad, visa support and flights handled by one team." },
 ];

@@ -6,6 +6,19 @@
  * wiring (FastAPI, see BACKEND_PLAN.md) needs a single submission hook.
  */
 
+import {
+  cefrLevels,
+  countries,
+  fluencyLevels,
+  jobRoles,
+  names,
+  sectors,
+  studyDestinations,
+  studyPrograms,
+  visaDestinations,
+  workDestinations,
+} from "./countries";
+
 export type FieldDef =
   | { type: "text" | "email" | "tel"; name: string; label: string; placeholder?: string; required?: boolean }
   | { type: "select"; name: string; label: string; options: string[]; placeholder?: string; required?: boolean }

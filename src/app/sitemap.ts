@@ -31,13 +31,13 @@ const SUBPAGES: Entry[] = [
   { route: "/travel/flight-booking", priority: 0.8, changeFrequency: "monthly" },
   { route: "/travel/hotels", priority: 0.8, changeFrequency: "monthly" },
   { route: "/travel/holiday-packages", priority: 0.8, changeFrequency: "monthly" },
-  { route: "/travel/visa-services", priority: 0.8, changeFrequency: "monthly" },
+  { route: "/visa-support", priority: 0.8, changeFrequency: "monthly" },
 ];
 
 const FUNNELS: Entry[] = [
   { route: "/work-abroad/apply", priority: 0.9, changeFrequency: "monthly" },
   { route: "/study-abroad/apply", priority: 0.9, changeFrequency: "monthly" },
-  { route: "/travel/visa-services/apply", priority: 0.9, changeFrequency: "monthly" },
+  { route: "/visa-support/apply", priority: 0.9, changeFrequency: "monthly" },
 ];
 
 const BLOG: Entry[] = [

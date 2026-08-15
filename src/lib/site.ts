@@ -66,6 +66,7 @@ export const nav: NavItem[] = [
       { label: "Admission Guidance", href: "/study-abroad/admission-guidance" },
     ]
   },
+  { label: "Visa Support", href: "/visa-support" },
   {
     label: "Travel",
     href: "/travel",
@@ -73,7 +74,6 @@ export const nav: NavItem[] = [
       { label: "Flight Booking", href: "/travel/flight-booking" },
       { label: "Hotels", href: "/travel/hotels" },
       { label: "Holiday Packages", href: "/travel/holiday-packages" },
-      { label: "Visa Services", href: "/travel/visa-services" },
     ]
   },
   { label: "Blog", href: "/blog" },
@@ -85,7 +85,9 @@ export const footerNav = [
     links: [
       { label: "Work Abroad", href: "/work-abroad" },
       { label: "Study Abroad", href: "/study-abroad" },
-      { label: "Travel & Visas", href: "/travel" },
+      { label: "Visa Support", href: "/visa-support" },
+      { label: "Flight Tickets", href: "/travel/flight-booking" },
+      { label: "Available Jobs", href: "/work-abroad/jobs" },
     ],
   },
   {

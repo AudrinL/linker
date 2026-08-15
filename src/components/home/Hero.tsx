@@ -11,10 +11,11 @@ import MagneticButton from "@/components/ui/MagneticButton";
 import { prefersReducedMotion } from "@/lib/utils";
 
 const marks = [
-  { label: "Overseas Careers", href: "/work-abroad" },
-  { label: "Visa Services", href: "/travel/visa-services" },
-  { label: "Flights & Hotels", href: "/travel" },
+  { label: "Available Jobs", href: "/work-abroad/jobs" },
+  { label: "Work Abroad", href: "/work-abroad" },
   { label: "Study Abroad", href: "/study-abroad" },
+  { label: "Visa Support", href: "/visa-support" },
+  { label: "Flight Tickets", href: "/travel/flight-booking" },
 ];
 
 const trustStats = [
@@ -113,16 +114,16 @@ export default function Hero() {
             delay={0.35}
             className="mt-5 text-display font-display text-white"
             lines={[
-              "Where you go",
-              'next is <em class="italic text-gradient-warm-dark">not</em>',
-              "a small thing.",
+              "Your journey to",
+              'the <em class="italic text-gradient-warm-dark">world</em>',
+              "starts here.",
             ]}
           />
 
           <p className="mt-6 max-w-xl text-lede text-white/80">
-            A career abroad. A visa approved. A morning in the Volcanoes with
-            gorillas. For eleven years we have moved people and possibilities
-            between Africa and the world.
+            We help you find opportunities to work, study, travel and build your
+            future internationally — from the first conversation to the day you
+            land.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3.5">

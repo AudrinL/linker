@@ -39,7 +39,7 @@ const routes = [
     index: "04",
     title: "Visa Services",
     description: "Work, study and tourist visas prepared with the precision that gets applications approved first time.",
-    href: "/travel/visa-services",
+    href: "/visa-support",
     points: ["Honest eligibility checks", "Document & translation support", "Appointment booking"],
   },
 ];
@@ -87,7 +87,7 @@ export default function TravelHub() {
           title="Planning a trip or a move?"
           copy="Tell us where you're going, when, and what you need — we reply within one working day."
           buttonText="Start your visa application"
-          buttonHref="/travel/visa-services/apply"
+          buttonHref="/visa-support/apply"
         />
       </main>
     </div>

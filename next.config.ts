@@ -9,6 +9,23 @@ const nextConfig: NextConfig = {
   },
   poweredByHeader: false,
   compress: true,
+
+  // Visa support moved out from under /travel to a top-level page. These are
+  // permanent so the old URLs keep whatever ranking they had.
+  async redirects() {
+    return [
+      {
+        source: "/travel/visa-services",
+        destination: "/visa-support",
+        permanent: true,
+      },
+      {
+        source: "/travel/visa-services/apply",
+        destination: "/visa-support/apply",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

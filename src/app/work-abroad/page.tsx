@@ -1,23 +1,29 @@
 ﻿import type { Metadata } from "next";
+import Link from "next/link";
 import {
   workAbroadProcess,
   workCountries,
+  workServices,
   trustMarks,
 } from "@/lib/services-data";
+import { workDestinations } from "@/lib/countries";
 import { workEligibility } from "@/lib/forms";
 import { PageHero } from "@/components/ui/PageHero";
 import { ServiceCard } from "@/components/ui/ServiceCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { FeatureList } from "@/components/ui/FeatureList";
+import { DestinationPicker } from "@/components/ui/DestinationPicker";
 import { EligibilityChecker } from "@/components/ui/EligibilityChecker";
 import { ProcessTimeline } from "@/components/ui/ProcessTimeline";
 import { CountryGrid } from "@/components/ui/CountryGrid";
+import { Notice } from "@/components/ui/Notice";
 import { StickyCTA } from "@/components/ui/StickyCTA";
 import { TrustBar } from "@/components/ui/TrustBar";
 
 export const metadata: Metadata = {
   title: "Work Abroad",
   description:
-    "Jobs, recruitment and work permits across the Gulf, Europe and North America. Vetted employers, honest eligibility checks and support from first interview to first payslip.",
+    "We connect qualified candidates with international employment opportunities and support them through the whole application process — from CV to work permit to departure.",
 };
 
 const routes = [
@@ -57,10 +63,47 @@ export default function WorkAbroadHub() {
       <PageHero
         eyebrow="Work Abroad"
         title="Work abroad"
-        subtitle="Vetted employers, honest eligibility checks and support from first interview to first payslip — across the Gulf, Europe and North America."
+        subtitle="We connect qualified candidates with international employment opportunities and provide support throughout the application process."
       />
 
       <main className="shell space-y-24 py-16 lg:py-24">
+        <section className="flex flex-wrap items-center gap-4">
+          <Link
+            href="/work-abroad/jobs"
+            className="rounded-full bg-gold px-7 py-3.5 text-sm font-medium tracking-tight text-white transition-colors duration-500 hover:bg-bone"
+          >
+            View available jobs
+          </Link>
+          <Link
+            href="/work-abroad/apply"
+            className="rounded-full border border-mist/25 px-7 py-3.5 text-sm font-medium transition-colors duration-300 hover:border-gold/70 hover:text-gold"
+          >
+            Apply for a job abroad
+          </Link>
+        </section>
+
+        <section>
+          <SectionHeading
+            eyebrow="Our services"
+            title="What the service covers"
+            lede="Eight things we actually do — not a list of promises, a list of work."
+          />
+          <FeatureList features={workServices} className="mt-12" />
+        </section>
+
+        <section>
+          <SectionHeading
+            eyebrow="Choose where you want to work"
+            title="Twenty-two destinations"
+            lede="Pick a country and we carry it into your application."
+          />
+          <DestinationPicker
+            destinations={workDestinations}
+            href="/work-abroad/apply"
+            className="mt-10"
+          />
+        </section>
+
         <section>
           <SectionHeading
             eyebrow="Explore"
@@ -100,6 +143,22 @@ export default function WorkAbroadHub() {
         </section>
 
         <TrustBar items={trustMarks} />
+
+        <Notice>
+          <p>
+            Salary ranges shown across this site are{" "}
+            <strong>indicative only</strong> and may represent gross or stated
+            contractual pay depending on the country and vacancy. Actual
+            compensation varies by employer, occupation, experience,
+            qualifications, location, working hours and contract.
+          </p>
+          <p>
+            Employment, work permits and visa approvals are subject to the
+            employer and the relevant government authorities. Linker World
+            Travel does not guarantee employment, work-permit approval or visa
+            approval.
+          </p>
+        </Notice>
 
         <StickyCTA
           title="Ready to see your profile in front of real employers?"
