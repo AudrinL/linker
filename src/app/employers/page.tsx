@@ -24,6 +24,19 @@ export default function Page() {
         <div className="mx-auto max-w-4xl">
           <MultiStepForm config={employerForm} />
         </div>
+        <Notice className="mx-auto mt-16 max-w-4xl">
+          <p>
+            Job orders are subject to verification and review. Linker World
+            Travel does not guarantee that candidates will be available or that
+            recruitment targets will be fulfilled.
+          </p>
+          <p>
+            Employers are responsible for providing accurate job information,
+            complying with applicable employment laws, and fulfilling their
+            contractual, salary, immigration and workplace obligations.
+          </p>
+        </Notice>
+
         <TrustBar items={trustMarks} className="mt-20" />
       </main>
     </div>
