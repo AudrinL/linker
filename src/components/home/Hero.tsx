@@ -11,11 +11,11 @@ import MagneticButton from "@/components/ui/MagneticButton";
 import { prefersReducedMotion } from "@/lib/utils";
 
 const marks = [
-  { label: "Available Jobs", href: "/work-abroad/jobs" },
+  { label: "Available Jobs", href: "/jobs" },
   { label: "Work Abroad", href: "/work-abroad" },
   { label: "Study Abroad", href: "/study-abroad" },
   { label: "Visa Support", href: "/visa-support" },
-  { label: "Flight Tickets", href: "/travel/flight-booking" },
+  { label: "Flight Tickets", href: "/flight-tickets" },
 ];
 
 const trustStats = [

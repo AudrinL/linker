@@ -31,7 +31,7 @@ const routes = [
     index: "01",
     title: "Jobs",
     description: "Live overseas opportunities with visa sponsorship and relocation support, curated for East African professionals.",
-    href: "/work-abroad/jobs",
+    href: "/jobs",
     points: ["NHS, Gulf & EU employers", "Visa sponsorship listed", "Free CV review"],
   },
   {
@@ -69,7 +69,7 @@ export default function WorkAbroadHub() {
       <main className="shell space-y-24 py-16 lg:py-24">
         <section className="flex flex-wrap items-center gap-4">
           <Link
-            href="/work-abroad/jobs"
+            href="/jobs"
             className="rounded-full bg-gold px-7 py-3.5 text-sm font-medium tracking-tight text-white transition-colors duration-500 hover:bg-bone"
           >
             View available jobs

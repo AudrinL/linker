@@ -51,7 +51,7 @@ export const nav: NavItem[] = [
     label: "Work Abroad", 
     href: "/work-abroad",
     items: [
-      { label: "Jobs", href: "/work-abroad/jobs" },
+      { label: "Jobs", href: "/jobs" },
       { label: "Recruitment", href: "/work-abroad/recruitment" },
       { label: "Employer Matching", href: "/work-abroad/employer-matching" },
       { label: "Work Permits", href: "/work-abroad/work-permits" },
@@ -68,12 +68,22 @@ export const nav: NavItem[] = [
   },
   { label: "Visa Support", href: "/visa-support" },
   {
-    label: "Travel",
-    href: "/travel",
+    label: "Flights & Travel",
+    href: "/flight-tickets",
     items: [
-      { label: "Flight Booking", href: "/travel/flight-booking" },
+      { label: "Flight Tickets", href: "/flight-tickets" },
       { label: "Hotels", href: "/travel/hotels" },
       { label: "Holiday Packages", href: "/travel/holiday-packages" },
+    ]
+  },
+  {
+    label: "Opportunities",
+    href: "/opportunities",
+    items: [
+      { label: "Available Jobs", href: "/jobs" },
+      { label: "All Opportunities", href: "/opportunities" },
+      { label: "Submit My CV", href: "/submit-cv" },
+      { label: "For Employers", href: "/employers" },
     ]
   },
   { label: "Blog", href: "/blog" },
@@ -86,15 +96,17 @@ export const footerNav = [
       { label: "Work Abroad", href: "/work-abroad" },
       { label: "Study Abroad", href: "/study-abroad" },
       { label: "Visa Support", href: "/visa-support" },
-      { label: "Flight Tickets", href: "/travel/flight-booking" },
-      { label: "Available Jobs", href: "/work-abroad/jobs" },
+      { label: "Flight Tickets", href: "/flight-tickets" },
+      { label: "Available Jobs", href: "/jobs" },
     ],
   },
   {
     heading: "Company",
     links: [
       { label: "About Us", href: "/about" },
-      { label: "Job Vacancies", href: "/work-abroad/jobs" },
+      { label: "Opportunities", href: "/opportunities" },
+      { label: "Submit My CV", href: "/submit-cv" },
+      { label: "For Employers", href: "/employers" },
       { label: "Journal", href: "/blog" },
       { label: "Contact", href: "/contact" },
     ],

@@ -289,7 +289,7 @@ export const workForm: FormConfig = {
   successCopy:
     "Thank you for applying with Linker World Travel. Our recruitment team will review your profile and contact you if your qualifications match an available opportunity.",
   successLinks: [
-    { label: "View available jobs", href: "/work-abroad/jobs" },
+    { label: "View available jobs", href: "/jobs" },
     { label: "Contact us", href: "/contact" },
   ],
 };

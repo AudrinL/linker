@@ -21,14 +21,14 @@ const SERVICES: Entry[] = [
 ];
 
 const SUBPAGES: Entry[] = [
-  { route: "/work-abroad/jobs", priority: 0.8, changeFrequency: "weekly" },
+  { route: "/jobs", priority: 0.8, changeFrequency: "weekly" },
   { route: "/work-abroad/recruitment", priority: 0.8, changeFrequency: "monthly" },
   { route: "/work-abroad/employer-matching", priority: 0.8, changeFrequency: "monthly" },
   { route: "/work-abroad/work-permits", priority: 0.8, changeFrequency: "monthly" },
   { route: "/study-abroad/universities", priority: 0.8, changeFrequency: "monthly" },
   { route: "/study-abroad/study-visa", priority: 0.8, changeFrequency: "monthly" },
   { route: "/study-abroad/admission-guidance", priority: 0.8, changeFrequency: "monthly" },
-  { route: "/travel/flight-booking", priority: 0.8, changeFrequency: "monthly" },
+  { route: "/flight-tickets", priority: 0.8, changeFrequency: "monthly" },
   { route: "/travel/hotels", priority: 0.8, changeFrequency: "monthly" },
   { route: "/travel/holiday-packages", priority: 0.8, changeFrequency: "monthly" },
   { route: "/visa-support", priority: 0.8, changeFrequency: "monthly" },

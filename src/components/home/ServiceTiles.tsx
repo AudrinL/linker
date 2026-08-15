@@ -14,7 +14,7 @@ const tiles = [
   {
     label: "Available Jobs",
     copy: "Explore international employment opportunities.",
-    href: "/work-abroad/jobs",
+    href: "/jobs",
     icon: (
       <>
         <path d="M3 8.5h18v10a2 2 0 01-2 2H5a2 2 0 01-2-2v-10z" />
@@ -49,7 +49,7 @@ const tiles = [
   {
     label: "Flight Tickets",
     copy: "Book domestic and international flights.",
-    href: "/travel/flight-booking",
+    href: "/flight-tickets",
     icon: <path d="M3 13.5l3-1 4.5-1.5-3.5-5.5 2-.5 5 5 4.5-1.5a2 2 0 011 3.8l-4.5 1.5-2 7-2 .5-.5-6.5-4.5 1.5-.5-2.3z" />,
   },
 ];

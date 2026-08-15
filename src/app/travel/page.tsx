@@ -18,7 +18,7 @@ const routes = [
     index: "01",
     title: "Flight Booking",
     description: "Competitive international and regional fares with a real person on the phone when plans change.",
-    href: "/travel/flight-booking",
+    href: "/flight-tickets",
     points: ["Group & family fares", "Change-friendly bookings", "Airport assistance"],
   },
   {
