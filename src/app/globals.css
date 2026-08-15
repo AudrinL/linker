@@ -274,6 +274,19 @@
     padding-inline: clamp(1.25rem, 5vw, 4.5rem);
   }
 
+  /* — Footer wordmark —
+     Sized against its own container rather than the viewport, because the
+     shell's padding is fluid: a vw-based size cannot track the content box and
+     the nowrap wordmark ends up wider than its parent, overflowing instead of
+     centring. 11.5cqw sets the mark just inside the container's width. */
+  .wordmark {
+    container-type: inline-size;
+  }
+
+  .wordmark > p {
+    font-size: 11.5cqw;
+  }
+
   /* — Reveal primitives. GSAP drives these; CSS defines rest state. — */
   .will-reveal {
     opacity: 0;

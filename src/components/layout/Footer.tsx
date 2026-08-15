@@ -114,10 +114,10 @@ export default function Footer() {
         </div>
 
         {/* Oversized wordmark, clipped by the fold */}
-        <div className="relative mt-24 select-none">
+        <div className="wordmark relative mt-24 select-none">
           <p
             aria-hidden
-            className="translate-y-[18%] whitespace-nowrap text-center font-display text-[clamp(3.5rem,17vw,15rem)] leading-[0.8] tracking-[-0.045em] text-bone/[0.07]"
+            className="translate-y-[18%] whitespace-nowrap text-center font-display leading-[0.8] tracking-[-0.045em] text-bone/[0.07]"
           >
             Linker World Travel
           </p>
