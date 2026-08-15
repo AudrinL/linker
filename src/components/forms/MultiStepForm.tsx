@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import { site } from "@/lib/site";
 import type { FormConfig } from "@/lib/forms";
 import { cn, mailtoLink, whatsappLink } from "@/lib/utils";
@@ -12,12 +13,7 @@ type Files = Record<string, File | null>;
 
 function makeRef(config: FormConfig) {
   const stamp = Date.now().toString(36).toUpperCase().slice(-6);
-  const service = config.id
-    .split("-")
-    .map((p) => p[0])
-    .join("")
-    .toUpperCase();
-  return `LWT-${service}-${stamp}`;
+  return `${config.referencePrefix}-${stamp}`;
 }
 
 function makeReference(config: FormConfig) {
@@ -47,13 +43,30 @@ type Props = { config: FormConfig };
  * FastAPI backend lands (BACKEND_PLAN.md) this is the single submission hook.
  */
 export default function MultiStepForm({ config }: Props) {
+  const hasConsent = config.consents.length > 0;
+
   const steps = useMemo(
-    () => [...config.sections.map((s) => s.title), "Documents", "Review"],
-    [config],
+    () => [
+      ...config.sections.map((s) => s.title),
+      "Documents",
+      ...(hasConsent ? ["Consent"] : []),
+      "Review",
+    ],
+    [config, hasConsent],
   );
 
+  const docsStep = config.sections.length;
+  const consentStep = hasConsent ? docsStep + 1 : -1;
+
   const [current, setCurrent] = useState(0);
-  const [values, setValues] = useState<Values>({});
+  // Seeded lazily from the URL so a destination picked on the service page is
+  // already filled in. Reading location directly (rather than useSearchParams)
+  // keeps these pages statically rendered.
+  const [values, setValues] = useState<Values>(() => {
+    if (typeof window === "undefined" || !config.prefillField) return {};
+    const country = new URLSearchParams(window.location.search).get("country");
+    return country ? { [config.prefillField]: country } : {};
+  });
   const [files, setFiles] = useState<Files>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [tried, setTried] = useState(false);
@@ -79,11 +92,16 @@ export default function MultiStepForm({ config }: Props) {
         const err = validateField(field, values[field.name] ?? "");
         if (err) next[field.name] = err;
       }
-    } else if (current === config.sections.length) {
+    } else if (current === docsStep) {
       for (const doc of config.documents) {
         if (doc.required && !files[doc.id])
           next[`file:${doc.id}`] = `Please add your ${doc.label.toLowerCase()}.`;
       }
+    } else if (current === consentStep) {
+      config.consents.forEach((_, i) => {
+        if (values[`consent:${i}`] !== "on")
+          next[`consent:${i}`] = "Please confirm to continue.";
+      });
     }
     setErrors(next);
     return Object.keys(next).length === 0;
@@ -107,10 +125,29 @@ export default function MultiStepForm({ config }: Props) {
       .filter((d) => files[d.id])
       .map((d) => `• ${d.label}`);
     if (docs.length) lines.push("Documents (uploading separately)", ...docs, "");
+    if (config.consents.length)
+      lines.push(`Declarations accepted (${config.consents.length})`, "");
     return lines.join("\n");
   };
 
   const submit = () => {
+    // The review step has nothing of its own to check, so re-run the consent
+    // gate here in case the applicant stepped back and unticked something.
+    const missing = config.consents.findIndex(
+      (_, i) => values[`consent:${i}`] !== "on",
+    );
+    if (missing !== -1) {
+      setTried(true);
+      setCurrent(consentStep);
+      setErrors(
+        Object.fromEntries(
+          config.consents
+            .map((_, i) => [`consent:${i}`, values[`consent:${i}`] !== "on" ? "Please confirm to continue." : ""])
+            .filter(([, v]) => v),
+        ),
+      );
+      return;
+    }
     if (!validateStep()) return;
     const ref = makeReference(config);
     const msg = composed(ref);
@@ -147,11 +184,17 @@ export default function MultiStepForm({ config }: Props) {
             <path d="M4 12.5l5 5L20 7" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
-        <h3 className="mt-6 font-display text-2xl">WhatsApp is opening</h3>
+        <h3 className="mt-6 font-display text-2xl">{config.successTitle}</h3>
         <p className="mx-auto mt-3 max-w-md text-[0.95rem] leading-relaxed text-muted">
-          Your application summary is ready in WhatsApp with reference{" "}
-          <span className="font-medium text-bone">{reference}</span>. Keep the
-          number — we use it on every reply.
+          {config.successCopy}
+        </p>
+        <p className="mt-5 inline-flex items-center gap-2.5 rounded-full border border-gold/40 bg-gold/[0.06] px-5 py-2.5">
+          <span className="text-[0.62rem] uppercase tracking-[0.2em] text-muted">
+            Reference
+          </span>
+          <span className="font-display text-base tracking-tight text-bone">
+            {reference}
+          </span>
         </p>
         <div className="mx-auto mt-6 grid max-w-lg gap-3 text-left sm:grid-cols-2">
           {visibleDocs.length > 0 && (
@@ -185,6 +228,20 @@ export default function MultiStepForm({ config }: Props) {
             Send it by email instead
           </a>
         </div>
+        {config.successLinks && config.successLinks.length > 0 && (
+          <div className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 border-t border-mist/15 pt-6">
+            {config.successLinks.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                className="text-xs uppercase tracking-[0.18em] text-mist transition-colors hover:text-gold"
+              >
+                {l.label} →
+              </Link>
+            ))}
+          </div>
+        )}
+
         <button
           onClick={() => setReference(null)}
           className="mt-6 text-xs uppercase tracking-[0.18em] text-muted transition-colors hover:text-gold"
@@ -251,7 +308,8 @@ export default function MultiStepForm({ config }: Props) {
   /* ---------------- form body ---------------- */
 
   const isSectionStep = current < config.sections.length;
-  const isDocsStep = current === config.sections.length;
+  const isDocsStep = current === docsStep;
+  const isConsentStep = current === consentStep;
 
   return (
     <form
@@ -315,6 +373,24 @@ export default function MultiStepForm({ config }: Props) {
               </div>
             ))}
           </div>
+        </div>
+      )}
+
+      {isConsentStep && (
+        <div className="grid gap-5">
+          <p className="text-sm leading-relaxed text-muted">
+            Read each statement and confirm before we take your application
+            further. All {config.consents.length} are required.
+          </p>
+          {config.consents.map((text, i) => (
+            <Field
+              key={i}
+              def={{ type: "checkbox", name: `consent:${i}`, label: text, required: true }}
+              value={values[`consent:${i}`] ?? ""}
+              error={tried ? errors[`consent:${i}`] : null}
+              onChange={setValue}
+            />
+          ))}
         </div>
       )}
 

@@ -34,7 +34,7 @@ export default function AboutPage() {
           <SectionHeading
             eyebrow="Since 2014"
             title="The milestones"
-            lede="A desk and a promise became five services and thirty-eight countries."
+            lede="A desk and a promise became thirty-eight countries."
           />
           <ol className="mt-12 relative border-l border-mist/20 pl-8 ml-2 space-y-12">
             {timeline.map((item) => (
@@ -101,7 +101,7 @@ export default function AboutPage() {
 
         <StickyCTA
           title="Let's talk about where you're going"
-          copy="Five services, one team, one phone number. Tell us about your plans and we'll tell you honestly what it takes."
+          copy="One team, one phone number. Tell us about your plans and we'll tell you honestly what it takes."
           buttonText="Talk to a consultant"
           buttonHref="/contact"
         />

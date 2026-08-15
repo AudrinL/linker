@@ -11,7 +11,7 @@ import Reveal from "@/components/motion/Reveal";
 import { prefersReducedMotion } from "@/lib/utils";
 
 /**
- * Five services, five full-height panels that stack over one another as the
+ * One full-height panel per service, stacking over one another as the
  * visitor scrolls — each one arriving as its own frame rather than as a card in
  * a grid. Sticky positioning does the stacking; GSAP only handles the parallax
  * drift on each plate and the entrance of the copy.
@@ -60,12 +60,12 @@ export default function Services() {
             <span className="eyebrow">What we do</span>
           </div>
           <h2 className="mt-7 text-headline font-display">
-            Five services.
+            Three services.
             <br />
             <em className="italic text-gradient-cool">One team</em> behind them.
           </h2>
           <p className="mt-7 max-w-xl text-lede text-mist/85">
-            Most people come to us for one thing and stay for the next four. It
+            Most people come to us for one thing and stay for the next two. It
             is the same office, the same consultants, and the same standard
             whether you are booking a flight or relocating a family.
           </p>
