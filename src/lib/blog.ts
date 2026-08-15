@@ -106,39 +106,6 @@ export const blogPosts: BlogPost[] = [
     ],
   },
   {
-    slug: "packing-for-a-safari",
-    title: "Packing for a Safari: What to Bring",
-    excerpt:
-      "Everything you need to know before heading into the East African wilderness — and the five things you should definitely leave at home.",
-    category: "Travel Tips",
-    date: "2026-05-30",
-    author: "Sarah Thomas",
-    readTime: "5 min read",
-    sections: [
-      {
-        heading: "Dress for the dust, not the brochure",
-        body: [
-          "Neutral colours — khaki, olive, beige — work best on game drives. Bright white reads like a signal to animals and reds attract tsetse flies. Layer instead: cold dawns, hot middays, and a light fleece for evening sundowners.",
-          "Long trousers and closed shoes are non-negotiable for gorilla trekking. The forest is thick, wet and unforgiving on ankles.",
-        ],
-      },
-      {
-        heading: "The gear that earns its weight",
-        body: [
-          "A wide-brimmed hat, high-SPF sunscreen and a buff to cover your neck. Binoculars make a bigger difference than a telephoto lens — most guides will tell you they're the first thing repeat visitors pack.",
-          "A power bank is essential; lodges in the bush have limited outlets, and you'll be photographing all day. A headlamp for early-morning starts and dark tent paths is the quiet hero of every safari.",
-        ],
-      },
-      {
-        heading: "What to leave behind",
-        body: [
-          "Camouflage is illegal for civilians in most East African countries. Leave drones at home unless you have permits — ranger teams confiscate them. And resist packing formalwear; safari lodges are 'smart casual at best' places.",
-          "Plastic bags are banned in Rwanda and Kenya. Pack your toiletries in washbags and expect a bag check at the airport.",
-        ],
-      },
-    ],
-  },
-  {
     slug: "understanding-visa-processing-times",
     title: "Understanding Visa Processing Times",
     excerpt:
@@ -200,39 +167,6 @@ export const blogPosts: BlogPost[] = [
         body: [
           "Work in the Gulf is hot, physical and serious. Contracts are for one to two years, and the best jobs are often the ones that offer training and advancement rather than the highest starting number.",
           "Recruit through a licensed agency — illegitimate brokers promising immediate visas are the single largest source of lost savings in the industry.",
-        ],
-      },
-    ],
-  },
-  {
-    slug: "first-time-vehicle-import-to-rwanda",
-    title: "Importing Your First Vehicle to Rwanda: A Field Guide",
-    excerpt:
-      "From a Dubai auction to your Kigali driveway — the step-by-step route, the real costs and the mistakes that cost people money.",
-    category: "Vehicle Import",
-    date: "2026-02-08",
-    author: "Patrick Nkusi",
-    readTime: "8 min read",
-    sections: [
-      {
-        heading: "Start with the landed price, not the sticker",
-        body: [
-          "The price in Dubai or Tokyo is the beginning, not the budget. Your real number is vehicle + freight + insurance + duty + clearance + registration. On a $20,000 vehicle that difference is often $8,000–$12,000 — itemise it before you commit.",
-          "East African Community duties are calculated on the CIF value (cost, insurance, freight), so a cheap vehicle shipped expensively can owe more than a pricier one shipped well.",
-        ],
-      },
-      {
-        heading: "The inspection that saves your money",
-        body: [
-          "Every horror story we hear starts with 'it looked perfect in the photos'. An independent inspection report — compression test, frame damage scan, accident history — costs a fraction of one surprise repair.",
-          "Insist on the report before paying any deposit. If a seller resists, that is the report you most needed.",
-        ],
-      },
-      {
-        heading: "Ports, agents and timelines",
-        body: [
-          "Most Rwanda-bound vehicles arrive through Dar es Salaam, with Mombasa as the alternative. Clearance depends on paperwork accuracy — a mismatched chassis number can hold your car at port for weeks.",
-          "Realistic door-to-door time is 6–9 weeks. Plan your deposit and any financing around that, not the optimistic four weeks a listing agent might suggest.",
         ],
       },
     ],

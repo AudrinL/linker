@@ -2,7 +2,6 @@
 import {
   visaProcess,
   visaComparison,
-  visaPricing,
   visaFaqs,
   visaGuides,
   trustMarks,
@@ -13,7 +12,6 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { EligibilityChecker } from "@/components/ui/EligibilityChecker";
 import { ProcessTimeline } from "@/components/ui/ProcessTimeline";
 import { ComparisonTable } from "@/components/ui/ComparisonTable";
-import { PricingGrid } from "@/components/ui/PricingGrid";
 import { GuideCard } from "@/components/ui/GuideCard";
 import { Faq } from "@/components/ui/Faq";
 import { TrustBar } from "@/components/ui/TrustBar";
@@ -56,11 +54,6 @@ export default function VisaServicesPage() {
         <section>
           <SectionHeading eyebrow="Compare" title="Which visa do you need?" />
           <ComparisonTable comparison={visaComparison} className="mt-10" />
-        </section>
-
-        <section>
-          <SectionHeading eyebrow="Transparent pricing" title="Visa fees, itemised" />
-          <PricingGrid tiers={visaPricing} className="mt-10" />
         </section>
 
         <section>

@@ -8,7 +8,7 @@ export const site = {
   shortName: "Linker World",
   tagline: "Connecting Africa to the world",
   description:
-    "Linker World Travel connects people to opportunity worldwide — overseas recruitment, visa services, international travel, East African safaris and vehicle import & export, handled end to end from Kigali.",
+    "Linker World Travel connects people to opportunity worldwide — overseas recruitment, study abroad, visa services and international travel, handled end to end from Kigali.",
   url: "https://www.linkerworldtravel.com",
   locale: "en_RW",
 
@@ -76,8 +76,6 @@ export const nav: NavItem[] = [
       { label: "Visa Services", href: "/travel/visa-services" },
     ]
   },
-  { label: "Safaris", href: "/safari-tours" },
-  { label: "Vehicle Import", href: "/vehicle-import-export" },
   { label: "Blog", href: "/blog" },
 ];
 
@@ -88,8 +86,6 @@ export const footerNav = [
       { label: "Work Abroad", href: "/work-abroad" },
       { label: "Study Abroad", href: "/study-abroad" },
       { label: "Travel & Visas", href: "/travel" },
-      { label: "Safari & Tours", href: "/safari-tours" },
-      { label: "Vehicle Import & Export", href: "/vehicle-import-export" },
     ],
   },
   {

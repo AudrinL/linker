@@ -8,8 +8,7 @@ const SERVICES = [
   "Overseas jobs & recruitment",
   "Visa application",
   "Flights & hotels",
-  "Safari or tour booking",
-  "Vehicle import or export",
+  "Study abroad",
   "Something else",
 ] as const;
 

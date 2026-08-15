@@ -18,8 +18,6 @@ const SERVICES: Entry[] = [
   { route: "/work-abroad", priority: 0.9, changeFrequency: "weekly" },
   { route: "/study-abroad", priority: 0.9, changeFrequency: "weekly" },
   { route: "/travel", priority: 0.9, changeFrequency: "weekly" },
-  { route: "/safari-tours", priority: 0.9, changeFrequency: "weekly" },
-  { route: "/vehicle-import-export", priority: 0.9, changeFrequency: "weekly" },
 ];
 
 const SUBPAGES: Entry[] = [
@@ -40,8 +38,6 @@ const FUNNELS: Entry[] = [
   { route: "/work-abroad/apply", priority: 0.9, changeFrequency: "monthly" },
   { route: "/study-abroad/apply", priority: 0.9, changeFrequency: "monthly" },
   { route: "/travel/visa-services/apply", priority: 0.9, changeFrequency: "monthly" },
-  { route: "/safari-tours/book", priority: 0.9, changeFrequency: "monthly" },
-  { route: "/vehicle-import-export/quote", priority: 0.9, changeFrequency: "monthly" },
 ];
 
 const BLOG: Entry[] = [

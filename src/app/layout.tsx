@@ -30,7 +30,7 @@ const instrument = Instrument_Serif({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — Overseas Jobs, Visas, Safaris & Travel from Rwanda`,
+    default: `${site.name} — Overseas Jobs, Study, Visas & Travel from Rwanda`,
     template: `%s · ${site.name}`,
   },
   description: site.description,
@@ -38,8 +38,7 @@ export const metadata: Metadata = {
     "overseas jobs Rwanda",
     "work visa Rwanda",
     "travel agency Kigali",
-    "Rwanda gorilla trekking safari",
-    "vehicle import Rwanda",
+    "study abroad Rwanda",
     "international recruitment agency",
     "study visa assistance",
     "flight booking Kigali",

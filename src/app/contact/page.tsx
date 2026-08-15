@@ -9,7 +9,7 @@ import { whatsappLink } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Speak to a Linker World Travel consultant in Kigali about overseas jobs, visa applications, flights, safaris or vehicle import. Call, WhatsApp or send an inquiry.",
+    "Speak to a Linker World Travel consultant in Kigali about overseas jobs, study placements, visa applications or flights. Call, WhatsApp or send an inquiry.",
   alternates: { canonical: "/contact" },
 };
 

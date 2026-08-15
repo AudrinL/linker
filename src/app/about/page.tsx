@@ -10,7 +10,7 @@ import { StickyCTA } from "@/components/ui/StickyCTA";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Since 2014, Linker World Travel has connected people to opportunity worldwide — recruitment, visas, travel, safaris and vehicle import & export, handled end to end from Kigali.",
+    "Since 2014, Linker World Travel has connected people to opportunity worldwide — recruitment, study abroad, visas and travel, handled end to end from Kigali.",
 };
 
 export default function AboutPage() {

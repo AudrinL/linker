@@ -63,38 +63,6 @@ export const services: Service[] = [
     image: "/img/travel-terminal.png",
     href: "/travel",
   },
-  {
-    slug: "safari-tours",
-    index: "04",
-    title: "Meet the wild",
-    kicker: "Safari & Tours",
-    blurb:
-      "Gorilla trekking in Volcanoes. Big cats on the Mara. The Serengeti at first light. East Africa is our home ground, and we design these journeys the way we would for family.",
-    points: [
-      "Rwanda, Uganda, Kenya & Tanzania",
-      "Gorilla and chimpanzee trekking permits",
-      "Private guides and luxury lodges",
-      "Cultural and community experiences",
-    ],
-    image: "/img/safari-elephants.png",
-    href: "/safari-tours",
-  },
-  {
-    slug: "vehicle-import-export",
-    index: "05",
-    title: "Move machines",
-    kicker: "Vehicle Import & Export",
-    blurb:
-      "Sourcing, shipping, clearing and delivering vehicles across continents. You choose the vehicle; we handle every port, form and inspection between it and your driveway.",
-    points: [
-      "Vehicle sourcing from Japan, UAE & Europe",
-      "Ocean freight and container consolidation",
-      "Customs clearance and duty guidance",
-      "Inspection reports before you commit",
-    ],
-    image: "/img/vehicle-port.png",
-    href: "/vehicle-import-export",
-  },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -104,56 +72,6 @@ export const stats = [
   { value: 38, suffix: "", label: "Countries we operate across" },
   { value: 96, suffix: "%", label: "Visa application success rate" },
   { value: 11, suffix: " yrs", label: "Connecting Africa to the world" },
-];
-
-/* ------------------------------------------------------------------ */
-
-export type Destination = {
-  country: string;
-  headline: string;
-  experience: string;
-  copy: string;
-  image: string;
-  highlights: string[];
-};
-
-export const destinations: Destination[] = [
-  {
-    country: "Rwanda",
-    headline: "Volcanoes National Park",
-    experience: "Gorilla Trekking",
-    copy:
-      "An hour uphill through bamboo and cloud, and then you are sitting eight metres from a silverback who has decided you are not worth standing up for. Rwanda protects roughly a third of the world's remaining mountain gorillas.",
-    image: "/assets/rwanda-gorillas.jpg",
-    highlights: ["Gorilla permits", "Golden monkey tracking", "Lake Kivu"],
-  },
-  {
-    country: "Kenya",
-    headline: "Maasai Mara",
-    experience: "The Great Migration",
-    copy:
-      "Between July and October, more than a million wildebeest pour across the Mara River while crocodiles wait in the shallows. There is no footage that prepares you for the sound of it.",
-    image: "/assets/tanzania%20safari.webp",
-    highlights: ["River crossings", "Big Five game drives", "Maasai villages"],
-  },
-  {
-    country: "Tanzania",
-    headline: "Serengeti & Ngorongoro",
-    experience: "Balloon Safari",
-    copy:
-      "Lift off before dawn and watch the plains resolve out of the dark beneath you — herds moving, dust rising gold, the crater rim holding the horizon. Breakfast is served where you land.",
-    image: "/assets/tanzania.png",
-    highlights: ["Balloon safari", "Ngorongoro Crater", "Zanzibar extension"],
-  },
-  {
-    country: "Uganda",
-    headline: "Bwindi Impenetrable Forest",
-    experience: "Primate & Nile Country",
-    copy:
-      "Ancient rainforest that has never been logged, home to almost half the world's mountain gorillas — then north to Murchison Falls, where the entire Nile forces itself through a seven-metre gap.",
-    image: "/assets/uganda%20safari.jpg",
-    highlights: ["Bwindi trekking", "Murchison Falls", "Queen Elizabeth NP"],
-  },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -172,20 +90,6 @@ export const testimonials: Testimonial[] = [
     name: "Jean-Claude M.",
     role: "Warehouse Supervisor, Poland",
     service: "Work Visa & Placement",
-  },
-  {
-    quote:
-      "We booked the Rwanda–Tanzania trip for our anniversary and expected a good holiday. What we got was the single best two weeks of our lives. The gorilla trek alone was worth the entire trip, and every transfer ran exactly on time.",
-    name: "Sarah & Michael T.",
-    role: "Travellers from Manchester",
-    service: "Safari & Tours",
-  },
-  {
-    quote:
-      "They sourced the vehicle in Japan, sent me inspection photos before I paid a franc, and handled clearance at Dar es Salaam. It arrived in Kigali in better condition than described. I have since imported two more through them.",
-    name: "Patrick N.",
-    role: "Business Owner, Kigali",
-    service: "Vehicle Import",
   },
   {
     quote:
@@ -210,19 +114,9 @@ export const timeline = [
     copy: "First employer partnerships signed in the Gulf. Forty-two candidates placed in the opening year.",
   },
   {
-    year: "2019",
-    title: "Into the wild",
-    copy: "The safari division launches, built on the belief that East Africa should be sold by East Africans.",
-  },
-  {
-    year: "2022",
-    title: "Ports and permits",
-    copy: "Vehicle import & export opens, extending the network from people to cargo.",
-  },
-  {
     year: "Today",
     title: "Thirty-eight countries",
-    copy: "One team, five services, and a client base that spans four continents — still headquartered in Kigali.",
+    copy: "One team, one standard, and a client base that spans four continents — still headquartered in Kigali.",
   },
 ];
 

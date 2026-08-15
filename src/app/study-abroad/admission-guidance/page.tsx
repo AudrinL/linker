@@ -1,9 +1,8 @@
 ﻿import type { Metadata } from "next";
-import { studyComparison, studyPricing, studyGuides, studyFaqs } from "@/lib/services-data";
+import { studyComparison, studyGuides, studyFaqs } from "@/lib/services-data";
 import { PageHero } from "@/components/ui/PageHero";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ComparisonTable } from "@/components/ui/ComparisonTable";
-import { PricingGrid } from "@/components/ui/PricingGrid";
 import { GuideCard } from "@/components/ui/GuideCard";
 import { Faq } from "@/components/ui/Faq";
 import { StickyCTA } from "@/components/ui/StickyCTA";
@@ -30,15 +29,6 @@ export default function AdmissionGuidancePage() {
             lede="Grades, budget and post-study plans side by side across the top destinations."
           />
           <ComparisonTable comparison={studyComparison} className="mt-10" />
-        </section>
-
-        <section>
-          <SectionHeading
-            eyebrow="Transparent pricing"
-            title="Admissions, staged"
-            lede="You pay per milestone — matching, filing, visa — never a surprise invoice."
-          />
-          <PricingGrid tiers={studyPricing} className="mt-10" />
         </section>
 
         <section>

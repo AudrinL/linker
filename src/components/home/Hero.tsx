@@ -14,8 +14,7 @@ const marks = [
   { label: "Overseas Careers", href: "/work-abroad" },
   { label: "Visa Services", href: "/travel/visa-services" },
   { label: "Flights & Hotels", href: "/travel" },
-  { label: "Safari & Tours", href: "/safari-tours" },
-  { label: "Vehicle Import", href: "/vehicle-import-export" },
+  { label: "Study Abroad", href: "/study-abroad" },
 ];
 
 const trustStats = [

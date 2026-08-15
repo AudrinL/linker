@@ -48,7 +48,7 @@ const highlights = [
   { title: "24h response", description: "We reply to every enquiry within one working day.", className: "md:col-span-1" },
   { title: "One consultant per trip", description: "The person who plans your trip handles every change to it.", className: "md:col-span-2" },
   { title: "Visa before you pay", description: "We assess your eligibility honestly before you spend anything.", className: "md:col-span-2" },
-  { title: "East African specialists", description: "Safaris, Gulf routes and regional travel as home turf.", className: "md:col-span-1" },
+  { title: "East African specialists", description: "Gulf routes and regional travel as home turf.", className: "md:col-span-1" },
 ];
 
 export default function TravelHub() {

@@ -1,9 +1,8 @@
 ﻿import type { Metadata } from "next";
-import { workComparison, workPricing, workFaqs } from "@/lib/services-data";
+import { workComparison, workFaqs } from "@/lib/services-data";
 import { PageHero } from "@/components/ui/PageHero";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ComparisonTable } from "@/components/ui/ComparisonTable";
-import { PricingGrid } from "@/components/ui/PricingGrid";
 import { Faq } from "@/components/ui/Faq";
 import { StickyCTA } from "@/components/ui/StickyCTA";
 
@@ -29,15 +28,6 @@ export default function EmployerMatchingPage() {
             lede="We go beyond resumes — human judgement on top of the paperwork, so you only interview for roles you can win."
           />
           <ComparisonTable comparison={workComparison} className="mt-10" />
-        </section>
-
-        <section>
-          <SectionHeading
-            eyebrow="Transparent pricing"
-            title="Fees, staged to milestones"
-            lede="No hidden fees. You only pay as each milestone actually completes."
-          />
-          <PricingGrid tiers={workPricing} className="mt-10" />
         </section>
 
         <section>
