@@ -33,7 +33,7 @@
   --color-muted: #64748b;
 
   /* — Type — */
-  --font-display: var(--font-instrument), Georgia, serif;
+  --font-display: var(--font-poppins), "Helvetica Neue", Arial, sans-serif;
   --font-sans: var(--font-geist), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
@@ -106,9 +106,12 @@
   h3,
   h4 {
     font-family: var(--font-display);
-    font-weight: 400;
-    letter-spacing: -0.02em;
-    line-height: 0.95;
+    /* Poppins has no stroke contrast to lean on, so presence comes from weight.
+       Its tall x-height also needs more leading and less negative tracking than
+       the serif this replaced, or the lines collide and the counters close up. */
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.08;
     text-wrap: balance;
   }
 
@@ -126,20 +129,22 @@
   /* — Fluid display scale. Clamps mean the type never breaks at any width. — */
   /* Height-aware: on short/landscape viewports the headline must not push the
      fold furniture off screen, so vh caps the vw-driven size. */
+  /* Poppins sets wider than the serif at the same size, so the display steps
+     are pulled back and given room to breathe vertically. */
   .text-display {
-    font-size: clamp(2.9rem, min(10.5vw, 14.5vh), 10rem);
-    line-height: 0.9;
-    letter-spacing: -0.035em;
+    font-size: clamp(2.5rem, min(8.4vw, 12vh), 7.5rem);
+    line-height: 1;
+    letter-spacing: -0.025em;
   }
   .text-headline {
-    font-size: clamp(2.4rem, 6.2vw, 5.4rem);
-    line-height: 0.96;
-    letter-spacing: -0.028em;
+    font-size: clamp(2.1rem, 5.2vw, 4.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
   }
   .text-title {
-    font-size: clamp(1.75rem, 3.4vw, 3rem);
-    line-height: 1.04;
-    letter-spacing: -0.022em;
+    font-size: clamp(1.6rem, 3vw, 2.6rem);
+    line-height: 1.14;
+    letter-spacing: -0.016em;
   }
   .text-lede {
     font-size: clamp(1.05rem, 1.45vw, 1.3rem);
