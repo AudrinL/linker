@@ -8,6 +8,9 @@
 
 import { site } from "./site";
 import {
+  airports,
+  currencies,
+  employerSectors,
   cefrLevels,
   countries,
   fluencyLevels,
@@ -400,6 +403,7 @@ export const studyForm: FormConfig = {
           required: true,
         },
         { type: "select", name: "startYear", label: "When do you want to start?", options: startYears, required: true },
+        { type: "text", name: "university", label: "Preferred university (optional)", placeholder: "If you already have one in mind" },
       ],
     },
     {
@@ -619,4 +623,683 @@ export const visaEligibility: EligibilityConfig = {
     title: "Let's fix the basics first",
     copy: "A missing passport or funds will block most applications. Tell us your situation and we'll give you a written step-by-step plan — free.",
   },
+};
+
+/* ================================================================== */
+/*  FOR JOB SEEKERS — SUBMIT CV                                        */
+/* ================================================================== */
+
+export const cvForm: FormConfig = {
+  id: "submit-cv",
+  title: "Submit your CV",
+  subtitle:
+    "Create your profile and tell us where and what type of work you are looking for. We contact you when a suitable opportunity matches.",
+  prefillField: "firstChoice",
+  sections: [
+    {
+      id: "destination",
+      title: "Where you want to work",
+      fields: [
+        {
+          type: "search",
+          name: "firstChoice",
+          label: "First-choice country",
+          options: names(workDestinations),
+          placeholder: "Search or select a country…",
+          required: true,
+        },
+        {
+          type: "multiselect",
+          name: "alsoConsider",
+          label: "Other countries you would consider",
+          options: names(workDestinations),
+          max: 3,
+          hint: "Choose up to 3",
+        },
+      ],
+    },
+    {
+      id: "job",
+      title: "What you are looking for",
+      fields: [
+        {
+          type: "search",
+          name: "role",
+          label: "Preferred job position",
+          options: jobRoles,
+          placeholder: "e.g. Caregiver, Welder, Truck Driver…",
+          required: true,
+        },
+        { type: "select", name: "sector", label: "Preferred sector", options: sectors, required: true },
+        {
+          type: "radio",
+          name: "employmentType",
+          label: "Employment type",
+          options: ["Full-time", "Part-time", "Contract", "Seasonal"],
+          required: true,
+        },
+      ],
+    },
+    {
+      id: "personal",
+      title: "Personal information",
+      fields: personalFields({ dob: true }),
+    },
+    {
+      id: "education",
+      title: "Education",
+      fields: [
+        {
+          type: "select",
+          name: "qualification",
+          label: "Highest qualification",
+          options: ["Secondary school", "Certificate", "Diploma", "Bachelor's degree", "Master's degree", "PhD", "Professional qualification", "Other"],
+          required: true,
+        },
+        { type: "text", name: "fieldOfStudy", label: "Field of study", placeholder: "e.g. Nursing, Electrical installation" },
+        { type: "text", name: "institution", label: "Institution", placeholder: "Where you studied" },
+        { type: "select", name: "graduationYear", label: "Graduation year", options: gradYears },
+      ],
+    },
+    {
+      id: "experience",
+      title: "Work experience",
+      fields: [
+        {
+          type: "select",
+          name: "years",
+          label: "Years of experience",
+          options: ["No experience", "Less than 1 year", "1–2 years", "3–5 years", "6–10 years", "10+ years"],
+          required: true,
+        },
+        { type: "text", name: "jobTitle", label: "Current / most recent job title", placeholder: "e.g. Site electrician" },
+        { type: "text", name: "employer", label: "Employer / company", placeholder: "e.g. Kigali Build Ltd" },
+        {
+          type: "textarea",
+          name: "responsibilities",
+          label: "Main responsibilities",
+          placeholder: "Describe the work you actually did day to day — this is what employers read first.",
+          rows: 3,
+        },
+      ],
+    },
+    {
+      id: "languages",
+      title: "Language skills",
+      fields: [
+        { type: "select", name: "english", label: "English", options: fluencyLevels, required: true },
+        { type: "select", name: "german", label: "German", options: cefrLevels },
+        { type: "select", name: "french", label: "French", options: ["None", ...fluencyLevels] },
+        { type: "text", name: "otherLanguages", label: "Other languages", placeholder: "e.g. Swahili (native), Arabic (basic)" },
+      ],
+    },
+    {
+      id: "status",
+      title: "Passport & work status",
+      fields: [
+        { type: "radio", name: "passport", label: "Do you have a valid passport?", options: ["Yes", "No"], required: true },
+        { type: "date", name: "passportExpiry", label: "Passport expiry date", hint: "Most employers need at least 6 months' validity." },
+        {
+          type: "radio",
+          name: "permit",
+          label: "Do you currently have a work permit or visa?",
+          options: ["Yes", "No", "Application in progress"],
+          required: true,
+        },
+        { type: "radio", name: "workedAbroad", label: "Have you worked abroad before?", options: ["Yes", "No"], required: true },
+      ],
+    },
+    {
+      id: "preferences",
+      title: "Job preferences",
+      fields: [
+        { type: "text", name: "salary", label: "Expected salary", placeholder: "e.g. €2,800 gross per month" },
+        { type: "date", name: "startDate", label: "Preferred starting date" },
+        { type: "radio", name: "relocate", label: "Are you willing to relocate?", options: ["Yes", "No"], required: true },
+        { type: "radio", name: "interview", label: "Are you available for an interview?", options: ["Yes", "No"], required: true },
+      ],
+    },
+    {
+      id: "intro",
+      title: "About you",
+      fields: [
+        {
+          type: "textarea",
+          name: "message",
+          label: "Why are you looking for work abroad, and what opportunity interests you?",
+          placeholder: "Your situation, your strengths, and what you want this move to change.",
+          rows: 5,
+          required: true,
+        },
+        ...contactPreference,
+      ],
+    },
+  ],
+  documents: [
+    { id: "cv", label: "CV / Resume", hint: "PDF, DOC or DOCX", required: true },
+    { id: "certificates", label: "Academic certificates", hint: "Your highest qualification" },
+    { id: "licence", label: "Professional certificates / licences", hint: "Trade, driving or nursing licence" },
+    { id: "passport", label: "Passport copy", hint: "Personal details page" },
+    { id: "additional", label: "Additional documents", hint: "References, portfolio, anything else" },
+  ],
+  consents: [
+    "I confirm that the information provided in this application is accurate and complete.",
+    `I authorize ${site.name} to review my CV and application for suitable employment opportunities.`,
+    "I understand that submitting my CV does not guarantee employment, a job offer, work permit or visa approval.",
+  ],
+  submitLabel: "Submit my CV",
+  whatsappIntro: "New CV submission",
+  emailSubject: "CV Submission",
+  referencePrefix: "LW-CV",
+  successTitle: "Thank you for submitting your CV",
+  successCopy:
+    "Your profile has been received. Our recruitment team will review your information and contact you if your qualifications and experience match a suitable opportunity.",
+  successLinks: [
+    { label: "View available jobs", href: "/jobs" },
+    { label: "Return home", href: "/" },
+  ],
+};
+
+/* ================================================================== */
+/*  FOR EMPLOYERS — JOB ORDER                                          */
+/* ================================================================== */
+
+export const employerForm: FormConfig = {
+  id: "job-order",
+  title: "Submit a job order",
+  subtitle:
+    "Tell us about your recruitment needs. We review your requirements and help identify suitable candidates for the positions you need to fill.",
+  sections: [
+    {
+      id: "company",
+      title: "Company information",
+      fields: [
+        { type: "text", name: "company", label: "Company name", placeholder: "Registered business name", required: true },
+        { type: "search", name: "country", label: "Country", options: countries, placeholder: "Where the company is based", required: true },
+        { type: "text", name: "city", label: "City / location", placeholder: "e.g. Munich", required: true },
+        { type: "text", name: "website", label: "Company website", placeholder: "https://" },
+        { type: "select", name: "sector", label: "Industry / sector", options: employerSectors, required: true },
+      ],
+    },
+    {
+      id: "contact",
+      title: "Contact person",
+      fields: [
+        { type: "text", name: "contactName", label: "Contact person full name", required: true },
+        { type: "text", name: "position", label: "Position / job title", placeholder: "e.g. HR Manager", required: true },
+        { type: "email", name: "email", label: "Business email", placeholder: "you@company.com", required: true },
+        { type: "tel", name: "phone", label: "Phone number", placeholder: "+49 …", required: true },
+        { type: "tel", name: "whatsapp", label: "WhatsApp number", placeholder: "If different" },
+        {
+          type: "radio",
+          name: "contactMethod",
+          label: "Preferred contact method",
+          options: ["Email", "Phone", "WhatsApp"],
+          required: true,
+        },
+      ],
+    },
+    {
+      id: "role",
+      title: "Job requirements",
+      fields: [
+        { type: "text", name: "jobTitle", label: "Job title", placeholder: "e.g. Healthcare assistant", required: true },
+        { type: "counter", name: "workers", label: "Number of workers required", min: 1, max: 99, required: true },
+        { type: "text", name: "department", label: "Department / sector", placeholder: "e.g. Elderly care" },
+        { type: "text", name: "location", label: "Job location", placeholder: "City / region", required: true },
+        {
+          type: "radio",
+          name: "employmentType",
+          label: "Employment type",
+          options: ["Full-time", "Part-time", "Contract", "Seasonal", "Temporary"],
+          required: true,
+        },
+        { type: "text", name: "duration", label: "Contract duration", placeholder: "e.g. 24 months, permanent", required: true },
+        { type: "date", name: "startDate", label: "Expected start date", required: true },
+      ],
+    },
+    {
+      id: "candidate",
+      title: "Candidate requirements",
+      fields: [
+        { type: "text", name: "education", label: "Required education", placeholder: "e.g. Vocational qualification in care" },
+        { type: "text", name: "experience", label: "Required experience", placeholder: "e.g. 2+ years", required: true },
+        {
+          type: "textarea",
+          name: "skills",
+          label: "Required skills",
+          placeholder: "The practical skills a candidate must already have.",
+          rows: 3,
+        },
+        { type: "radio", name: "licence", label: "Professional licence / certification required?", options: ["Yes", "No"], required: true },
+        { type: "text", name: "licenceDetail", label: "If yes, which licence or certification?", placeholder: "e.g. EU category C licence" },
+        { type: "text", name: "language", label: "Language requirements", placeholder: "e.g. German" },
+        { type: "select", name: "languageLevel", label: "Minimum language level", options: ["Not required", ...cefrLevels.slice(1)] },
+      ],
+    },
+    {
+      id: "salary",
+      title: "Salary & benefits",
+      fields: [
+        { type: "text", name: "salary", label: "Salary", placeholder: "e.g. 2,900 – 3,400", required: true },
+        { type: "select", name: "currency", label: "Currency", options: currencies, required: true },
+        {
+          type: "radio",
+          name: "salaryPeriod",
+          label: "Salary period",
+          options: ["Hourly", "Weekly", "Monthly", "Annual"],
+          required: true,
+        },
+        { type: "radio", name: "overtime", label: "Overtime available?", options: ["Yes", "No"], required: true },
+        {
+          type: "radio",
+          name: "accommodation",
+          label: "Accommodation provided?",
+          options: ["Yes", "No", "Paid by employee", "Company contribution"],
+          required: true,
+        },
+        {
+          type: "radio",
+          name: "meals",
+          label: "Food / meals provided?",
+          options: ["Yes", "No", "Allowance provided"],
+          required: true,
+        },
+        {
+          type: "multiselect",
+          name: "benefits",
+          label: "Additional benefits",
+          options: ["Health insurance", "Transportation", "Accommodation", "Meals", "Paid vacation", "Overtime pay", "Bonus", "Other"],
+        },
+      ],
+    },
+    {
+      id: "immigration",
+      title: "Visa & work permit",
+      fields: [
+        {
+          type: "radio",
+          name: "permitSupport",
+          label: "Does the company provide work permit support?",
+          options: ["Yes", "No", "Depends on position", "Not applicable"],
+          required: true,
+        },
+        {
+          type: "radio",
+          name: "sponsorship",
+          label: "Does the company provide visa sponsorship?",
+          options: ["Yes", "No", "Depends on position"],
+          required: true,
+        },
+        {
+          type: "radio",
+          name: "permitCosts",
+          label: "Who is responsible for visa / work permit costs?",
+          options: ["Employer", "Employee", "Shared", "Other"],
+          required: true,
+        },
+        {
+          type: "textarea",
+          name: "immigrationNotes",
+          label: "Additional immigration information",
+          placeholder: "Describe the work permit or visa arrangement.",
+          rows: 3,
+        },
+      ],
+    },
+    {
+      id: "description",
+      title: "Job description",
+      fields: [
+        {
+          type: "textarea",
+          name: "responsibilities",
+          label: "Job responsibilities",
+          placeholder: "The main duties and responsibilities of the position.",
+          rows: 4,
+          required: true,
+        },
+        {
+          type: "textarea",
+          name: "qualifications",
+          label: "Required qualifications",
+          placeholder: "Formal qualifications a candidate must hold.",
+          rows: 3,
+        },
+        {
+          type: "textarea",
+          name: "profile",
+          label: "Preferred candidate profile",
+          placeholder: "The kind of person who does well in this role.",
+          rows: 3,
+        },
+        { type: "text", name: "hours", label: "Working hours", placeholder: "e.g. 40 hours per week", required: true },
+        {
+          type: "radio",
+          name: "schedule",
+          label: "Work schedule",
+          options: ["Day shift", "Night shift", "Rotating shifts", "Flexible", "Other"],
+          required: true,
+        },
+      ],
+    },
+    {
+      id: "recruitment",
+      title: "Recruitment details",
+      fields: [
+        { type: "search", name: "nationality", label: "Preferred candidate nationality", options: ["No preference", ...countries], placeholder: "No preference" },
+        { type: "text", name: "age", label: "Age requirement", placeholder: "Only where lawful and job-related" },
+        {
+          type: "radio",
+          name: "gender",
+          label: "Gender requirement",
+          options: ["No preference", "Lawful job-related requirement — specified below"],
+          required: true,
+        },
+        {
+          type: "radio",
+          name: "interviewMethod",
+          label: "Interview method",
+          options: ["Online interview", "In-person interview", "Phone interview", "Not yet decided"],
+          required: true,
+        },
+        { type: "date", name: "deadline", label: "Expected recruitment deadline" },
+        {
+          type: "radio",
+          name: "urgency",
+          label: "How quickly do you need candidates?",
+          options: ["Immediately", "Within 1 month", "1–3 months", "3–6 months", "Flexible"],
+          required: true,
+        },
+        { type: "radio", name: "international", label: "Are you open to international candidates?", options: ["Yes", "No"], required: true },
+        { type: "radio", name: "priorExperience", label: "Previous international recruitment experience?", options: ["Yes", "No"], required: true },
+        {
+          type: "textarea",
+          name: "message",
+          label: "Anything else we should know about this request?",
+          placeholder: "Context that would help us screen the right people.",
+          rows: 3,
+        },
+      ],
+    },
+  ],
+  documents: [
+    { id: "vacancy", label: "Job description / vacancy document", hint: "The role as you have written it" },
+    { id: "profile", label: "Company profile", hint: "So candidates know who they are joining" },
+    { id: "contract", label: "Employment contract / job offer", hint: "Template or sample" },
+    { id: "additional", label: "Additional documents" },
+  ],
+  consents: [
+    "I confirm that the information provided is accurate and that I am authorized to submit this recruitment request on behalf of the company.",
+    `I agree that ${site.name} may contact me regarding this job order.`,
+    "I understand that candidate recruitment is subject to job requirements, candidate availability and applicable employment and immigration regulations.",
+  ],
+  submitLabel: "Submit job order",
+  whatsappIntro: "New EMPLOYER job order",
+  emailSubject: "Employer Job Order",
+  referencePrefix: "LWT-JOB-ORDER",
+  successTitle: "Job order received",
+  successCopy:
+    "Your recruitment request has been submitted. Our recruitment team will review the requirements and contact your company regarding the next steps.",
+  successLinks: [
+    { label: "Submit another job order", href: "/employers" },
+    { label: "Contact our recruitment team", href: "/contact" },
+  ],
+};
+
+/* ================================================================== */
+/*  FLIGHT TICKETS                                                     */
+/* ================================================================== */
+
+export const flightForm: FormConfig = {
+  id: "flight",
+  title: "Request a flight",
+  subtitle:
+    "Tell us about your trip and our travel team comes back with available options, schedules and pricing.",
+  sections: [
+    {
+      id: "passenger",
+      title: "Passenger information",
+      fields: [
+        { type: "text", name: "fullName", label: "Full name (as shown on passport)", placeholder: "e.g. Jean-Claude Mugisha", required: true },
+        { type: "email", name: "email", label: "Email address", placeholder: "you@example.com", required: true },
+        { type: "tel", name: "phone", label: "Phone number", placeholder: "+250 7…", required: true },
+        { type: "tel", name: "whatsapp", label: "WhatsApp number", placeholder: "If different from your phone" },
+        { type: "search", name: "nationality", label: "Nationality", options: countries, placeholder: "Search your nationality…" },
+      ],
+    },
+    {
+      id: "trip",
+      title: "Trip details",
+      fields: [
+        {
+          type: "radio",
+          name: "tripType",
+          label: "Trip type",
+          options: ["One way", "Round trip", "Multi-city"],
+          required: true,
+        },
+        {
+          type: "search",
+          name: "from",
+          label: "Departure city / airport",
+          options: airports,
+          placeholder: "Search a city or airport…",
+          required: true,
+        },
+        {
+          type: "search",
+          name: "to",
+          label: "Destination city / airport",
+          options: airports,
+          placeholder: "Search a city or airport…",
+          required: true,
+        },
+        { type: "date", name: "departDate", label: "Departure date", required: true },
+        { type: "date", name: "returnDate", label: "Return date", hint: "Round trips only" },
+        {
+          type: "select",
+          name: "departTime",
+          label: "Preferred departure time",
+          options: ["Morning", "Afternoon", "Evening", "Night", "Any time"],
+        },
+      ],
+    },
+    {
+      id: "passengers",
+      title: "Passengers & class",
+      fields: [
+        { type: "counter", name: "adults", label: "Adults", min: 1, max: 9, required: true, hint: "12 years and over" },
+        { type: "counter", name: "children", label: "Children", min: 0, max: 9, hint: "2 – 11 years" },
+        { type: "counter", name: "infants", label: "Infants", min: 0, max: 9, hint: "Under 2 years" },
+        {
+          type: "radio",
+          name: "class",
+          label: "Preferred class",
+          options: ["Economy", "Premium economy", "Business", "First class", "No preference"],
+          required: true,
+        },
+      ],
+    },
+    {
+      id: "preferences",
+      title: "Baggage & preferences",
+      fields: [
+        {
+          type: "radio",
+          name: "baggage",
+          label: "Baggage requirements",
+          options: ["Standard baggage", "Additional baggage", "No preference"],
+          required: true,
+        },
+        {
+          type: "multiselect",
+          name: "assistance",
+          label: "Special requirements",
+          options: ["Wheelchair assistance", "Special assistance", "Travelling with infant", "Other"],
+        },
+        { type: "text", name: "airline", label: "Preferred airline", placeholder: "e.g. RwandAir, Qatar Airways" },
+        { type: "text", name: "flightNumber", label: "Do you have a preferred flight?", placeholder: "Flight number, if known" },
+        {
+          type: "radio",
+          name: "stops",
+          label: "Maximum number of stops",
+          options: ["Direct flight only", "1 stop", "2+ stops", "No preference"],
+          required: true,
+        },
+        { type: "text", name: "budget", label: "Budget per passenger", placeholder: "e.g. $850" },
+      ],
+    },
+    {
+      id: "travel",
+      title: "Travel information",
+      fields: [
+        {
+          type: "radio",
+          name: "purpose",
+          label: "Purpose of travel",
+          options: ["Work", "Study", "Tourism", "Business", "Family visit", "Medical", "Other"],
+          required: true,
+        },
+        {
+          type: "radio",
+          name: "visaStatus",
+          label: "Do you already have the required visa or travel authorization?",
+          options: ["Yes", "No", "Application in progress", "Not required"],
+          required: true,
+        },
+        {
+          type: "textarea",
+          name: "message",
+          label: "Additional information",
+          placeholder: "Any special requirements, flexible dates or preferences.",
+          rows: 3,
+        },
+        ...contactPreference,
+      ],
+    },
+  ],
+  documents: [
+    { id: "passport", label: "Passport copy", hint: "So the name on the ticket matches exactly" },
+    { id: "visa", label: "Visa / travel authorization", hint: "If you already have it" },
+    { id: "additional", label: "Additional documents" },
+  ],
+  consents: [
+    "I confirm that the information provided is accurate, and that passenger names match their passports.",
+    `I agree that ${site.name} may contact me regarding available flight options and prices.`,
+  ],
+  submitLabel: "Search & request flight",
+  whatsappIntro: "New FLIGHT request",
+  emailSubject: "Flight Request",
+  referencePrefix: "LWT-FLIGHT",
+  successTitle: "Your flight request has been received",
+  successCopy:
+    "Our travel team will review your requirements and contact you with available flight options, schedules and pricing.",
+  successLinks: [
+    { label: "Back to flight tickets", href: "/flight-tickets" },
+    { label: "Contact us", href: "/contact" },
+  ],
+};
+
+/* ================================================================== */
+/*  CONTACT                                                            */
+/* ================================================================== */
+
+export const contactForm: FormConfig = {
+  id: "contact",
+  title: "Send us a message",
+  subtitle:
+    "Tell us what you need and our team gets back to you using the method you prefer.",
+  sections: [
+    {
+      id: "you",
+      title: "Your details",
+      fields: [
+        { type: "text", name: "fullName", label: "Full name", placeholder: "Your name", required: true },
+        { type: "tel", name: "phone", label: "Phone number", placeholder: "+250 7…", required: true },
+        { type: "tel", name: "whatsapp", label: "WhatsApp number", placeholder: "If different from your phone" },
+        { type: "email", name: "email", label: "Email address", placeholder: "you@example.com", required: true },
+        { type: "search", name: "residence", label: "Country of residence", options: countries, placeholder: "Where do you live now?" },
+      ],
+    },
+    {
+      id: "need",
+      title: "What you need",
+      fields: [
+        {
+          type: "radio",
+          name: "service",
+          label: "Select a service",
+          options: [
+            "Work abroad",
+            "Study abroad",
+            "Visa support",
+            "Flight tickets",
+            "Submit CV",
+            "Employer recruitment",
+            "Business partnership",
+            "General inquiry",
+          ],
+          required: true,
+        },
+        {
+          type: "search",
+          name: "country",
+          label: "Which country are you interested in?",
+          options: names(workDestinations),
+          placeholder: "Search or select a country…",
+        },
+        { type: "text", name: "role", label: "If you are looking for work — preferred job position", placeholder: "e.g. Caregiver" },
+        {
+          type: "select",
+          name: "years",
+          label: "Years of experience",
+          options: ["No experience", "Less than 1 year", "1–2 years", "3–5 years", "6–10 years", "10+ years"],
+        },
+        { type: "text", name: "program", label: "If you want to study — preferred program", placeholder: "e.g. Nursing" },
+        {
+          type: "select",
+          name: "level",
+          label: "Study level",
+          options: ["Diploma", "Bachelor's", "Master's", "PhD", "Vocational", "Language course", "Other"],
+        },
+      ],
+    },
+    {
+      id: "message",
+      title: "Your message",
+      fields: [
+        {
+          type: "textarea",
+          name: "message",
+          label: "How can we help you?",
+          placeholder: "Tell us what you are trying to do and where you are stuck.",
+          rows: 5,
+          required: true,
+        },
+        ...contactPreference,
+      ],
+    },
+  ],
+  documents: [
+    { id: "cv", label: "CV", hint: "If relevant" },
+    { id: "passport", label: "Passport copy", hint: "If relevant" },
+    { id: "certificates", label: "Academic certificates", hint: "If relevant" },
+    { id: "additional", label: "Other supporting documents" },
+  ],
+  consents: [
+    "I confirm that the information provided is accurate.",
+    `I consent to ${site.name} using my information to respond to my inquiry and provide relevant services.`,
+  ],
+  submitLabel: "Send message",
+  whatsappIntro: "New CONTACT inquiry",
+  emailSubject: "Website Inquiry",
+  referencePrefix: "LWT-CONTACT",
+  successTitle: "Thank you for getting in touch",
+  successCopy:
+    "Your inquiry has been received. Our team will review your request and contact you using your preferred communication method.",
+  successLinks: [
+    { label: "Return home", href: "/" },
+    { label: "View opportunities", href: "/opportunities" },
+  ],
 };

@@ -63,9 +63,25 @@ export default function MultiStepForm({ config }: Props) {
   // already filled in. Reading location directly (rather than useSearchParams)
   // keeps these pages statically rendered.
   const [values, setValues] = useState<Values>(() => {
-    if (typeof window === "undefined" || !config.prefillField) return {};
-    const country = new URLSearchParams(window.location.search).get("country");
-    return country ? { [config.prefillField]: country } : {};
+    if (typeof window === "undefined") return {};
+    const params = new URLSearchParams(window.location.search);
+    const seed: Values = {};
+
+    // `?country=` targets whichever field the config nominates, so a
+    // destination picked on a service page lands in the right box.
+    const country = params.get("country");
+    if (country && config.prefillField) seed[config.prefillField] = country;
+
+    // Any other param matching a field name is applied directly — that is how
+    // a job card carries its role into the application.
+    const known = new Set(
+      config.sections.flatMap((s) => s.fields.map((f) => f.name)),
+    );
+    params.forEach((value, key) => {
+      if (key !== "country" && known.has(key)) seed[key] = value;
+    });
+
+    return seed;
   });
   const [files, setFiles] = useState<Files>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
