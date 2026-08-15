@@ -6,6 +6,7 @@
  * wiring (FastAPI, see BACKEND_PLAN.md) needs a single submission hook.
  */
 
+import { site } from "./site";
 import {
   cefrLevels,
   countries,
@@ -33,7 +34,9 @@ export type FieldDef =
    */
   | { type: "search"; name: string; label: string; options: string[]; placeholder?: string; required?: boolean; hint?: string }
   /** Checkbox group. `max` caps how many can be picked (the brief's "up to 3"). */
-  | { type: "multiselect"; name: string; label: string; options: string[]; max?: number; required?: boolean; hint?: string };
+  | { type: "multiselect"; name: string; label: string; options: string[]; max?: number; required?: boolean; hint?: string }
+  /** Stepper for small counts — passengers, workers required. */
+  | { type: "counter"; name: string; label: string; min?: number; max?: number; required?: boolean; hint?: string };
 
 export type DocumentDef = {
   id: string;
@@ -272,7 +275,7 @@ export const workForm: FormConfig = {
   ],
   consents: [
     "I confirm that the information provided is accurate and complete.",
-    "I consent to Linker World Travel reviewing my application and contacting me regarding relevant opportunities.",
+    `I consent to ${site.name} reviewing my application and contacting me regarding relevant opportunities.`,
     "I understand that submitting an application does not guarantee employment, a job offer, work permit or visa approval.",
   ],
   submitLabel: "Apply now",
@@ -441,7 +444,7 @@ export const studyForm: FormConfig = {
   ],
   consents: [
     "I confirm that the information provided is accurate.",
-    "I consent to Linker World Travel reviewing my information and contacting me regarding suitable study opportunities.",
+    `I consent to ${site.name} reviewing my information and contacting me regarding suitable study opportunities.`,
     "I understand that submitting this form does not guarantee admission, scholarship or student visa approval.",
   ],
   submitLabel: "Find my study program",
@@ -538,7 +541,7 @@ export const visaForm: FormConfig = {
   ],
   consents: [
     "I confirm that the information provided is accurate and that all documents I supply are genuine.",
-    "I consent to Linker World Travel reviewing my information and contacting me regarding visa support.",
+    `I consent to ${site.name} reviewing my information and contacting me regarding visa support.`,
     "I understand that visa decisions are made solely by the relevant embassy, consulate or immigration authority, and that approval is not guaranteed.",
   ],
   submitLabel: "Request visa support",

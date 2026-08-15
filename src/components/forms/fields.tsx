@@ -24,6 +24,8 @@ export function validateField(def: FieldDef, value: string): string | null {
     return def.required && v !== "on" ? "Please tick this to continue." : null;
   if (def.required && !v) {
     if (def.type === "multiselect") return "Choose at least one option.";
+    // A counter left untouched still means its minimum, so it is never blank.
+    if (def.type === "counter") return null;
     return "This field is required.";
   }
   if (v) {
@@ -273,6 +275,49 @@ export function Field({ def, value, error, onChange }: FieldProps) {
             </p>
           )}
           {def.hint && !def.max && !error && <p className={hintCls}>{def.hint}</p>}
+          {error && <p className={errorCls}>{error}</p>}
+        </div>
+      );
+    }
+
+    case "counter": {
+      const min = def.min ?? 0;
+      const max = def.max ?? 9;
+      const current = value === "" ? min : Number(value);
+      const step = (delta: number) =>
+        handle(String(Math.min(max, Math.max(min, current + delta))));
+      return (
+        <div>
+          <span className={labelCls}>{def.label}</span>
+          <div className="mt-3 flex items-center gap-4">
+            <div className="flex items-center gap-1 rounded-full border border-mist/18 bg-white p-1">
+              <button
+                type="button"
+                onClick={() => step(-1)}
+                disabled={current <= min}
+                aria-label={`Fewer ${def.label.toLowerCase()}`}
+                className="grid size-9 place-items-center rounded-full text-lg text-mist transition-colors duration-300 hover:bg-gold/10 hover:text-gold disabled:pointer-events-none disabled:opacity-30"
+              >
+                −
+              </button>
+              <span
+                aria-live="polite"
+                className="min-w-8 text-center font-display text-lg text-bone"
+              >
+                {current}
+              </span>
+              <button
+                type="button"
+                onClick={() => step(1)}
+                disabled={current >= max}
+                aria-label={`More ${def.label.toLowerCase()}`}
+                className="grid size-9 place-items-center rounded-full text-lg text-mist transition-colors duration-300 hover:bg-gold/10 hover:text-gold disabled:pointer-events-none disabled:opacity-30"
+              >
+                +
+              </button>
+            </div>
+            {def.hint && <span className="text-xs text-muted">{def.hint}</span>}
+          </div>
           {error && <p className={errorCls}>{error}</p>}
         </div>
       );

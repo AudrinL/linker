@@ -40,7 +40,9 @@
   /* — Type: the wordmark's navy, and two cooler greys beneath it — */
   --color-bone: #0b2a3f;
   --color-mist: #4a6275;
-  --color-muted: #6a7f8f;
+  /* Darkened until small text on the canvas clears AA (4.57:1) — the old
+     value sat at 3.9 and failed wherever it carried body copy. */
+  --color-muted: #5f7382;
 
   /* — Type — */
   --font-display: var(--font-poppins), "Helvetica Neue", Arial, sans-serif;

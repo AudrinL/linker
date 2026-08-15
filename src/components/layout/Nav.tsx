@@ -25,7 +25,7 @@ function DesktopNavItem({ item, pathname }: { item: NavItem, pathname: string })
         href={item.href}
         className={cn(
           "relative flex items-center gap-1 rounded-full px-3.5 py-2 text-[0.82rem] font-medium tracking-tight transition-colors duration-300",
-          active ? "text-gold" : "text-mist/75 hover:text-bone",
+          active ? "text-gold" : "text-mist hover:text-bone",
         )}
       >
         {item.label}

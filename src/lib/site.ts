@@ -29,7 +29,7 @@ export const site = {
   /** Primary WhatsApp line — all inquiry forms hand off here. */
   whatsapp: "250781072868",
 
-  hours: "Mon – Fri · 08:00 – 18:00 CAT · Sat 09:00 – 14:00",
+  hours: "Mon – Fri · 08:00 – 18:00 CAT · Sat 09:00 – 14:00 · Sun closed",
 
   // TODO(client): replace with real profile URLs.
   socials: [

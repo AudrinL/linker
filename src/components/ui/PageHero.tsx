@@ -58,7 +58,7 @@ export function PageHero({ eyebrow, title, subtitle, className }: PageHeroProps)
           </h1>
 
           {subtitle && (
-            <p className="mt-6 max-w-2xl text-lede text-mist/80">{subtitle}</p>
+            <p className="mt-6 max-w-2xl text-lede text-mist/90">{subtitle}</p>
           )}
         </motion.div>
       </div>

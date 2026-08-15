@@ -72,7 +72,7 @@ export default function Footer() {
                   <li key={l.href}>
                     <Link
                       href={l.href}
-                      className="text-[0.95rem] text-mist/85 transition-colors duration-300 hover:text-gold"
+                      className="text-[0.95rem] text-mist transition-colors duration-300 hover:text-gold"
                     >
                       {l.label}
                     </Link>
@@ -89,7 +89,7 @@ export default function Footer() {
                 <li key={p.e164}>
                   <a
                     href={`tel:+${p.e164}`}
-                    className="text-[0.95rem] text-mist/85 transition-colors duration-300 hover:text-gold"
+                    className="text-[0.95rem] text-mist transition-colors duration-300 hover:text-gold"
                   >
                     {p.display}
                   </a>
@@ -98,7 +98,7 @@ export default function Footer() {
               <li>
                 <a
                   href={`mailto:${site.email}`}
-                  className="text-[0.95rem] text-mist/85 transition-colors duration-300 hover:text-gold"
+                  className="text-[0.95rem] text-mist transition-colors duration-300 hover:text-gold"
                 >
                   {site.email}
                 </a>
@@ -106,7 +106,7 @@ export default function Footer() {
               <li className="pt-1 text-[0.95rem] text-muted">
                 {site.address.line}
               </li>
-              <li className="text-[0.85rem] leading-relaxed text-muted/80">
+              <li className="text-[0.85rem] leading-relaxed text-muted">
                 {site.hours}
               </li>
             </ul>
