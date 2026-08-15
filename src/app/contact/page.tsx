@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import InquiryForm from "@/components/forms/InquiryForm";
+import Link from "next/link";
+import MultiStepForm from "@/components/forms/MultiStepForm";
 import SplitLines from "@/components/motion/SplitLines";
 import Reveal from "@/components/motion/Reveal";
+import { contactForm } from "@/lib/forms";
+import { partnerTypes } from "@/lib/services-data";
+import { Checklist } from "@/components/ui/FeatureList";
 import { site } from "@/lib/site";
 import { whatsappLink } from "@/lib/utils";
 
@@ -67,7 +71,7 @@ export default function ContactPage() {
         <div className="shell">
           <div className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
             <Reveal>
-              <InquiryForm />
+              <MultiStepForm config={contactForm} />
             </Reveal>
 
             <Reveal delay={0.12} className="flex flex-col gap-8">
@@ -157,6 +161,40 @@ export default function ContactPage() {
             <p className="mt-3 text-xs text-muted">
               Kigali, Rwanda. Call ahead to arrange an in-person consultation.
             </p>
+          </Reveal>
+
+          {/* Business & partnership */}
+          <Reveal className="mt-16">
+            <div className="rounded-[var(--radius-lg)] border border-mist/15 bg-ink-soft/50 p-8 sm:p-10">
+              <p className="eyebrow">Business & partnership</p>
+              <h2 className="mt-4 font-display text-3xl tracking-tight text-bone">
+                We welcome professional partnerships
+              </h2>
+              <p className="mt-5 max-w-2xl text-[0.95rem] leading-relaxed text-mist">
+                We work with organisations on both sides of the journey. Get in
+                touch if you are:
+              </p>
+              <Checklist items={partnerTypes} columns={2} className="mt-7" />
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link
+                  href="/employers"
+                  className="rounded-full bg-gold px-6 py-3 text-sm font-medium text-white transition-colors duration-500 hover:bg-bone"
+                >
+                  Submit a job order
+                </Link>
+                <a
+                  href={whatsappLink(
+                    site.whatsapp,
+                    `Hello ${site.name}, I would like to discuss a partnership.`,
+                  )}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-mist/25 px-6 py-3 text-sm font-medium transition-colors duration-300 hover:border-gold/70 hover:text-gold"
+                >
+                  Become a partner
+                </a>
+              </div>
+            </div>
           </Reveal>
         </div>
       </section>

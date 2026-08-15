@@ -24,6 +24,18 @@ const nextConfig: NextConfig = {
         destination: "/visa-support/apply",
         permanent: true,
       },
+      // The brief's information architecture is flat: jobs and flights are
+      // top-level services, not sub-pages of a hub.
+      {
+        source: "/work-abroad/jobs",
+        destination: "/jobs",
+        permanent: true,
+      },
+      {
+        source: "/travel/flight-booking",
+        destination: "/flight-tickets",
+        permanent: true,
+      },
     ];
   },
 };
