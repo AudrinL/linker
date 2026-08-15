@@ -10,13 +10,20 @@
  * `slug` is the detail route. `skill` drives the filter's Skill Level facet.
  */
 
+import type { sectors } from "./countries";
+
 export type Job = {
   slug: string;
   title: string;
   icon: string;
   country: string;
   flag: string;
-  sector: string;
+  /**
+   * Must be one of the canonical sectors — the job filter builds its options
+   * from that same list, so a near-miss like "Healthcare" instead of
+   * "Healthcare & Care" would silently drop the vacancy out of the facet.
+   */
+  sector: (typeof sectors)[number];
   employment: "Full-time" | "Part-time" | "Contract" | "Seasonal" | "Full-time / Seasonal";
   skill: "Professional" | "Skilled" | "Blue Collar" | "Entry Level";
   experience: string;
@@ -35,7 +42,7 @@ export const jobs: Job[] = [
     icon: "🧑‍⚕️",
     country: "Germany",
     flag: "🇩🇪",
-    sector: "Healthcare",
+    sector: "Healthcare & Care",
     employment: "Full-time",
     skill: "Skilled",
     experience: "1–2+ years depending on employer",
@@ -187,7 +194,7 @@ export const jobs: Job[] = [
     icon: "🧑‍⚕️",
     country: "Canada",
     flag: "🇨🇦",
-    sector: "Healthcare",
+    sector: "Healthcare & Care",
     employment: "Full-time",
     skill: "Skilled",
     experience: "Depending on employer or program",
@@ -451,7 +458,7 @@ export const jobs: Job[] = [
     icon: "🧑‍⚕️",
     country: "United Kingdom",
     flag: "🇬🇧",
-    sector: "Healthcare",
+    sector: "Healthcare & Care",
     employment: "Full-time",
     skill: "Professional",
     experience: "Position-specific qualifications",
@@ -492,7 +499,7 @@ export const jobs: Job[] = [
     icon: "🧑‍⚕️",
     country: "Ireland",
     flag: "🇮🇪",
-    sector: "Healthcare",
+    sector: "Healthcare & Care",
     employment: "Full-time",
     skill: "Skilled",
     experience: "Depending on employer",

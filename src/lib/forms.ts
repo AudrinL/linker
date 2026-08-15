@@ -25,8 +25,8 @@ import {
 
 export type FieldDef =
   | { type: "text" | "email" | "tel"; name: string; label: string; placeholder?: string; required?: boolean }
-  | { type: "select"; name: string; label: string; options: string[]; placeholder?: string; required?: boolean }
-  | { type: "radio"; name: string; label: string; options: string[]; required?: boolean }
+  | { type: "select"; name: string; label: string; options: readonly string[]; placeholder?: string; required?: boolean }
+  | { type: "radio"; name: string; label: string; options: readonly string[]; required?: boolean }
   | { type: "checkbox"; name: string; label: string; required?: boolean }
   | { type: "textarea"; name: string; label: string; placeholder?: string; required?: boolean; rows?: number }
   /** Native date picker — birth dates, passport expiry, travel dates. */
@@ -35,9 +35,9 @@ export type FieldDef =
    * Type-to-search picker backed by a datalist. Free text is accepted so an
    * applicant is never blocked by a country or role we did not anticipate.
    */
-  | { type: "search"; name: string; label: string; options: string[]; placeholder?: string; required?: boolean; hint?: string }
+  | { type: "search"; name: string; label: string; options: readonly string[]; placeholder?: string; required?: boolean; hint?: string }
   /** Checkbox group. `max` caps how many can be picked (the brief's "up to 3"). */
-  | { type: "multiselect"; name: string; label: string; options: string[]; max?: number; required?: boolean; hint?: string }
+  | { type: "multiselect"; name: string; label: string; options: readonly string[]; max?: number; required?: boolean; hint?: string }
   /** Stepper for small counts — passengers, workers required. */
   | { type: "counter"; name: string; label: string; min?: number; max?: number; required?: boolean; hint?: string };
 
@@ -52,7 +52,7 @@ export type DocumentDef = {
 
 export type EligibilityQuestion = {
   q: string;
-  options: string[];
+  options: readonly string[];
   /** Selecting any of these options flags the applicant as not yet eligible. */
   disqualifiers?: string[];
 };

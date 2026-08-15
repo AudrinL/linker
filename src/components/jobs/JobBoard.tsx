@@ -233,7 +233,11 @@ export default function JobBoard() {
           <p aria-live="polite" className="text-sm text-mist">
             <span className="font-medium text-bone">{filtered.length}</span>{" "}
             {filtered.length === 1 ? "vacancy" : "vacancies"}
-            {active ? " match your filters" : " currently listed"}
+            {active
+              ? filtered.length === 1
+                ? " matches your filters"
+                : " match your filters"
+              : " currently listed"}
           </p>
           {active && (
             <button

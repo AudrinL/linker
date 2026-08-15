@@ -106,7 +106,7 @@ export const sectors = [
   "Education",
   "Skilled Trades",
   "Other",
-];
+] as const;
 
 /** Common roles, offered as suggestions on the job-preference field. */
 export const jobRoles = [
