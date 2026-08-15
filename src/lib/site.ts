@@ -8,7 +8,7 @@ export const site = {
   shortName: "Linker World",
   tagline: "Connecting Africa to the world",
   description:
-    "Linker World Travel connects people to opportunity worldwide — overseas recruitment, study abroad, visa services and international travel, handled end to end from Kigali.",
+    "Linker World Travel connects people to opportunity worldwide, overseas recruitment, study abroad, visa services and international travel, handled end to end from Kigali.",
   url: "https://www.linkerworldtravel.com",
   locale: "en_RW",
 

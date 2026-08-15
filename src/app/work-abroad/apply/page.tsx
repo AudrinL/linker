@@ -11,7 +11,7 @@ import { TrustBar } from "@/components/ui/TrustBar";
 export const metadata: Metadata = {
   title: "Apply for a Job Abroad",
   description:
-    "Apply to work in the Gulf, Europe or North America. Share your profile and documents — we reply within one working day.",
+    "Apply to work in the Gulf, Europe or North America. Share your profile and documents. We reply within one working day.",
 };
 
 export default function WorkApplyPage() {
@@ -20,7 +20,7 @@ export default function WorkApplyPage() {
       <PageHero
         eyebrow="Work Abroad"
         title="Apply for a job abroad"
-        subtitle="Your profile goes straight to a consultant — not an inbox. We review every application within one working day."
+        subtitle="Your profile goes straight to a consultant, not an inbox. We review every application within one working day."
       />
       <main className="shell py-16 lg:py-24">
         <div className="mx-auto max-w-4xl">

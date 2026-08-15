@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const job = getJob(slug);
   if (!job) return { title: "Job not found" };
   return {
-    title: `${job.title} — ${job.country}`,
+    title: `${job.title}, ${job.country}`,
     description: job.summary,
   };
 }
@@ -62,7 +62,7 @@ export default async function JobDetailPage({ params }: Params) {
             </section>
           </div>
 
-          {/* Sticky summary — the facts a candidate screens on */}
+          {/* Sticky summary: the facts a candidate screens on */}
           <aside className="rounded-[var(--radius-lg)] border border-mist/15 bg-ink-soft/60 p-7 lg:sticky lg:top-28">
             <p className="eyebrow">Salary</p>
             <p className="mt-2 font-display text-2xl tracking-tight text-gold">

@@ -58,7 +58,7 @@ export const jobs: Job[] = [
     ],
     requirements: [
       "Care experience or a recognised care qualification",
-      "German language, typically B1 — employers vary",
+      "German language, typically B1 (employers vary)",
       "Valid passport with at least 6 months' validity",
       "Willingness to complete recognition of qualifications",
     ],

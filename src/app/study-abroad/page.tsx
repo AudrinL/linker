@@ -29,7 +29,7 @@ import { TrustBar } from "@/components/ui/TrustBar";
 export const metadata: Metadata = {
   title: "Study Abroad",
   description:
-    "Explore study opportunities abroad with guidance through the whole education application process — choosing a destination and program, preparing admission documents and applying for a student visa.",
+    "Explore study opportunities abroad with guidance through the whole education application process, choosing a destination and program, preparing admission documents and applying for a student visa.",
 };
 
 const routes = [
@@ -43,14 +43,14 @@ const routes = [
   {
     index: "02",
     title: "Study Visa",
-    description: "Embassy-ready student visa files — including the funds and interview preparation that get approvals.",
+    description: "Embassy-ready student visa files, including the funds and interview preparation that get approvals.",
     href: "/study-abroad/study-visa",
     points: ["Genuine student checks", "Document & funds advice", "Interview coaching"],
   },
   {
     index: "03",
     title: "Admission Guidance",
-    description: "Honest advice on which programs you can realistically win — before you spend on tests and fees.",
+    description: "Honest advice on which programs you can realistically win, before you spend on tests and fees.",
     href: "/study-abroad/admission-guidance",
     points: ["Profile evaluation", "Pathway programs", "English test planning"],
   },
@@ -72,7 +72,7 @@ export default function StudyAbroadHub() {
       <PageHero
         eyebrow="Study Abroad"
         title="Your education. Your future. Your world."
-        subtitle="We help students explore study opportunities abroad and guide them through the whole education application process — from choosing a destination and program to preparing admission and student visa documents."
+        subtitle="We help students explore study opportunities abroad and guide them through the whole education application process, from choosing a destination and program to preparing admission and student visa documents."
       />
 
       <main className="shell space-y-24 py-16 lg:py-24">
@@ -108,7 +108,7 @@ export default function StudyAbroadHub() {
           <SectionHeading
             eyebrow="Programs"
             title="What can you study?"
-            lede="From foundation programs to doctoral research — and the language courses that open the door to both."
+            lede="From foundation programs to doctoral research, and the language courses that open the door to both."
           />
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {studyProgramCategories.map((c) => (
@@ -178,7 +178,7 @@ export default function StudyAbroadHub() {
             <SectionHeading eyebrow="Documentation" title="General requirements" />
             <Checklist items={studyRequirements} columns={1} className="mt-8" />
             <p className="mt-6 text-sm leading-relaxed text-muted">
-              Not every applicant needs all of these — requirements vary by
+              Not every applicant needs all of these, requirements vary by
               institution and country.
             </p>
           </div>
@@ -288,7 +288,7 @@ export default function StudyAbroadHub() {
 
         <StickyCTA
           title="Your future starts with the right opportunity"
-          copy="Tell us your goals, grades and budget — we respond with a country and course shortlist within two working days."
+          copy="Tell us your goals, grades and budget. We respond with a country and course shortlist within two working days."
           buttonText="Find my study program"
           buttonHref="/study-abroad/apply"
         />

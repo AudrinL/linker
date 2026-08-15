@@ -80,7 +80,7 @@ export default function Hero() {
       <div ref={plate} className="absolute inset-0 -z-10 will-change-transform">
         <Image
           src="/assets/hero%20image.png"
-          alt="Travel across Africa and beyond — the world Linker World Travel opens to you"
+          alt="Travel across Africa and beyond: the world Linker World Travel opens to you"
           fill
           priority
           quality={88}
@@ -122,7 +122,7 @@ export default function Hero() {
 
           <p className="mt-6 max-w-xl text-lede text-white/80">
             We help you find opportunities to work, study, travel and build your
-            future internationally — from the first conversation to the day you
+            future internationally, from the first conversation to the day you
             land.
           </p>
 

@@ -10,7 +10,7 @@ import { StickyCTA } from "@/components/ui/StickyCTA";
 export const metadata: Metadata = {
   title: "Flight Tickets",
   description:
-    "Domestic and international flight booking for work, study, business, tourism and family travel — arranged by a real travel team in Kigali.",
+    "Domestic and international flight booking for work, study, business, tourism and family travel, arranged by a real travel team in Kigali.",
 };
 
 export default function FlightTicketsPage() {

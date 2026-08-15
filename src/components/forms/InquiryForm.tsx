@@ -107,7 +107,7 @@ export default function InquiryForm() {
           <a
             href={mailtoLink(
               site.email,
-              `Inquiry — ${values.service}`,
+              `Inquiry: ${values.service}`,
               composed(),
             )}
             className="rounded-full border border-mist/25 px-6 py-3 text-sm font-medium transition-colors hover:border-gold/70 hover:text-gold"

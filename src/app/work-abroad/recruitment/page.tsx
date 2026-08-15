@@ -10,7 +10,7 @@ import { StickyCTA } from "@/components/ui/StickyCTA";
 export const metadata: Metadata = {
   title: "Overseas Recruitment",
   description:
-    "We connect skilled talent with trusted international employers — screening, verification, matching and post-placement support, end to end from Kigali.",
+    "We connect skilled talent with trusted international employers, screening, verification, matching and post-placement support, end to end from Kigali.",
 };
 
 export default function RecruitmentPage() {
@@ -40,7 +40,7 @@ export default function RecruitmentPage() {
 
         <StickyCTA
           title="Ready for an international career?"
-          copy="Submit your profile and documents — we review every application within one working day."
+          copy="Submit your profile and documents. We review every application within one working day."
           buttonText="Apply now"
           buttonHref="/work-abroad/apply"
         />

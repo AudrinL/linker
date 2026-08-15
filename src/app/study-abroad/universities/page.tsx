@@ -8,7 +8,7 @@ import { StickyCTA } from "@/components/ui/StickyCTA";
 export const metadata: Metadata = {
   title: "Partner Universities",
   description:
-    "Gain admission to top-tier institutions worldwide — Canada, the UK, Germany, Australia, the US and Singapore.",
+    "Gain admission to top-tier institutions worldwide: Canada, the UK, Germany, Australia, the US and Singapore.",
 };
 
 export default function UniversitiesPage() {
@@ -32,7 +32,7 @@ export default function UniversitiesPage() {
         <TrustBar items={trustMarks} />
         <StickyCTA
           title="Find your dream school"
-          copy="Tell us your grades and budget — we build a country and course shortlist within two working days."
+          copy="Tell us your grades and budget. We build a country and course shortlist within two working days."
           buttonText="Start your application"
           buttonHref="/study-abroad/apply"
         />

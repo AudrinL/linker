@@ -7,7 +7,7 @@ import { useGSAP } from "@gsap/react";
 import { prefersReducedMotion } from "@/lib/utils";
 
 const statement =
-  "Some agencies sell tickets. We open doors. A visa is a career. A flight is a reunion. A permit is a family that eats better this year. We treat every file as though the whole life behind it depends on getting it right — because it usually does.";
+  "Some agencies sell tickets. We open doors. A visa is a career. A flight is a reunion. A permit is a family that eats better this year. We treat every file as though the whole life behind it depends on getting it right, because it usually does.";
 
 /**
  * Scroll-scrubbed statement. Words resolve from dim to lit as the section

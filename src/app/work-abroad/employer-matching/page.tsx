@@ -9,7 +9,7 @@ import { StickyCTA } from "@/components/ui/StickyCTA";
 export const metadata: Metadata = {
   title: "Employer Matching",
   description:
-    "We align your profile with vetted vacancies across our employer network — you only interview for roles you can win.",
+    "We align your profile with vetted vacancies across our employer network: you only interview for roles you can win.",
 };
 
 export default function EmployerMatchingPage() {
@@ -25,7 +25,7 @@ export default function EmployerMatchingPage() {
           <SectionHeading
             eyebrow="Which route fits?"
             title="Match the route to your profile"
-            lede="We go beyond resumes — human judgement on top of the paperwork, so you only interview for roles you can win."
+            lede="We go beyond resumes. Human judgement on top of the paperwork, so you only interview for roles you can win."
           />
           <ComparisonTable comparison={workComparison} className="mt-10" />
         </section>
@@ -37,7 +37,7 @@ export default function EmployerMatchingPage() {
 
         <StickyCTA
           title="See your profile in front of real employers"
-          copy="Tell us your skills and where you want to go — we match you to vetted vacancies within one working day."
+          copy="Tell us your skills and where you want to go. We match you to vetted vacancies within one working day."
           buttonText="Start matching"
           buttonHref="/work-abroad/apply"
         />

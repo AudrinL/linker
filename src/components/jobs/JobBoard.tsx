@@ -139,7 +139,7 @@ export default function JobBoard() {
               id="job-search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Job title or keyword — e.g. caregiver, welder, driver"
+              placeholder="Job title or keyword, e.g. caregiver, welder, driver"
               className={cn(inputCls, "mt-3")}
             />
           </div>

@@ -10,7 +10,7 @@ import { StickyCTA } from "@/components/ui/StickyCTA";
 export const metadata: Metadata = {
   title: "Work Permits & Visas",
   description:
-    "Work permit and visa processing handled with accuracy — eligibility assessment, documents, filing and embassy liaison, end to end.",
+    "Work permit and visa processing handled with accuracy, eligibility assessment, documents, filing and embassy liaison, end to end.",
 };
 
 export default function WorkPermitsPage() {
@@ -51,7 +51,7 @@ export default function WorkPermitsPage() {
 
         <StickyCTA
           title="Avoid costly permit mistakes"
-          copy="Tell us your profile and target country — we handle the paperwork end to end."
+          copy="Tell us your profile and target country. We handle the paperwork end to end."
           buttonText="Apply now"
           buttonHref="/work-abroad/apply"
         />

@@ -20,7 +20,7 @@ import Newsletter from "@/components/ui/Newsletter";
 export const metadata: Metadata = {
   title: "Opportunities",
   description:
-    "International opportunities for work, study, scholarships, visas and travel — updated as new programs and vacancies become available.",
+    "International opportunities for work, study, scholarships, visas and travel, updated as new programs and vacancies become available.",
 };
 
 export default function OpportunitiesPage() {
@@ -29,7 +29,7 @@ export default function OpportunitiesPage() {
       <PageHero
         eyebrow="Opportunities"
         title="Discover opportunities. Build your future. Go global."
-        subtitle="Explore international opportunities for work, study, scholarships, travel and professional development — updated as new programs become available."
+        subtitle="Explore international opportunities for work, study, scholarships, travel and professional development, updated as new programs become available."
       />
 
       <main className="shell space-y-24 py-16 lg:py-24">
@@ -138,7 +138,7 @@ export default function OpportunitiesPage() {
           <SectionHeading
             eyebrow="Scholarship opportunities"
             title="Studying with financial assistance"
-            lede="Funding offered by universities, governments and international organisations — and what each one asks for in return."
+            lede="Funding offered by universities, governments and international organisations, and what each one asks for in return."
           />
           <Checklist items={scholarshipCategories} columns={2} className="mt-10" />
           <p className="mt-7 text-sm leading-relaxed text-muted">

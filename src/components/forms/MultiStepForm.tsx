@@ -126,7 +126,7 @@ export default function MultiStepForm({ config }: Props) {
   const composed = (ref: string) => {
     const lines: string[] = [
       `Hello ${site.name},`,
-      `${config.whatsappIntro} — Ref ${ref}`,
+      `${config.whatsappIntro} · Ref ${ref}`,
       "",
     ];
     for (const section of config.sections) {
@@ -218,7 +218,7 @@ export default function MultiStepForm({ config }: Props) {
               <p className="eyebrow font-sans">Documents to send</p>
               <ul className="mt-2 space-y-1 text-sm text-bone">
                 {visibleDocs.map((d) => (
-                  <li key={d.id}>• {d.label} — {files[d.id]?.name}</li>
+                  <li key={d.id}>• {d.label}: {files[d.id]?.name}</li>
                 ))}
               </ul>
               <p className="mt-2 text-xs leading-relaxed text-muted">
@@ -238,7 +238,7 @@ export default function MultiStepForm({ config }: Props) {
             Open WhatsApp again
           </a>
           <a
-            href={mailtoLink(site.email, `${config.emailSubject} — ${reference}`, msg)}
+            href={mailtoLink(site.email, `${config.emailSubject}, ${reference}`, msg)}
             className="rounded-full border border-mist/25 px-6 py-3 text-sm font-medium transition-colors hover:border-gold/70 hover:text-gold"
           >
             Send it by email instead
@@ -374,7 +374,7 @@ export default function MultiStepForm({ config }: Props) {
       {isDocsStep && (
         <div className="grid gap-7">
           <p className="text-sm leading-relaxed text-muted">
-            Add the documents below. They stay on your device — we only ask you
+            Add the documents below. They stay on your device. We only ask you
             to share them after we have replied, via a private link or WhatsApp.
           </p>
           <div className="grid gap-6 sm:grid-cols-2">

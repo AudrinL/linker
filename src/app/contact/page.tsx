@@ -60,7 +60,7 @@ export default function ContactPage() {
           />
           <p className="mt-7 max-w-xl text-lede text-white/80">
             Tell us what you are planning. We will tell you honestly whether we
-            can help, what it involves, and what it costs — before you commit to
+            can help, what it involves, and what it costs, before you commit to
             anything.
           </p>
         </div>

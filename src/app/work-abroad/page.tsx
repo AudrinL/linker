@@ -23,7 +23,7 @@ import { TrustBar } from "@/components/ui/TrustBar";
 export const metadata: Metadata = {
   title: "Work Abroad",
   description:
-    "We connect qualified candidates with international employment opportunities and support them through the whole application process — from CV to work permit to departure.",
+    "We connect qualified candidates with international employment opportunities and support them through the whole application process, from CV to work permit to departure.",
 };
 
 const routes = [
@@ -37,14 +37,14 @@ const routes = [
   {
     index: "02",
     title: "Recruitment",
-    description: "End-to-end placement for skilled and semi-skilled professionals — from screening to pre-departure briefing.",
+    description: "End-to-end placement for skilled and semi-skilled professionals, from screening to pre-departure briefing.",
     href: "/work-abroad/recruitment",
     points: ["Skills verification", "Employer matching", "Post-placement support"],
   },
   {
     index: "03",
     title: "Employer Matching",
-    description: "We align your profile with vetted vacancies across our employer network — you only interview for roles you can win.",
+    description: "We align your profile with vetted vacancies across our employer network: you only interview for roles you can win.",
     href: "/work-abroad/employer-matching",
     points: ["Profile shortlisting", "Interview coaching", "No hidden fees"],
   },
@@ -86,7 +86,7 @@ export default function WorkAbroadHub() {
           <SectionHeading
             eyebrow="Our services"
             title="What the service covers"
-            lede="Eight things we actually do — not a list of promises, a list of work."
+            lede="Eight things we actually do, not a list of promises, a list of work."
           />
           <FeatureList features={workServices} className="mt-12" />
         </section>
@@ -132,7 +132,7 @@ export default function WorkAbroadHub() {
           <SectionHeading
             eyebrow="How it works"
             title="From profile to payslip"
-            lede="A transparent process with no surprises — and no fees until a role is secured."
+            lede="A transparent process with no surprises, and no fees until a role is secured."
           />
           <ProcessTimeline steps={workAbroadProcess} className="mt-10 mx-auto max-w-2xl" />
         </section>
@@ -162,7 +162,7 @@ export default function WorkAbroadHub() {
 
         <StickyCTA
           title="Ready to see your profile in front of real employers?"
-          copy="Submit your profile and documents — we review every application within one working day and reply on WhatsApp."
+          copy="Submit your profile and documents. We review every application within one working day and reply on WhatsApp."
           buttonText="Apply now"
           buttonHref="/work-abroad/apply"
         />

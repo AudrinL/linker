@@ -8,7 +8,7 @@ import { StickyCTA } from "@/components/ui/StickyCTA";
 export const metadata: Metadata = {
   title: "Holiday Packages",
   description:
-    "Curated international getaways — Dubai, Europe and the Seychelles — tailored to your preferences.",
+    "Curated international getaways across Dubai, Europe and the Seychelles, tailored to your preferences.",
 };
 
 export default function HolidayPackagesPage() {

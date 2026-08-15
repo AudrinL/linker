@@ -10,7 +10,7 @@ import { StickyCTA } from "@/components/ui/StickyCTA";
 export const metadata: Metadata = {
   title: "Admission Guidance",
   description:
-    "Honest advice on which programs you can realistically win — course selection, essays, scholarships and applications, end to end.",
+    "Honest advice on which programs you can realistically win, course selection, essays, scholarships and applications, end to end.",
 };
 
 export default function AdmissionGuidancePage() {
@@ -35,7 +35,7 @@ export default function AdmissionGuidancePage() {
           <SectionHeading
             eyebrow="Free guides"
             title="Write applications that win"
-            lede="Statements of purpose, visa checklists and funding — downloadable PDFs."
+            lede="Statements of purpose, visa checklists and funding, downloadable PDFs."
           />
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {studyGuides.map((guide) => (
@@ -51,7 +51,7 @@ export default function AdmissionGuidancePage() {
 
         <StickyCTA
           title="Secure your spot"
-          copy="Tell us your grades and goals — we respond with a realistic shortlist within two working days."
+          copy="Tell us your grades and goals. We respond with a realistic shortlist within two working days."
           buttonText="Start your application"
           buttonHref="/study-abroad/apply"
         />

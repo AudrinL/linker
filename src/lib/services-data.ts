@@ -199,7 +199,7 @@ export const workPricing: PricingTier[] = [
   {
     name: "Essentials",
     price: "$80",
-    note: "Documentation pack — indicative, confirmed before you pay",
+    note: "Documentation pack, indicative, confirmed before you pay",
     features: ["CV & credential review", "Document checklist", "Eligibility assessment", "WhatsApp support"],
     cta: "Start now",
     href: "/work-abroad/apply",
@@ -227,14 +227,14 @@ export const workFaqs: Faq[] = [
   { q: "Are there any upfront fees?", a: "Our eligibility assessment and document review are free. Placement fees are staged and only charged as each milestone (employer match, visa filing) is reached. We never charge for a job we cannot secure." },
   { q: "Which countries can I work in?", a: "We place candidates across the Gulf (UAE, Qatar, Saudi Arabia), Europe (UK, Germany, Poland) and North America (Canada), with roles in healthcare, construction, hospitality, logistics and skilled trades." },
   { q: "How long does the whole process take?", a: "A direct hire with a ready employer can complete in 3–6 weeks. Recruitment placement typically takes 6–12 weeks depending on the role and visa processing times." },
-  { q: "Do you help with the work visa?", a: "Yes — work permit and visa processing is part of every placement. We handle forms, medicals, translation and embassy liaison from start to finish." },
+  { q: "Do you help with the work visa?", a: "Yes. Work permit and visa processing is part of every placement. We handle forms, medicals, translation and embassy liaison from start to finish." },
   { q: "What if my application is refused?", a: "We review every refusal and rework the application at no extra fee. Our 96% first-time success rate is built on honest eligibility checks before you ever pay." },
   { q: "Can I apply without a passport yet?", a: "You can start your profile now and add documents as they are ready. A valid passport is only required at the visa filing stage." },
 ];
 
 export const workGuides: Guide[] = [
   { slug: "cv-guide", title: "The East African CV that wins interviews", description: "A fill-in template and the five mistakes that quietly kill overseas applications.", meta: "8 pages · PDF · 5 min read", file: "/guides/work-cv-guide.html" },
-  { slug: "permit-checklist", title: "Work permit & visa checklist", description: "Every document, medical and certificate you need before we file — country by country.", meta: "6 pages · PDF · 4 min read", file: "/guides/work-permit-checklist.html" },
+  { slug: "permit-checklist", title: "Work permit & visa checklist", description: "Every document, medical and certificate you need before we file, country by country.", meta: "6 pages · PDF · 4 min read", file: "/guides/work-permit-checklist.html" },
   { slug: "interview-prep", title: "Interview prep for international employers", description: "What Gulf, UK and EU interviewers actually ask, and how to answer without nerves.", meta: "10 pages · PDF · 8 min read", file: "/guides/interview-prep.html" },
 ];
 
@@ -247,7 +247,7 @@ export const studyProcess: ProcessStep[] = [
   { title: "Application filing", description: "Essays, references and forms prepared and submitted to your shortlist of universities.", duration: "2–3 weeks" },
   { title: "Admission & offer", description: "We track offers, compare packages and help you decide with the numbers in front of you.", duration: "4–8 weeks" },
   { title: "Student visa", description: "Financial proof, biometrics and interview coaching for your consulate appointment.", duration: "3–6 weeks" },
-  { title: "Pre-departure", description: "Accommodation, flights, insurance and orientation — so day one feels planned.", duration: "2 weeks before" },
+  { title: "Pre-departure", description: "Accommodation, flights, insurance and orientation, so day one feels planned.", duration: "2 weeks before" },
   { title: "Arrival & support", description: "Airport pickup, campus check-in and a local contact while you settle.", duration: "Ongoing" },
 ];
 
@@ -312,7 +312,7 @@ export const studyPricing: PricingTier[] = [
   {
     name: "Admissions",
     price: "$150",
-    note: "Per university — indicative, confirmed before you pay",
+    note: "Per university, indicative, confirmed before you pay",
     features: ["Course & country matching", "SOP & essay review", "Application filing", "Offer negotiation"],
     cta: "Start now",
     href: "/study-abroad/apply",
@@ -340,15 +340,15 @@ export const studyFaqs: Faq[] = [
   { q: "Can I study abroad with average grades?", a: "Yes. There are strong, accredited programs and pathways for students with C-grades, including foundation years and diploma-to-degree routes in Canada, the UK and Australia." },
   { q: "How much money do I need to show?", a: "It depends on the country: Germany ~€11,900/yr, UK £1,334/month, Canada CAD 20,635/yr. We prepare the financial proof documents so your file is approved the first time." },
   { q: "Can I work while studying?", a: "Most student visas allow 20 hours a week during term and full-time in the holidays. Germany allows 120 full days a year." },
-  { q: "Do you help with scholarships?", a: "Yes — we screen every applicant against available scholarships and aid before you commit to any country or university." },
+  { q: "Do you help with scholarships?", a: "Yes. We screen every applicant against available scholarships and aid before you commit to any country or university." },
   { q: "What if my visa is refused?", a: "We re-file at no extra fee and give you a written explanation of exactly what to fix. Our student visa success rate is 98%." },
-  { q: "Do I need to speak English perfectly?", a: "You need the IELTS/TOEFL score your university asks for. If you are close, we help you prepare for the test — and some universities offer English support courses." },
+  { q: "Do I need to speak English perfectly?", a: "You need the IELTS/TOEFL score your university asks for. If you are close, we help you prepare for the test, and some universities offer English support courses." },
 ];
 
 export const studyGuides: Guide[] = [
   { slug: "sop-guide", title: "Write a statement of purpose that opens doors", description: "A proven structure, real examples and the three paragraphs that decide your offer.", meta: "9 pages · PDF · 6 min read", file: "/guides/study-sop-guide.html" },
-  { slug: "visa-checklist", title: "Student visa document checklist", description: "Financial proof, transcripts and sponsor letters — exactly what each embassy wants.", meta: "7 pages · PDF · 5 min read", file: "/guides/study-visa-checklist.html" },
-  { slug: "funding-guide", title: "Funding your studies abroad", description: "Scholarships, loans and legitimate family sponsorship — how to structure your finances.", meta: "8 pages · PDF · 6 min read", file: "/guides/study-funding-guide.html" },
+  { slug: "visa-checklist", title: "Student visa document checklist", description: "Financial proof, transcripts and sponsor letters, exactly what each embassy wants.", meta: "7 pages · PDF · 5 min read", file: "/guides/study-visa-checklist.html" },
+  { slug: "funding-guide", title: "Funding your studies abroad", description: "Scholarships, loans and legitimate family sponsorship, how to structure your finances.", meta: "8 pages · PDF · 6 min read", file: "/guides/study-funding-guide.html" },
 ];
 
 /* ================================================================== */
@@ -357,7 +357,7 @@ export const studyGuides: Guide[] = [
 
 export const visaProcess: ProcessStep[] = [
   { title: "Free eligibility check", description: "A 2-minute quiz tells you which visa you qualify for and what it involves.", duration: "2 minutes" },
-  { title: "Document checklist", description: "A personalised list of exactly what your application needs — nothing more.", duration: "Same day" },
+  { title: "Document checklist", description: "A personalised list of exactly what your application needs, and nothing more.", duration: "Same day" },
   { title: "Application & review", description: "Forms completed to embassy standard, then a senior consultant checks every line.", duration: "1–3 days" },
   { title: "Appointment & biometrics", description: "We book your embassy slot and prepare you for the interview or bio capture.", duration: "1–2 weeks" },
   { title: "Decision & collection", description: "We track the decision and hand you back your passport with next steps.", duration: "2–8 weeks" },
@@ -379,7 +379,7 @@ export const visaPricing: PricingTier[] = [
   {
     name: "Standard",
     price: "$120",
-    note: "Indicative — final quote after the free check",
+    note: "Indicative, final quote after the free check",
     features: ["Application drafting", "Document review", "Embassy booking", "Decision tracking"],
     cta: "Start the check",
     href: "/visa-support/apply",
@@ -404,12 +404,12 @@ export const visaPricing: PricingTier[] = [
 ];
 
 export const visaFaqs: Faq[] = [
-  { q: "Which visas do you process?", a: "Tourist, business, work, student and transit visas for all major destinations — plus Schengen, UK, US, Canada and Gulf visas. If you are unsure, start with the free eligibility check." },
+  { q: "Which visas do you process?", a: "Tourist, business, work, student and transit visas for all major destinations, plus Schengen, UK, US, Canada and Gulf visas. If you are unsure, start with the free eligibility check." },
   { q: "How long does a visa take?", a: "Tourist visas average 5–15 days, business 1–2 weeks and work or student visas 3–8 weeks. Embassy calendars vary by season, so we build buffers into every plan." },
-  { q: "Can you guarantee approval?", a: "No honest agency can. We guarantee a decision-ready file — every document checked before submission — which is why 96% of our clients are approved first time." },
+  { q: "Can you guarantee approval?", a: "No honest agency can. We guarantee a decision-ready file, with every document checked before submission, which is why 96% of our clients are approved first time." },
   { q: "Do I need to come to Kigali?", a: "Most of the process is handled remotely. You attend only the biometrics or embassy interview, and we book that slot for you." },
   { q: "What happens if my visa is refused?", a: "We review the refusal, correct the file and re-submit at no additional service fee. Government fees are not refundable, which is why we check eligibility first." },
-  { q: "Can I apply with a weak passport or history?", a: "Yes — we build the strongest possible file around your circumstances, and we tell you honestly before you pay if a route is unlikely to succeed." },
+  { q: "Can I apply with a weak passport or history?", a: "Yes. We build the strongest possible file around your circumstances, and we tell you honestly before you pay if a route is unlikely to succeed." },
 ];
 
 export const visaGuides: Guide[] = [
@@ -425,7 +425,7 @@ export type Feature = { title: string; description: string };
 
 /** Work Abroad — the eight things the service actually covers. */
 export const workServices: Feature[] = [
-  { title: "Job opportunities", description: "Verified vacancies from employers we have placed candidates with before — not scraped listings." },
+  { title: "Job opportunities", description: "Verified vacancies from employers we have placed candidates with before, not scraped listings." },
   { title: "Candidate assessment", description: "An honest read on which markets and roles your qualifications actually reach." },
   { title: "CV preparation", description: "Your experience rewritten to the format employers in your target country expect." },
   { title: "Interview preparation", description: "Practice rounds, common questions and what the employer is really assessing." },
@@ -437,7 +437,7 @@ export const workServices: Feature[] = [
 
 /** Study Abroad — the seven-part service, numbered on the page. */
 export const studyServices: Feature[] = [
-  { title: "University & college selection", description: "Institutions matched to your qualifications, career goals, destination and budget — shortlisted before you spend on applications." },
+  { title: "University & college selection", description: "Institutions matched to your qualifications, career goals, destination and budget, shortlisted before you spend on applications." },
   { title: "Course selection", description: "A program that fits your interests and where you want the qualification to take you, not just what is easiest to get into." },
   { title: "Admission application support", description: "Help preparing and organising documents, then completing the admission application itself." },
   { title: "Scholarship guidance", description: "Information on funding opportunities and what each one actually requires from an applicant." },
@@ -448,9 +448,9 @@ export const studyServices: Feature[] = [
 
 /** Visa Support — six categories we prepare files for. */
 export const visaTypes: Feature[] = [
-  { title: "Work visa", description: "For applicants taking up employment abroad — document preparation and work-permit requirements explained." },
+  { title: "Work visa", description: "For applicants taking up employment abroad: document preparation and work-permit requirements explained." },
   { title: "Student visa", description: "For students accepted by an eligible institution, including financial and accommodation evidence." },
-  { title: "Tourist / visitor visa", description: "For holidays, family visits and short trips — itineraries, funds and cover letters." },
+  { title: "Tourist / visitor visa", description: "For holidays, family visits and short trips: itineraries, funds and cover letters." },
   { title: "Business visa", description: "For meetings, conferences, trade fairs and other business activities." },
   { title: "Family / visit visa", description: "For eligible family and personal visits, including invitation and relationship evidence." },
   { title: "Transit visa", description: "Understanding whether you need one and what the transit country requires." },
@@ -459,7 +459,7 @@ export const visaTypes: Feature[] = [
 /** Visa Support — the seven-stage service. */
 export const visaServices: Feature[] = [
   { title: "Consultation", description: "The right visa category, the basic requirements and what the process involves for your destination." },
-  { title: "Document checklist", description: "A personalised list of what your application actually needs — nothing more, nothing missing." },
+  { title: "Document checklist", description: "A personalised list of what your application actually needs, nothing more and nothing missing." },
   { title: "Document preparation", description: "Help organising and preparing the supporting documentation to embassy standard." },
   { title: "Application support", description: "Guidance completing the forms and assembling the submission." },
   { title: "Appointment guidance", description: "Understanding appointment booking, biometrics and interview requirements where they apply." },
@@ -473,7 +473,7 @@ export const visaJourney: ProcessStep[] = [
   { title: "Document check", description: "Your documents reviewed against the checklist before anything is submitted.", duration: "1–2 days" },
   { title: "Application preparation", description: "Forms completed and the file assembled to embassy standard.", duration: "1–3 days" },
   { title: "Application submission", description: "The application is lodged with the embassy, consulate or visa centre.", duration: "Booking dependent" },
-  { title: "Biometrics / interview", description: "Where required — we prepare you for the appointment and what is asked.", duration: "1–2 weeks" },
+  { title: "Biometrics / interview", description: "Where required, we prepare you for the appointment and what is asked.", duration: "1–2 weeks" },
   { title: "Processing", description: "The authority assesses your file. We track it and respond to any requests.", duration: "2–8 weeks" },
   { title: "Decision", description: "The outcome is issued by the embassy or immigration authority.", duration: "Varies" },
   { title: "Travel preparation", description: "On approval, flights and pre-departure arrangements are made.", duration: "1–2 weeks" },
@@ -581,7 +581,7 @@ export const scholarshipCategories = [
 
 export const studyWhyUs: Feature[] = [
   { title: "Global opportunities", description: "Education opportunities across multiple international destinations." },
-  { title: "Personalised guidance", description: "We weigh your academic background, goals and preferred destination — not a generic shortlist." },
+  { title: "Personalised guidance", description: "We weigh your academic background, goals and preferred destination, not a generic shortlist." },
   { title: "Application support", description: "Help organising your application and every supporting document." },
   { title: "Visa guidance", description: "The student visa process and documentation, explained before you start." },
   { title: "Travel support", description: "Flight booking and pre-departure preparation once your place is confirmed." },
@@ -741,7 +741,7 @@ export const aboutServices: {
 ];
 
 export const howWeWork: ProcessStep[] = [
-  { title: "Discover", description: "Tell us what you want to achieve — work, study, travel or a visa." },
+  { title: "Discover", description: "Tell us what you want to achieve, work, study, travel or a visa." },
   { title: "Assess", description: "We review your requirements, qualifications and preferences honestly." },
   { title: "Match", description: "We identify opportunities and services that genuinely fit your profile." },
   { title: "Apply", description: "We help you through the application and documentation process." },

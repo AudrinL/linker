@@ -10,7 +10,7 @@ import { BentoGrid } from "@/components/ui/BentoGrid";
 export const metadata: Metadata = {
   title: "Travel & Visas",
   description:
-    "Flight booking, hotels, holiday packages and visa services — handled by a real person from Kigali, with honest eligibility checks before you pay.",
+    "Flight booking, hotels, holiday packages and visa services, handled by a real person from Kigali, with honest eligibility checks before you pay.",
 };
 
 const routes = [
@@ -24,14 +24,14 @@ const routes = [
   {
     index: "02",
     title: "Hotels",
-    description: "Considered stays worldwide — from business hotels to long-term apartments for expats and students.",
+    description: "Considered stays worldwide, from business hotels to long-term apartments for expats and students.",
     href: "/travel/hotels",
     points: ["Business & luxury stays", "Long-term apartments", "Best-rate matching"],
   },
   {
     index: "03",
     title: "Holiday Packages",
-    description: "Itineraries built around how you actually want to travel — Dubai, Europe, the Seychelles and more.",
+    description: "Itineraries built around how you actually want to travel: Dubai, Europe, the Seychelles and more.",
     href: "/travel/holiday-packages",
     points: ["Tailored itineraries", "Couples & families", "Local guides included"],
   },
@@ -57,7 +57,7 @@ export default function TravelHub() {
       <PageHero
         eyebrow="Travel & Visas"
         title="Travel & visas"
-        subtitle="Flights, hotels, holiday packages and visas — planned by a real person in Kigali, with honest eligibility checks before you pay a franc."
+        subtitle="Flights, hotels, holiday packages and visas, planned by a real person in Kigali, with honest eligibility checks before you pay a franc."
       />
 
       <main className="shell space-y-24 py-16 lg:py-24">
@@ -85,7 +85,7 @@ export default function TravelHub() {
 
         <StickyCTA
           title="Planning a trip or a move?"
-          copy="Tell us where you're going, when, and what you need — we reply within one working day."
+          copy="Tell us where you're going, when, and what you need. We reply within one working day."
           buttonText="Start your visa application"
           buttonHref="/visa-support/apply"
         />

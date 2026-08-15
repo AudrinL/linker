@@ -25,7 +25,7 @@ import { StickyCTA } from "@/components/ui/StickyCTA";
 export const metadata: Metadata = {
   title: "Visa Support",
   description:
-    "Work, student, tourist, business, family and transit visa support — requirements explained, documents organised and applications prepared from Kigali.",
+    "Work, student, tourist, business, family and transit visa support. Requirements explained, documents organised and applications prepared from Kigali.",
 };
 
 export default function VisaSupportPage() {
@@ -42,7 +42,7 @@ export default function VisaSupportPage() {
           <SectionHeading
             eyebrow="Visa services"
             title="Which visa do you need?"
-            lede="Six categories, each with its own evidence. Start by finding yours — the requirements diverge sharply after this point."
+            lede="Six categories, each with its own evidence. Start by finding yours. The requirements diverge sharply after this point."
           />
           <FeatureList features={visaTypes} columns={3} className="mt-12" />
         </section>
@@ -92,7 +92,7 @@ export default function VisaSupportPage() {
           <SectionHeading
             eyebrow="Documentation"
             title="What may be required"
-            lede="Requirements depend on your destination and category. Not every applicant needs all of these — we tell you which apply to you before you start gathering."
+            lede="Requirements depend on your destination and category. Not every applicant needs all of these. We tell you which apply to you before you start gathering."
           />
           <Checklist items={visaDocuments} columns={3} className="mt-10" />
         </section>

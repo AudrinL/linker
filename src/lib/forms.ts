@@ -229,7 +229,7 @@ export const workForm: FormConfig = {
           type: "textarea",
           name: "responsibilities",
           label: "Main responsibilities",
-          placeholder: "Describe the work you actually did day to day — this is what employers read first.",
+          placeholder: "Describe the work you actually did day to day. This is what employers read first.",
           rows: 3,
         },
       ],
@@ -529,7 +529,7 @@ export const visaForm: FormConfig = {
           type: "textarea",
           name: "message",
           label: "Tell us about your visa situation",
-          placeholder: "Previous applications, deadlines, family circumstances — anything that affects your file.",
+          placeholder: "Previous applications, deadlines, family circumstances, anything that affects your file.",
           rows: 4,
         },
         ...contactPreference,
@@ -569,7 +569,7 @@ export const visaForm: FormConfig = {
 export const workEligibility: EligibilityConfig = {
   service: "work",
   headline: "Check your work-abroad eligibility",
-  intro: "Answer honestly — this is the same screen our consultants run before any conversation.",
+  intro: "Answer honestly. This is the same screen our consultants run before any conversation.",
   questions: [
     { q: "How old are you?", options: ["Under 18", "18–35", "36–45", "46+"], disqualifiers: ["Under 18"] },
     { q: "Do you hold a valid passport?", options: ["Yes", "No, but I can get one soon", "No"], disqualifiers: ["No"] },
@@ -582,7 +582,7 @@ export const workEligibility: EligibilityConfig = {
   },
   fail: {
     title: "You may need a little more preparation",
-    copy: "Don't worry — this is exactly why we check first. We can still help: experience-building routes, language courses or waiting until your passport and experience are ready.",
+    copy: "Don't worry. This is exactly why we check first. We can still help: experience-building routes, language courses or waiting until your passport and experience are ready.",
   },
 };
 
@@ -601,14 +601,14 @@ export const studyEligibility: EligibilityConfig = {
   },
   fail: {
     title: "Let's plan the right route",
-    copy: "A missing passport or uncertain funding narrows your options — but doesn't close them. We'll map a pathway (including scholarships) before you commit to anything.",
+    copy: "A missing passport or uncertain funding narrows your options, but doesn't close them. We'll map a pathway (including scholarships) before you commit to anything.",
   },
 };
 
 export const visaEligibility: EligibilityConfig = {
   service: "visa",
   headline: "Quick visa eligibility check",
-  intro: "A 2-minute screen before you pay for anything — the same one our consultants run on every file.",
+  intro: "A 2-minute screen before you pay for anything, the same one our consultants run on every file.",
   questions: [
     { q: "Do you have a valid passport with 6+ months remaining?", options: ["Yes", "No", "Not sure"], disqualifiers: ["No"] },
     { q: "When do you need to travel?", options: ["Within 2 weeks", "Within a month", "Within 3 months", "Later"], disqualifiers: [] },
@@ -621,7 +621,7 @@ export const visaEligibility: EligibilityConfig = {
   },
   fail: {
     title: "Let's fix the basics first",
-    copy: "A missing passport or funds will block most applications. Tell us your situation and we'll give you a written step-by-step plan — free.",
+    copy: "A missing passport or funds will block most applications. Tell us your situation and we'll give you a written step-by-step plan, free.",
   },
 };
 
@@ -718,7 +718,7 @@ export const cvForm: FormConfig = {
           type: "textarea",
           name: "responsibilities",
           label: "Main responsibilities",
-          placeholder: "Describe the work you actually did day to day — this is what employers read first.",
+          placeholder: "Describe the work you actually did day to day. This is what employers read first.",
           rows: 3,
         },
       ],
@@ -993,7 +993,7 @@ export const employerForm: FormConfig = {
           type: "radio",
           name: "gender",
           label: "Gender requirement",
-          options: ["No preference", "Lawful job-related requirement — specified below"],
+          options: ["No preference", "Lawful job-related requirement, specified below"],
           required: true,
         },
         {
@@ -1249,14 +1249,14 @@ export const contactForm: FormConfig = {
           options: names(workDestinations),
           placeholder: "Search or select a country…",
         },
-        { type: "text", name: "role", label: "If you are looking for work — preferred job position", placeholder: "e.g. Caregiver" },
+        { type: "text", name: "role", label: "If you are looking for work, preferred job position", placeholder: "e.g. Caregiver" },
         {
           type: "select",
           name: "years",
           label: "Years of experience",
           options: ["No experience", "Less than 1 year", "1–2 years", "3–5 years", "6–10 years", "10+ years"],
         },
-        { type: "text", name: "program", label: "If you want to study — preferred program", placeholder: "e.g. Nursing" },
+        { type: "text", name: "program", label: "If you want to study, preferred program", placeholder: "e.g. Nursing" },
         {
           type: "select",
           name: "level",

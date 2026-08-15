@@ -10,7 +10,7 @@ import { StickyCTA } from "@/components/ui/StickyCTA";
 export const metadata: Metadata = {
   title: "Study Visas",
   description:
-    "Comprehensive support for securing your international student visa — financial proof, biometrics and interview coaching, end to end.",
+    "Comprehensive support for securing your international student visa, financial proof, biometrics and interview coaching, end to end.",
 };
 
 export default function StudyVisaPage() {
@@ -26,7 +26,7 @@ export default function StudyVisaPage() {
           <SectionHeading
             eyebrow="The journey"
             title="From offer to enrolment"
-            lede="Financial proof, biometrics and consulate interviews — handled in the right order."
+            lede="Financial proof, biometrics and consulate interviews, handled in the right order."
           />
           <ProcessTimeline steps={studyProcess} className="mt-10 mx-auto max-w-2xl" />
         </section>
@@ -40,7 +40,7 @@ export default function StudyVisaPage() {
 
         <StickyCTA
           title="Don't risk a refusal"
-          copy="We build embassy-ready student visa files — and our 98% success rate is built on checking before you pay."
+          copy="We build embassy-ready student visa files, and our 98% success rate is built on checking before you pay."
           buttonText="Start your application"
           buttonHref="/study-abroad/apply"
         />

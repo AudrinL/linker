@@ -22,7 +22,7 @@ export const blogPosts: BlogPost[] = [
     slug: "top-5-reasons-to-study-in-germany",
     title: "Top 5 Reasons to Study in Germany",
     excerpt:
-      "Tuition-free universities, a booming economy and a clear path to work — here's why Germany keeps topping the list for East African students.",
+      "Tuition-free universities, a booming economy and a clear path to work. Here's why Germany keeps topping the list for East African students.",
     category: "Study Abroad",
     date: "2026-07-22",
     author: "Aline Uwase",
@@ -31,7 +31,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "The price is the headline",
         body: [
-          "Germany is one of the last countries in the world where most public universities are tuition-free — for international students too. You pay a semester fee of roughly €300, which covers transport, student services and the administration of your enrolment.",
+          "Germany is one of the last countries in the world where most public universities are tuition-free, for international students too. You pay a semester fee of roughly €300, which covers transport, student services and the administration of your enrolment.",
           "When our clients compare a German degree against an equivalent in the UK or US, the total cost over three years is usually a fraction of the alternative. That changes which cities, internships and graduate jobs become realistic.",
         ],
       },
@@ -45,7 +45,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "You can work while you study",
         body: [
-          "International students can work 120 full days a year — roughly 20 hours a week during term. That funds a large share of living costs in cities like Berlin, Leipzig or Dresden, where rent is still affordable compared to London or Toronto.",
+          "International students can work 120 full days a year, roughly 20 hours a week during term. That funds a large share of living costs in cities like Berlin, Leipzig or Dresden, where rent is still affordable compared to London or Toronto.",
           "Practical semesters are built into many programs, meaning your CV graduates with real German employers on it, not just a transcript.",
         ],
       },
@@ -53,14 +53,14 @@ export const blogPosts: BlogPost[] = [
         heading: "The application is more forgiving than you think",
         body: [
           "German admissions care less about 'brand-name' universities and more about whether you genuinely meet the academic requirements. A solid transcript from a recognised East African institution is often enough, and pathway programs cover the gap when it isn't.",
-          "You don't need perfect German for English-taught programs, though B1 will dramatically widen your options — and scholarship money is available for motivated applicants.",
+          "You don't need perfect German for English-taught programs, though B1 will dramatically widen your options, and scholarship money is available for motivated applicants.",
         ],
       },
       {
         heading: "The bottom line",
         body: [
           "Germany offers the rarest combination in international education: world-class quality, near-zero tuition and a realistic route to staying. If your grades are solid and you're willing to put in the application work, it should be near the top of your list.",
-          "Our study consultants prepare German applications every intake — from course matching to the blocked account (Sperrkonto) that proves your funds. Start with the eligibility check on the study abroad page.",
+          "Our study consultants prepare German applications every intake, from course matching to the blocked account (Sperrkonto) that proves your funds. Start with the eligibility check on the study abroad page.",
         ],
       },
     ],
@@ -78,28 +78,28 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Your first week",
         body: [
-          "You'll land, complete an occupational health check and go through Trust induction — ID checks, IT access and your ward assignment. Expect your first full shift within the first fortnight.",
-          "Most NHS Trusts assign a preceptor — a senior colleague who shadows you for your first 90 days. Use them. No question is too small, and the system expects you to ask rather than guess.",
+          "You'll land, complete an occupational health check and go through Trust induction, ID checks, IT access and your ward assignment. Expect your first full shift within the first fortnight.",
+          "Most NHS Trusts assign a preceptor, a senior colleague who shadows you for your first 90 days. Use them. No question is too small, and the system expects you to ask rather than guess.",
         ],
       },
       {
         heading: "How shifts and pay actually work",
         body: [
-          "The NHS pays by Agenda for Change banding. Most internationally educated nurses start at Band 5 — roughly £29,000–£35,000 a year — with unsocial-hours enhancements for nights and weekends.",
+          "The NHS pays by Agenda for Change banding. Most internationally educated nurses start at Band 5, roughly £29,000–£35,000 a year, with unsocial-hours enhancements for nights and weekends.",
           "Overtime and bank shifts are widely available, which is how many of our clients grow their income in the first year while building a reputation on the ward.",
         ],
       },
       {
         heading: "Registration you must keep on top of",
         body: [
-          "Your NMC pin is your licence to practice — renew it every year and never let it lapse. Your OSCE must be passed within the window your Trust sets, and your sponsor obligations continue for the first months of your placement.",
+          "Your NMC pin is your licence to practice, renew it every year and never let it lapse. Your OSCE must be passed within the window your Trust sets, and your sponsor obligations continue for the first months of your placement.",
           "Keep a folder with your NMC, DBS, revalidation evidence and payslips. You'll need them for council tax, your bank, and eventually your indefinite leave application.",
         ],
       },
       {
         heading: "Settling in beyond the ward",
         body: [
-          "Open a bank account early, register with a GP and get a National Insurance number within your first weeks. Most Trusts have an international nursing network — join it. They're the fastest route to housing advice, community and the social side of British life.",
+          "Open a bank account early, register with a GP and get a National Insurance number within your first weeks. Most Trusts have an international nursing network, join it. They're the fastest route to housing advice, community and the social side of British life.",
           "The five-year settlement clock starts from your first day on the visa. Keep your employment continuous and documented, and the route to indefinite leave stays open.",
         ],
       },
@@ -109,7 +109,7 @@ export const blogPosts: BlogPost[] = [
     slug: "understanding-visa-processing-times",
     title: "Understanding Visa Processing Times",
     excerpt:
-      "Why some visas take two weeks and others two months — and how to build a timeline that survives embassy calendars.",
+      "Why some visas take two weeks and others two months, and how to build a timeline that survives embassy calendars.",
     category: "Immigration",
     date: "2026-04-25",
     author: "Eric Niyonzima",
@@ -119,20 +119,20 @@ export const blogPosts: BlogPost[] = [
         heading: "Processing time is not a promise",
         body: [
           "The times printed on embassy websites are averages, not deadlines. A Schengen visa might state '15 working days' and take six weeks in peak season; a UK visitor visa can state three weeks and run to eight when biometrics slots are scarce.",
-          "The single best predictor is current demand in your destination — summer, post-holiday and September-student seasons all stretch calendars. Book your appointment before you buy non-refundable flights.",
+          "The single best predictor is current demand in your destination, summer, post-holiday and September-student seasons all stretch calendars. Book your appointment before you buy non-refundable flights.",
         ],
       },
       {
         heading: "What actually slows a file down",
         body: [
-          "Incomplete financial evidence is the number one cause of delays and refusals. Embassies want six months of statements that show regular, explainable deposits — not a single large transfer a week before you apply.",
+          "Incomplete financial evidence is the number one cause of delays and refusals. Embassies want six months of statements that show regular, explainable deposits, not a single large transfer a week before you apply.",
           "Missing translations, an expired passport and application forms that contradict your bank statements all trigger manual reviews. One inconsistency can double your wait.",
         ],
       },
       {
         heading: "Building a realistic timeline",
         body: [
-          "Add a 30% buffer to the official time, then add your document prep time on top. For a work or study visa, that usually means starting 12–16 weeks before your travel date — not eight.",
+          "Add a 30% buffer to the official time, then add your document prep time on top. For a work or study visa, that usually means starting 12–16 weeks before your travel date, not eight.",
           "Apply with a complete, internally consistent file and you are not 'gaming' the system; you are simply giving the officer no reason to slow you down. That is the entire job of a good agency.",
         ],
       },
@@ -142,7 +142,7 @@ export const blogPosts: BlogPost[] = [
     slug: "qatars-construction-boom-opportunities",
     title: "Qatar's Construction Boom: What It Means for Workers",
     excerpt:
-      "New projects, high pay and a structured recruitment system — a field guide to construction roles in the Gulf.",
+      "New projects, high pay and a structured recruitment system, a field guide to construction roles in the Gulf.",
     category: "Work Abroad",
     date: "2026-03-12",
     author: "Jean-Claude Mugisha",
@@ -151,7 +151,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "The demand is real",
         body: [
-          "Qatar is building again. Beyond the World Cup legacy, major transport, health and urban projects are drawing in skilled and semi-skilled construction workers by the thousands — and the recruitment pipeline from East Africa is well established.",
+          "Qatar is building again. Beyond the World Cup legacy, major transport, health and urban projects are drawing in skilled and semi-skilled construction workers by the thousands, and the recruitment pipeline from East Africa is well established.",
           "Supervisors, crane operators, electricians, plumbers and scaffolders are the roles employers contact us about most.",
         ],
       },
@@ -159,14 +159,14 @@ export const blogPosts: BlogPost[] = [
         heading: "What the package actually includes",
         body: [
           "Standard contracts bundle salary, free accommodation, transport and annual leave flights. Salaries for skilled trades typically range from $800–$1,800 a month, tax-free, with overtime paid above the base.",
-          "Read the contract line by line — leave entitlement, notice periods and end-of-service benefits are where the real value hides. We review every contract before a client signs.",
+          "Read the contract line by line. Leave entitlement, notice periods and end-of-service benefits are where the real value hides. We review every contract before a client signs.",
         ],
       },
       {
         heading: "The honest warning",
         body: [
           "Work in the Gulf is hot, physical and serious. Contracts are for one to two years, and the best jobs are often the ones that offer training and advancement rather than the highest starting number.",
-          "Recruit through a licensed agency — illegitimate brokers promising immediate visas are the single largest source of lost savings in the industry.",
+          "Recruit through a licensed agency. Illegitimate brokers promising immediate visas are the single largest source of lost savings in the industry.",
         ],
       },
     ],

@@ -21,7 +21,7 @@ export const services: Service[] = [
     title: "Work abroad",
     kicker: "International Recruitment",
     blurb:
-      "We place skilled and semi-skilled professionals with vetted employers across the Gulf, Europe and North America — and we stay with you from first interview to first payslip.",
+      "We place skilled and semi-skilled professionals with vetted employers across the Gulf, Europe and North America, and we stay with you from first interview to first payslip.",
     points: [
       "Employer matching & interview preparation",
       "Work permit and contract processing",
@@ -53,7 +53,7 @@ export const services: Service[] = [
     title: "Travel well",
     kicker: "Flights, Hotels & Packages",
     blurb:
-      "Competitive fares, considered hotels and itineraries built around how you actually want to travel — with a real person on the other end of the phone when plans change.",
+      "Competitive fares, considered hotels and itineraries built around how you actually want to travel, with a real person on the other end of the phone when plans change.",
     points: [
       "International and regional flight booking",
       "Hotel and lodge reservations worldwide",
@@ -116,7 +116,7 @@ export const timeline = [
   {
     year: "Today",
     title: "Thirty-eight countries",
-    copy: "One team, one standard, and a client base that spans four continents — still headquartered in Kigali.",
+    copy: "One team, one standard, and a client base that spans four continents, still headquartered in Kigali.",
   },
 ];
 

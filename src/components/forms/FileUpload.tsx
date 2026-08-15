@@ -47,7 +47,7 @@ export default function FileUpload({ def, value, error, onChange }: FileUploadPr
     if (!file) return;
     const max = (def.maxMb ?? 10) * 1024 * 1024;
     if (file.size > max) {
-      setLocalError(`${def.label} is ${formatBytes(file.size)} — the limit is ${def.maxMb ?? 10} MB.`);
+      setLocalError(`${def.label} is ${formatBytes(file.size)}. The limit is ${def.maxMb ?? 10} MB.`);
       return;
     }
     if (preview) URL.revokeObjectURL(preview);

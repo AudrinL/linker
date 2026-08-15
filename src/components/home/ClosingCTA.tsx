@@ -51,7 +51,7 @@ export default function ClosingCTA() {
 
           <Reveal delay={0.15}>
             <p className="mx-auto mt-8 max-w-xl text-lede text-white/75">
-              One conversation is usually enough to know whether we can help —
+              One conversation is usually enough to know whether we can help 
               and we will tell you honestly if we cannot. No fee to ask.
             </p>
           </Reveal>

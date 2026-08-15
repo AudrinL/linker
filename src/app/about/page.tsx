@@ -18,7 +18,7 @@ import { StickyCTA } from "@/components/ui/StickyCTA";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Linker World Travel is a travel, education and global mobility company helping people work, study, travel and build their future internationally — from Kigali.",
+    "Linker World Travel is a travel, education and global mobility company helping people work, study, travel and build their future internationally, from Kigali.",
 };
 
 export default function AboutPage() {
@@ -38,7 +38,7 @@ export default function AboutPage() {
               Our mission is to make international opportunities easier to
               understand and access. We connect people with suitable work
               opportunities, study programs, travel services and visa
-              application support — and we give clear information at every
+              application support, and we give clear information at every
               stage, including when the answer is no.
             </p>
           </div>
@@ -47,7 +47,7 @@ export default function AboutPage() {
             <p className="mt-6 text-[0.95rem] leading-relaxed text-mist">
               To become a trusted global mobility partner connecting people,
               employers, educational institutions and travel opportunities
-              across borders — so that more people can confidently take the next
+              across borders, so that more people can confidently take the next
               step toward their international goals.
             </p>
           </div>
@@ -58,7 +58,7 @@ export default function AboutPage() {
           <SectionHeading
             eyebrow="What we do"
             title="Four services, one team"
-            lede="Support with practical guidance throughout the journey — from finding an opportunity to boarding the plane."
+            lede="Support with practical guidance throughout the journey, from finding an opportunity to boarding the plane."
           />
           <div className="mt-12 grid gap-6 md:grid-cols-2">
             {aboutServices.map((s) => (

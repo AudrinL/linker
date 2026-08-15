@@ -46,7 +46,7 @@ export default function Footer() {
 
             <p className="mt-6 max-w-sm text-[0.95rem] leading-relaxed text-muted">
               Connecting Africa to the world since 2014. Overseas careers, study
-              placements, visas and travel — handled by one team, from Kigali.
+              placements, visas and travel, handled by one team, from Kigali.
             </p>
 
             <div className="mt-7 flex flex-wrap gap-2">

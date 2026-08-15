@@ -8,7 +8,7 @@ import { StickyCTA } from "@/components/ui/StickyCTA";
 export const metadata: Metadata = {
   title: "Hotels & Accommodation",
   description:
-    "Premium stays anywhere in the world — luxury resorts, business hotels, boutique stays and long-term apartments.",
+    "Premium stays anywhere in the world, luxury resorts, business hotels, boutique stays and long-term apartments.",
 };
 
 export default function HotelsPage() {
