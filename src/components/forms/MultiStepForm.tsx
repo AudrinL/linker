@@ -270,19 +270,38 @@ export default function MultiStepForm({ config }: Props) {
 
   /* ---------------- step rail ---------------- */
 
+  /**
+   * Step rail.
+   *
+   * Only the current step is labelled. The longest funnel here is twelve steps,
+   * and labelling all of them forced the rail wider than the card: each label
+   * is `whitespace-nowrap`, and flex children default to `min-width: auto`, so
+   * they refuse to shrink and overflow the max-width instead. The step name is
+   * already in the heading above, so the rail carries position, not prose.
+   * `min-w-0` throughout lets the connectors absorb whatever space is left.
+   */
   const rail = (
-    <ol className="flex items-center gap-2" aria-label="Application progress">
+    <ol className="flex w-full items-center gap-1.5" aria-label="Application progress">
       {steps.map((label, i) => {
         const state = i < current ? "done" : i === current ? "now" : "todo";
         return (
-          <li key={label} className="flex flex-1 items-center gap-2">
+          <li
+            key={label}
+            className={cn(
+              "flex min-w-0 items-center gap-1.5",
+              // The active step earns the room for its label; the rest are dots.
+              state === "now" ? "shrink-0" : "flex-1",
+            )}
+          >
             <button
               type="button"
               disabled={i > current}
               onClick={() => i < current && setCurrent(i)}
               aria-current={state === "now" ? "step" : undefined}
+              aria-label={`Step ${i + 1}: ${label}`}
+              title={label}
               className={cn(
-                "flex items-center gap-2 rounded-full transition-colors duration-300",
+                "flex min-w-0 items-center gap-2 rounded-full transition-colors duration-300",
                 i > current && "cursor-not-allowed",
                 i < current && "hover:opacity-80",
               )}
@@ -303,17 +322,17 @@ export default function MultiStepForm({ config }: Props) {
                   i + 1
                 )}
               </span>
-              <span
-                className={cn(
-                  "hidden whitespace-nowrap text-xs font-medium tracking-tight lg:block",
-                  state === "now" ? "text-bone" : state === "done" ? "text-gold" : "text-mist",
-                )}
-              >
-                {label}
-              </span>
+              {state === "now" && (
+                <span
+                  aria-hidden
+                  className="hidden truncate text-xs font-medium tracking-tight text-bone lg:block"
+                >
+                  {label}
+                </span>
+              )}
             </button>
             {i < steps.length - 1 && (
-              <span aria-hidden className="h-px flex-1 bg-mist/20" />
+              <span aria-hidden className="h-px min-w-1.5 flex-1 bg-mist/20" />
             )}
           </li>
         );
@@ -337,7 +356,7 @@ export default function MultiStepForm({ config }: Props) {
       noValidate
       className="glass rounded-[var(--radius-lg)] p-7 sm:p-9"
     >
-      <div className="mx-auto mb-8 w-full max-w-2xl">
+      <div className="mx-auto mb-8 w-full max-w-2xl overflow-hidden">
         <div className="mb-2 flex items-baseline justify-between">
           <h3 className="font-display text-xl">{steps[current]}</h3>
           <span className="text-xs text-muted">
