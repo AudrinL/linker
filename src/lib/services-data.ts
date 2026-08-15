@@ -594,3 +594,187 @@ export const visaWhyUs: Feature[] = [
   { title: "Travel support", description: "After approval, arrange your journey through our flight desk." },
   { title: "One-stop service", description: "Work abroad, study abroad, visa support and flights handled by one team." },
 ];
+
+/* ================================================================== */
+/*  FLIGHT TICKETS                                                     */
+/* ================================================================== */
+
+export const flightServices: Feature[] = [
+  { title: "International flights", description: "Flights to destinations around the world, priced across carriers rather than one." },
+  { title: "Domestic & regional flights", description: "Travel within your country and across East Africa." },
+  { title: "Return flights", description: "Round-trip journeys with connections that leave room to breathe." },
+  { title: "One-way flights", description: "For travellers moving abroad for work, study or relocation." },
+  { title: "Group bookings", description: "Families, groups, student cohorts and organisations." },
+  { title: "Student travel", description: "Timed to your intake, with baggage allowances that fit a move." },
+  { title: "Corporate travel", description: "Business travel with flexible fares and change protection." },
+  { title: "Work-abroad travel", description: "Departure arranged around your contract start date." },
+];
+
+/** The four doors, reused on the flight and opportunities pages. */
+export const oneStopServices = [
+  { title: "Work Abroad", description: "Find international employment opportunities.", href: "/work-abroad" },
+  { title: "Study Abroad", description: "Explore international education opportunities.", href: "/study-abroad" },
+  { title: "Visa Support", description: "Get guidance with your visa application.", href: "/visa-support" },
+  { title: "Flight Tickets", description: "Book your domestic or international journey.", href: "/flight-tickets" },
+];
+
+/* ================================================================== */
+/*  OPPORTUNITIES                                                      */
+/* ================================================================== */
+
+export type OpportunityMarket = {
+  flag: string;
+  country: string;
+  copy: string;
+};
+
+export const workMarkets: OpportunityMarket[] = [
+  { flag: "🇩🇪", country: "Germany", copy: "Healthcare, skilled trades, engineering, IT, logistics, manufacturing and hospitality." },
+  { flag: "🇨🇦", country: "Canada", copy: "Healthcare, construction, transport, agriculture, manufacturing, hospitality and logistics." },
+  { flag: "🇦🇪", country: "United Arab Emirates", copy: "Drivers, construction, hospitality, maintenance, logistics, security and service positions." },
+  { flag: "🇳🇱", country: "Netherlands", copy: "Logistics, agriculture, manufacturing, hospitality and technical positions." },
+  { flag: "🇬🇧", country: "United Kingdom", copy: "Healthcare, hospitality, skilled trades, logistics and professional positions." },
+  { flag: "🇮🇪", country: "Ireland", copy: "Healthcare, logistics and manufacturing roles across the country." },
+];
+
+export const opportunityFinder = [
+  { title: "Work abroad", description: "Find international employment opportunities.", href: "/jobs" },
+  { title: "Study abroad", description: "Find universities, colleges and programs.", href: "/study-abroad" },
+  { title: "Scholarships", description: "Explore available funding opportunities.", href: "/study-abroad#scholarships" },
+  { title: "Visa support", description: "Get guidance with your visa application.", href: "/visa-support" },
+  { title: "Flight tickets", description: "Plan and book your journey.", href: "/flight-tickets" },
+];
+
+export const studyOpportunityTypes: Feature[] = [
+  { title: "University programs", description: "Bachelor's and master's degrees, PhDs, diplomas and foundation programs." },
+  { title: "Vocational & technical", description: "Technical training, professional certificates and skills-based programs." },
+  { title: "International education", description: "Study opportunities across Germany, Canada, the UK, Australia, New Zealand, Ireland, France, the Netherlands and more." },
+];
+
+export const visaOpportunityTypes = [
+  "Work visa",
+  "Student visa",
+  "Tourist / visitor visa",
+  "Business visa",
+  "Family visit visa",
+  "Transit visa",
+];
+
+export const travelOpportunityTypes = [
+  "International flights",
+  "Domestic flights",
+  "One-way tickets",
+  "Return tickets",
+  "Group travel",
+  "Student travel",
+  "Corporate travel",
+  "Work-abroad travel",
+];
+
+/* ================================================================== */
+/*  ABOUT                                                              */
+/* ================================================================== */
+
+export const aboutServices: {
+  title: string;
+  intro: string;
+  items: string[];
+  cta: { label: string; href: string };
+}[] = [
+  {
+    title: "Work Abroad",
+    intro: "We help job seekers explore international employment opportunities and submit their profiles for suitable vacancies.",
+    items: [
+      "Job opportunity information",
+      "Candidate registration",
+      "CV submission",
+      "Candidate assessment",
+      "Employer matching",
+      "Interview preparation",
+      "Work permit guidance",
+      "Pre-departure preparation",
+    ],
+    cta: { label: "View available jobs", href: "/jobs" },
+  },
+  {
+    title: "Study Abroad",
+    intro: "We help students explore international education opportunities based on their academic background, career goals and preferred destination.",
+    items: [
+      "University and college selection",
+      "Program selection",
+      "Admission application support",
+      "Scholarship guidance",
+      "Student visa support",
+      "Accommodation guidance",
+      "Travel preparation",
+    ],
+    cta: { label: "Explore study opportunities", href: "/study-abroad" },
+  },
+  {
+    title: "Visa Support",
+    intro: "We guide clients who need help understanding visa application requirements and preparing their supporting documents.",
+    items: [
+      "Work visas",
+      "Student visas",
+      "Tourist / visitor visas",
+      "Business visas",
+      "Family visit visas",
+      "Transit visas",
+    ],
+    cta: { label: "Request visa support", href: "/visa-support" },
+  },
+  {
+    title: "Flight Tickets",
+    intro: "We help travellers arrange domestic and international flights for every kind of journey.",
+    items: [
+      "Work travel",
+      "Student travel",
+      "Tourism",
+      "Business travel",
+      "Family visits",
+      "Group travel",
+      "One-way journeys",
+      "Return journeys",
+    ],
+    cta: { label: "Book a flight", href: "/flight-tickets" },
+  },
+];
+
+export const howWeWork: ProcessStep[] = [
+  { title: "Discover", description: "Tell us what you want to achieve — work, study, travel or a visa." },
+  { title: "Assess", description: "We review your requirements, qualifications and preferences honestly." },
+  { title: "Match", description: "We identify opportunities and services that genuinely fit your profile." },
+  { title: "Apply", description: "We help you through the application and documentation process." },
+  { title: "Prepare", description: "Visa, travel and everything else you need before you go." },
+  { title: "Go global", description: "You take the next step toward your international journey." },
+];
+
+export const aboutWhyUs: Feature[] = [
+  { title: "International opportunities", description: "Opportunities across multiple countries and sectors, not one narrow corridor." },
+  { title: "Personalised support", description: "We weigh each client's own goals, qualifications and preferences." },
+  { title: "Application guidance", description: "Help understanding and organising what each application actually requires." },
+  { title: "One-stop service", description: "Work, study, visa support and flights handled by the same team." },
+  { title: "Client communication", description: "You are told where your file stands, not left guessing." },
+  { title: "Travel support", description: "From the opportunity to the departure gate." },
+];
+
+/** Every destination the business touches, for the About page's global strip. */
+export const globalReach = [
+  "🇩🇪 Germany", "🇨🇦 Canada", "🇦🇪 UAE", "🇬🇧 United Kingdom", "🇳🇱 Netherlands",
+  "🇮🇪 Ireland", "🇦🇺 Australia", "🇳🇿 New Zealand", "🇫🇷 France", "🇩🇰 Denmark",
+  "🇸🇪 Sweden", "🇫🇮 Finland", "🇳🇴 Norway", "🇵🇱 Poland", "🇮🇹 Italy",
+  "🇲🇹 Malta", "🇶🇦 Qatar", "🇸🇦 Saudi Arabia",
+];
+
+/* ================================================================== */
+/*  CONTACT                                                            */
+/* ================================================================== */
+
+export const partnerTypes = [
+  "An international employer",
+  "A recruitment agency",
+  "A university or college",
+  "A travel company",
+  "An education consultant",
+  "A business looking for international partnerships",
+];
