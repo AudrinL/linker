@@ -2,35 +2,45 @@
 
 /* ============================================================
    LINKER WORLD TRAVEL — DESIGN SYSTEM
-   Cinematic editorial. Deep navy canvas, warm amber key light.
-   Palette derived from the brand mark: navy · cyan · amber · verdant
+   Palette sampled directly from the logo: ocean navy · cyan ·
+   swoosh orange · sun · landmass green, on the mark's white field.
    ============================================================ */
 
 @theme {
-  /* — Core canvas: warm cream, never pure white — */
-  --color-abyss: #f7f4ee;
+  /* — Canvas: the logo sits on white, so the page reads cool, not cream — */
+  --color-abyss: #f3f7f9;
   --color-ink: #ffffff;
-  --color-ink-soft: #f1eee8;
-  --color-slate: #e2e7ed;
+  --color-ink-soft: #e9f1f5;
+  --color-slate: #d8e5ec;
 
-  /* — Brand blues, lifted from the globe — */
-  --color-deep: #1e5e88;
-  --color-azure: #1e88c7;
-  --color-cyan: #0b94b0;
-  --color-sky: #7cc4dd;
+  /* — Globe blues, sampled from the ocean and the landmark silhouettes — */
+  --color-deep: #013c5a;
+  --color-azure: #04839b;
+  --color-cyan: #17a5b4;
+  --color-sky: #33ccda;
 
-  /* — Warm key light, deepened for contrast on the cream canvas — */
-  --color-amber: #d97706;
-  --color-gold: #b45309;
-  --color-ember: #c2410c;
+  /* — The swoosh —
+     `flare` is the logo orange exactly as drawn. At 3.2:1 on white it cannot
+     legally carry text, so it is reserved for graphics: gradients, icon
+     chips, glows. `gold` is that same orange deepened until white text on it
+     clears AA (5.1:1), and is what every button and link uses. */
+  --color-flare: #f1640b;
+  --color-gold: #bd4a08;
 
-  /* — Verdant, lifted from the landmass — */
-  --color-verdant: #3fa96b;
+  /* — The sun. Decorative only; far too light for type — */
+  --color-amber: #fcac25;
 
-  /* — Neutrals: deep navy type on the cream canvas — */
-  --color-bone: #0b1c2b;
-  --color-mist: #5a6b7d;
-  --color-muted: #64748b;
+  /* — Errors. Deliberately red rather than the brand orange, so a validation
+       message can never be mistaken for a call to action — */
+  --color-ember: #b3261e;
+
+  /* — Landmass green, deepened to stay legible as an icon and tick colour — */
+  --color-verdant: #5c8118;
+
+  /* — Type: the wordmark's navy, and two cooler greys beneath it — */
+  --color-bone: #0b2a3f;
+  --color-mist: #4a6275;
+  --color-muted: #6a7f8f;
 
   /* — Type — */
   --font-display: var(--font-poppins), "Helvetica Neue", Arial, sans-serif;
@@ -161,13 +171,14 @@
     color: var(--color-gold);
   }
 
-  /* — The signature warm-to-cool text wash — */
+  /* — The signature warm wash: the swoosh, read left to right —
+       Large display type only, which is why it may use `flare` directly. */
   .text-gradient-warm {
     background: linear-gradient(
       104deg,
       var(--color-bone) 0%,
-      var(--color-gold) 46%,
-      var(--color-amber) 74%
+      var(--color-flare) 52%,
+      var(--color-amber) 82%
     );
     -webkit-background-clip: text;
     background-clip: text;
@@ -179,8 +190,8 @@
     background: linear-gradient(
       104deg,
       var(--color-ink) 0%,
-      var(--color-gold) 46%,
-      var(--color-amber) 74%
+      var(--color-flare) 50%,
+      var(--color-amber) 80%
     );
     -webkit-background-clip: text;
     background-clip: text;
