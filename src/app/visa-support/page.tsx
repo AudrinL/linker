@@ -6,7 +6,7 @@ import {
   visaDocuments,
   visaWhyUs,
   visaFaqs,
-  visaGuides,
+
   trustMarks,
 } from "@/lib/services-data";
 import { visaDestinations } from "@/lib/countries";
@@ -17,7 +17,6 @@ import { FeatureList, Checklist } from "@/components/ui/FeatureList";
 import { DestinationPicker } from "@/components/ui/DestinationPicker";
 import { EligibilityChecker } from "@/components/ui/EligibilityChecker";
 import { ProcessTimeline } from "@/components/ui/ProcessTimeline";
-import { GuideCard } from "@/components/ui/GuideCard";
 import { Faq } from "@/components/ui/Faq";
 import { Notice } from "@/components/ui/Notice";
 import { TrustBar } from "@/components/ui/TrustBar";
@@ -101,15 +100,6 @@ export default function VisaSupportPage() {
         <section>
           <SectionHeading eyebrow="Why us" title="Why choose Linker World" />
           <FeatureList features={visaWhyUs} numbered={false} columns={3} className="mt-12" />
-        </section>
-
-        <section>
-          <SectionHeading eyebrow="Free guides" title="Get approved first time" />
-          <div className="mt-10 grid gap-6 sm:grid-cols-2">
-            {visaGuides.map((guide) => (
-              <GuideCard key={guide.slug} guide={guide} />
-            ))}
-          </div>
         </section>
 
         <section>
