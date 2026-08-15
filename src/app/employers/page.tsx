@@ -4,6 +4,7 @@ import { trustMarks } from "@/lib/services-data";
 import { PageHero } from "@/components/ui/PageHero";
 import MultiStepForm from "@/components/forms/MultiStepForm";
 import { TrustBar } from "@/components/ui/TrustBar";
+import { Notice } from "@/components/ui/Notice";
 
 export const metadata: Metadata = {
   title: "Submit a Job Order",
