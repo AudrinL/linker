@@ -51,7 +51,20 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  // Static assets and image optimisation are excluded: without this the proxy
-  // runs on every CSS, JS and image request, which is pure latency.
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|img/|.*\\.(?:png|jpe?g|svg|ico|webp|avif)$).*)"],
+  /**
+   * The dashboard and its API routes, and nothing else.
+   *
+   * This used to match the whole site minus static assets, which was harmless
+   * only while Supabase was unconfigured and the function returned on the
+   * first line. With it configured, `getClaims()` verifies a JWT against the
+   * project's published keys — a network fetch of the key set on any instance
+   * that has not cached it yet. Matching every route meant paying that on the
+   * homepage, on every marketing page, for visitors who have no session and
+   * never will.
+   *
+   * Nothing outside `/admin` reads a staff session, so nothing outside it
+   * needs the refresh. Narrowing the matcher is also what keeps the excluded
+   * static-asset list from being load-bearing.
+   */
+  matcher: ["/admin/:path*", "/api/admin/:path*"],
 };
