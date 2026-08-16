@@ -9,6 +9,7 @@ import {
   signInWithPassword,
   type ActionState,
 } from "@/app/admin/actions";
+import type { EnvDiagnosis } from "@/lib/supabase/server";
 
 const field =
   "w-full rounded-[var(--radius-xs)] border border-mist/20 bg-ink px-4 py-3 text-sm outline-none transition-colors focus:border-gold";
@@ -193,12 +194,38 @@ function SupabaseSignIn() {
   );
 }
 
+/**
+ * What is missing, and where. Shown only on the unconfigured screen, which is
+ * already telling the world the deployment is half-built — the extra detail is
+ * presence booleans and a short commit, no values.
+ */
+function Diagnosis({ diagnosis }: { diagnosis: EnvDiagnosis }) {
+  return (
+    <div className="mt-4 space-y-2 rounded-[var(--radius-xs)] bg-abyss/60 p-3 font-mono text-[0.65rem] leading-relaxed text-mist">
+      {diagnosis.vars.map((v) => (
+        <div key={v.name}>
+          <div className="break-all text-bone">{v.name}</div>
+          <div>
+            build: {v.atBuild ? "present" : "missing"} · runtime:{" "}
+            {v.atRuntime ? "present" : "missing"}
+          </div>
+        </div>
+      ))}
+      <div className="border-t border-mist/15 pt-2">
+        built from commit {diagnosis.buildCommit}
+      </div>
+    </div>
+  );
+}
+
 export default function LoginForm({
   mode,
   linkError,
+  diagnosis,
 }: {
   mode: "supabase" | "password" | "unconfigured";
   linkError?: boolean;
+  diagnosis?: EnvDiagnosis;
 }) {
   return (
     <div className="space-y-4">
@@ -221,6 +248,7 @@ export default function LoginForm({
           , then redeploy.
         </p>
       )}
+      {mode === "unconfigured" && diagnosis && <Diagnosis diagnosis={diagnosis} />}
     </div>
   );
 }

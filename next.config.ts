@@ -1,6 +1,19 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  /**
+   * The commit this build came from, frozen into the bundle.
+   *
+   * `COMMIT_REF` is set by Netlify during the build and is gone by the time a
+   * request is served, so it has to be captured here — `env` is inlined the
+   * same way `NEXT_PUBLIC_` values are. It is read only by the unconfigured
+   * sign-in screen, where it distinguishes "the code is wrong" from "the code
+   * you are looking at was never deployed". Empty locally, which is correct.
+   */
+  env: {
+    BUILD_COMMIT: process.env.COMMIT_REF ?? "",
+  },
+
   images: {
     // Quality tiers used across the site: 75 default, 82 editorial, 88 hero.
     qualities: [75, 82, 88],

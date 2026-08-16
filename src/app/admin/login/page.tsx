@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { currentStaff, passwordLoginAllowed } from "@/lib/admin/session";
-import { supabaseConfigured } from "@/lib/supabase/server";
+import { supabaseConfigured, supabaseEnvDiagnosis } from "@/lib/supabase/server";
 import { site } from "@/lib/site";
 import LoginForm from "@/components/admin/LoginForm";
 
@@ -45,7 +45,13 @@ export default async function LoginPage({
         </div>
 
         <div className="glass rounded-[var(--radius-lg)] p-7">
-          <LoginForm mode={mode} linkError={error === "link"} />
+          <LoginForm
+            mode={mode}
+            linkError={error === "link"}
+            // Only computed for the screen that needs it — the working sign-in
+            // paths never see it.
+            diagnosis={mode === "unconfigured" ? supabaseEnvDiagnosis() : undefined}
+          />
         </div>
 
         {mode === "supabase" && (

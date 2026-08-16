@@ -37,6 +37,52 @@ export function supabaseConfigured(): boolean {
   return Boolean(SUPABASE_URL && SUPABASE_KEY);
 }
 
+/**
+ * Why sign-in is unconfigured, in enough detail to end the guessing.
+ *
+ * "Set the variables and redeploy" is useless advice once you have set the
+ * variables and redeployed. Each value can be missing in two distinct ways and
+ * the fix differs: absent at build means the build ran without them (never set,
+ * set after the last deploy, or scoped so the build cannot see them); absent at
+ * runtime means the function cannot see them (scoped to builds only). Present
+ * at runtime but not at build is the normal, working state for a deployment
+ * configured after its last build — the fallback in `publicEnv` covers it.
+ *
+ * `buildCommit` is Netlify's `COMMIT_REF`, captured at build time in
+ * next.config.ts. It answers the question no amount of code reading can: which
+ * commit is actually serving this page. A value behind `git rev-parse HEAD`
+ * means the deploy is stale and nothing in the source explains the symptom.
+ *
+ * Only presence is reported, never a value — though both of these are public by
+ * design, this keeps the habit right.
+ */
+export type EnvDiagnosis = {
+  buildCommit: string;
+  vars: { name: string; atBuild: boolean; atRuntime: boolean }[];
+};
+
+export function supabaseEnvDiagnosis(): EnvDiagnosis {
+  // `atBuild` must be the inlined literal and `atRuntime` must NOT be, or both
+  // report the same number and the panel lies. A bracketed lookup is only safe
+  // from substitution when the key is not a literal at the access site, which
+  // is why the name arrives through this variable rather than being written
+  // out — the same reason `publicEnv` takes its name as an argument.
+  const inlined: Record<string, string | undefined> = {
+    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
+    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:
+      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
+  };
+
+  return {
+    buildCommit: (process.env.BUILD_COMMIT || "unknown").slice(0, 7),
+    vars: Object.keys(inlined).map((name) => ({
+      name,
+      atBuild: Boolean(inlined[name]),
+      atRuntime: Boolean(process.env[name]),
+    })),
+  };
+}
+
 export async function createSupabaseServerClient() {
   const cookieStore = await cookies();
 
