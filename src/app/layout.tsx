@@ -2,10 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
-import SmoothScroll from "@/components/providers/SmoothScroll";
-import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
-import WhatsAppFab from "@/components/layout/WhatsAppFab";
+import SiteChrome from "@/components/layout/SiteChrome";
 
 const geist = Geist({
   variable: "--font-geist",
@@ -113,17 +111,9 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
         />
-        <SmoothScroll />
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-6 focus:top-6 focus:z-[100] focus:rounded-full focus:bg-gold focus:px-5 focus:py-2.5 focus:text-sm focus:font-medium focus:text-white"
-        >
-          Skip to content
-        </a>
-        <Nav />
-        <main id="main">{children}</main>
-        <Footer />
-        <WhatsAppFab />
+        {/* Nav, footer and scroll smoothing live here for the public site and
+            are dropped on /admin — see SiteChrome. */}
+        <SiteChrome footer={<Footer />}>{children}</SiteChrome>
       </body>
     </html>
   );

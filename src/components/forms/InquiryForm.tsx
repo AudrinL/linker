@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { site } from "@/lib/site";
 import { cn, mailtoLink, whatsappLink } from "@/lib/utils";
+import { recordInquiry } from "@/lib/submit";
 
 const SERVICES = [
   "Overseas jobs & recruitment",
@@ -17,10 +18,11 @@ type Errors = Partial<Record<"name" | "contact" | "service" | "message", string>
 /**
  * Client inquiry form.
  *
- * There is no backend: the form validates, composes a readable message, and
- * hands off to WhatsApp — where the client's team already works — with an
- * email route as a fallback for anyone without it. Nothing is stored or sent
- * anywhere else, so there is no silent-failure path for a real inquiry.
+ * The form validates, composes a readable message, and hands off to WhatsApp —
+ * where the client's team already works — with an email route as a fallback
+ * for anyone without it. That hand-off is the path that must never fail, so it
+ * is unconditional. A copy is also posted to the API for the staff dashboard,
+ * best-effort: if that call fails the inquiry still reaches the office.
  */
 export default function InquiryForm() {
   const [values, setValues] = useState({
@@ -69,6 +71,12 @@ export default function InquiryForm() {
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
+    // Recorded for the staff dashboard, then handed to WhatsApp as before.
+    // Not awaited — the hand-off must not depend on the API being up.
+    void recordInquiry({
+      ...values,
+      source: typeof window !== "undefined" ? window.location.pathname : undefined,
+    });
     window.open(whatsappLink(site.whatsapp, composed()), "_blank", "noopener");
     setSent(true);
   };

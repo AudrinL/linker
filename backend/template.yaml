@@ -1,0 +1,201 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Linker World Travel API — FastAPI on Lambda behind an HTTP API, with
+  DynamoDB storage and SES notifications. Frontend stays on Netlify.
+
+Parameters:
+  Stage:
+    Type: String
+    Default: prod
+    AllowedValues: [dev, prod]
+  CorsOrigins:
+    Type: String
+    Description: >
+      Comma-separated exact origins allowed to call the API. Never "*".
+      e.g. https://www.linkerworldtravel.com,https://linkerworldtravel.com
+  AdminKeySecretName:
+    Type: String
+    Default: lwt/admin-api-key
+    Description: >
+      Secrets Manager secret holding {"key":"..."} — the staff dashboard's
+      bearer token. Create it before deploying; its value never appears here.
+  EmailSender:
+    Type: String
+    Default: ""
+    Description: SES-verified From address. Leave empty to disable notifications.
+  EmailRecipient:
+    Type: String
+    Default: info@linkerworldtravel.com
+
+Conditions:
+  EmailOn: !Not [!Equals [!Ref EmailSender, ""]]
+
+Globals:
+  Function:
+    # 3.12, not 3.13: Mangum 0.21 calls asyncio.get_event_loop() at import,
+    # which is removed-in-3.14 behaviour and already warns on 3.13. This is
+    # also the version the local test suite runs against.
+    Runtime: python3.12
+    Timeout: 15
+    # Enough headroom that Pydantic import time does not dominate cold start;
+    # more memory is also proportionally more CPU, so this is often cheaper.
+    MemorySize: 512
+    Architectures: [arm64]
+    Tracing: Active
+    Environment:
+      Variables:
+        STAGE: !Ref Stage
+        STORAGE: dynamodb
+        BLOG_TABLE: !Ref BlogTable
+        INQUIRIES_TABLE: !Ref InquiriesTable
+        APPLICATIONS_TABLE: !Ref ApplicationsTable
+        SUBSCRIBERS_TABLE: !Ref SubscribersTable
+        CORS_ORIGINS: !Ref CorsOrigins
+        EMAIL_ENABLED: !If [EmailOn, "true", "false"]
+        EMAIL_SENDER: !Ref EmailSender
+        EMAIL_RECIPIENT: !Ref EmailRecipient
+        # Resolved by CloudFormation at deploy time from Secrets Manager, so
+        # the value is never written into this template or into git.
+        ADMIN_API_KEY: !Sub "{{resolve:secretsmanager:${AdminKeySecretName}:SecretString:key}}"
+
+Resources:
+  Api:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      StageName: !Ref Stage
+      # CORS is answered by FastAPI's own middleware so there is exactly one
+      # source of allowed origins. Configuring it here too would double the
+      # headers and browsers reject that.
+      DefaultRouteSettings:
+        ThrottlingRateLimit: 10
+        ThrottlingBurstLimit: 20
+        DetailedMetricsEnabled: true
+      AccessLogSettings:
+        DestinationArn: !GetAtt ApiAccessLogs.Arn
+        # Deliberately no request body and no query string — the checklist
+        # forbids applicant contact details reaching logs.
+        Format: >-
+          {"requestId":"$context.requestId","ip":"$context.identity.sourceIp","method":"$context.httpMethod","route":"$context.routeKey","status":"$context.status","latency":"$context.responseLatency"}
+
+  ApiAccessLogs:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "/aws/http-api/lwt-${Stage}"
+      RetentionInDays: 30
+
+  ApiFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./
+      Handler: app.main.handler
+      Description: FastAPI application (Mangum adapter)
+      Events:
+        Proxy:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref Api
+            # One catch-all route: FastAPI owns the routing table.
+            Path: /{proxy+}
+            Method: ANY
+            PayloadFormatVersion: "2.0"
+      Policies:
+        # Least privilege: these four tables and nothing else.
+        - DynamoDBCrudPolicy: {TableName: !Ref BlogTable}
+        - DynamoDBCrudPolicy: {TableName: !Ref InquiriesTable}
+        - DynamoDBCrudPolicy: {TableName: !Ref ApplicationsTable}
+        - DynamoDBCrudPolicy: {TableName: !Ref SubscribersTable}
+        - Statement:
+            - Effect: Allow
+              Action: [ses:SendEmail]
+              Resource: "*"
+              # Send only as the verified identity, only to the office inbox.
+              Condition:
+                StringEquals:
+                  ses:FromAddress: !Ref EmailSender
+    Metadata:
+      BuildMethod: python3.12
+
+  ApiFunctionLogs:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "/aws/lambda/${ApiFunction}"
+      RetentionInDays: 30
+
+  # -------------------------------------------------------------- storage
+  # PAY_PER_REQUEST across the board: traffic is bursty and low, and it keeps
+  # the tables inside the free tier without capacity planning.
+
+  BlogTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub "lwt-blog-posts-${Stage}"
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - {AttributeName: slug, AttributeType: S}
+      KeySchema:
+        - {AttributeName: slug, KeyType: HASH}
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      # No TTL — posts are the one collection meant to live forever.
+
+  InquiriesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub "lwt-inquiries-${Stage}"
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - {AttributeName: id, AttributeType: S}
+      KeySchema:
+        - {AttributeName: id, KeyType: HASH}
+      TimeToLiveSpecification: {AttributeName: ttl, Enabled: true}
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+
+  ApplicationsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub "lwt-applications-${Stage}"
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - {AttributeName: id, AttributeType: S}
+      KeySchema:
+        - {AttributeName: id, KeyType: HASH}
+      TimeToLiveSpecification: {AttributeName: ttl, Enabled: true}
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+
+  SubscribersTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub "lwt-subscribers-${Stage}"
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - {AttributeName: email, AttributeType: S}
+      KeySchema:
+        - {AttributeName: email, KeyType: HASH}
+      TimeToLiveSpecification: {AttributeName: ttl, Enabled: true}
+
+  # ---------------------------------------------------------------- alarms
+
+  ErrorAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub "lwt-api-errors-${Stage}"
+      Namespace: AWS/Lambda
+      MetricName: Errors
+      Dimensions:
+        - {Name: FunctionName, Value: !Ref ApiFunction}
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 5
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+
+Outputs:
+  ApiUrl:
+    Description: Set this as API_BASE_URL in Netlify.
+    Value: !Sub "https://${Api}.execute-api.${AWS::Region}.amazonaws.com/${Stage}"
+  FunctionName:
+    Value: !Ref ApiFunction

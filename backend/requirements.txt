@@ -1,0 +1,9 @@
+# Runtime dependencies, pinned (safety checklist).
+# boto3 ships in the Lambda runtime, but pin it so local runs and CI match.
+fastapi==0.141.1
+mangum==0.21.0
+pydantic==2.13.4
+pydantic-settings==2.15.0
+email-validator==2.3.0
+python-multipart==0.0.32
+boto3==1.43.72

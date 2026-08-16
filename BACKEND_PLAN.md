@@ -1,7 +1,15 @@
 # Backend Implementation Plan — FastAPI on AWS (frontend stays on Netlify)
 
-> **Status:** Plan / implementation prompt. Follow phases in order. Each phase ends with a
-> verification step — do not move on until it passes.
+> **Status:** Phases 0–4 are **built** in `backend/` (43 passing tests, verified against a
+> live `uvicorn`). Phase 5's `template.yaml` is written but **not deployed** — that needs the
+> SAM CLI and AWS credentials. Phase 6 is wired: the contact form, the multi-step funnels and
+> the newsletter all post through `src/app/api/*` proxies, and the staff dashboard at
+> `/admin` reads and triages the results. Phase 7 is outstanding.
+>
+> Two things were added beyond the original plan, both because the dashboard needed them:
+> an `applications` table and endpoint (the multi-step funnels are the site's main intake,
+> not just contact inquiries), and `/admin/*` read + triage routes for the dashboard itself.
+> See `backend/README.md` for the endpoint list and how to run it.
 
 ## Architecture
 

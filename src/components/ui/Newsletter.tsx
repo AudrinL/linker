@@ -3,15 +3,17 @@
 import { useState } from "react";
 import { site } from "@/lib/site";
 import { cn, whatsappLink } from "@/lib/utils";
+import { recordSubscriber } from "@/lib/submit";
 import { inputCls, labelCls, errorCls } from "@/components/forms/fields";
 
 /**
  * Opportunity alerts sign-up.
  *
- * There is no mailing-list backend, so rather than pretend to subscribe
- * someone and drop their address, this hands the request to WhatsApp like
- * every other form on the site — the team adds them to the list by hand. The
- * copy says so, because a signup that silently goes nowhere is worse than none.
+ * The address is stored via the API and appears under Subscribers in the staff
+ * dashboard. The WhatsApp hand-off stays as well: it is what the team actually
+ * watches, and it means a signup still lands if the API is down. There is no
+ * sending platform behind this yet — the list is exported and used by hand —
+ * so the confirmation copy promises only what happens.
  */
 export default function Newsletter() {
   const [email, setEmail] = useState("");
@@ -44,6 +46,7 @@ export default function Newsletter() {
     ]
       .filter(Boolean)
       .join("\n");
+    if (email.trim()) void recordSubscriber(email.trim(), "opportunity-alerts");
     window.open(whatsappLink(site.whatsapp, msg), "_blank", "noopener");
     setSent(true);
   };

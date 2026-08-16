@@ -5,6 +5,7 @@ import Link from "next/link";
 import { site } from "@/lib/site";
 import type { FormConfig } from "@/lib/forms";
 import { cn, mailtoLink, whatsappLink } from "@/lib/utils";
+import { recordApplication } from "@/lib/submit";
 import { Field, validateField } from "./fields";
 import FileUpload from "./FileUpload";
 
@@ -167,6 +168,9 @@ export default function MultiStepForm({ config }: Props) {
     if (!validateStep()) return;
     const ref = makeReference(config);
     const msg = composed(ref);
+    // Fire before the WhatsApp tab opens, and do not await it: the hand-off is
+    // what the applicant is here for, and it must not wait on our API.
+    void recordApplication(config, ref, values, files);
     window.open(whatsappLink(site.whatsapp, msg), "_blank", "noopener");
     setReference(ref);
   };

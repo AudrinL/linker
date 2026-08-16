@@ -1,0 +1,5 @@
+# Local development and CI only — not packaged into the Lambda bundle.
+-r requirements.txt
+uvicorn[standard]==0.52.3
+pytest==9.1.1
+httpx==0.28.1
