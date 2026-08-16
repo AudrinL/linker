@@ -16,13 +16,15 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  await requireSession();
   const staff = await currentStaff();
+  if (!staff) redirect("/admin/login");
+  // Signed in but not approved — or approval withdrawn since last request.
+  if (staff.status !== "approved") redirect("/admin/pending");
+  // Still on a password someone else issued: change it before seeing anything.
+  if (staff.mustChangePassword) redirect("/admin/account/password");
 
-  // An account still on the password it was issued sees nothing until it picks
-  // its own. Enforced here, in the layout every dashboard page renders inside,
-  // rather than in the proxy — same reasoning as the auth check itself.
-  if (staff?.mustChangePassword) redirect("/admin/account/password");
+  // Belt and braces on the data layer itself.
+  await requireSession();
 
   // Unread counts in the nav, so staff can see there is work waiting without
   // opening each section. A backend that is down must not blank the shell —
@@ -45,6 +47,11 @@ export default async function DashboardLayout({
     { href: "/admin/subscribers", label: "Subscribers" },
     { href: "/admin/blog", label: "Journal" },
   ];
+
+  // Only super admins manage accounts, so only they see the door.
+  if (staff.role === "super_admin") {
+    items.push({ href: "/admin/users", label: "Users" });
+  }
 
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-[100rem] flex-col gap-8 px-5 py-6 lg:flex-row lg:gap-10 lg:px-8 lg:py-8">

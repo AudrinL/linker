@@ -1,6 +1,7 @@
 import Image from "next/image";
+import Link from "next/link";
 import { redirect } from "next/navigation";
-import { allowlist, hasSession, passwordLoginAllowed } from "@/lib/admin/session";
+import { currentStaff, passwordLoginAllowed } from "@/lib/admin/session";
 import { supabaseConfigured } from "@/lib/supabase/server";
 import { site } from "@/lib/site";
 import LoginForm from "@/components/admin/LoginForm";
@@ -10,20 +11,17 @@ export default async function LoginPage({
 }: {
   searchParams: Promise<{ error?: string }>;
 }) {
-  // Already signed in — no reason to show the form again.
-  if (await hasSession()) redirect("/admin");
+  // Already signed in — send them where they belong rather than showing the
+  // form again. A pending account goes to the waiting screen, not the inbox.
+  const staff = await currentStaff();
+  if (staff) redirect(staff.status === "approved" ? "/admin" : "/admin/pending");
 
   const { error } = await searchParams;
 
   // Supabase wins wherever it is configured; the password form only appears
   // when it is not, and then only outside production.
-  // Supabase configured but no allowlist means every sign-in would be refused
-  // after the round trip. Say so here rather than emailing a link that leads
-  // to a locked door.
   const mode = supabaseConfigured()
-    ? allowlist().length > 0
-      ? "supabase"
-      : "no-allowlist"
+    ? "supabase"
     : passwordLoginAllowed()
       ? "password"
       : "unconfigured";
@@ -50,7 +48,16 @@ export default async function LoginPage({
           <LoginForm mode={mode} linkError={error === "link"} />
         </div>
 
-        <p className="mt-6 text-center text-xs text-muted">
+        {mode === "supabase" && (
+          <p className="mt-6 text-center text-xs text-muted">
+            No account yet?{" "}
+            <Link href="/admin/signup" className="text-gold hover:underline">
+              Request one
+            </Link>
+          </p>
+        )}
+
+        <p className="mt-4 text-center text-xs text-muted">
           This area is for {site.shortName} staff. Everything here is client
           data — do not share screenshots outside the office.
         </p>

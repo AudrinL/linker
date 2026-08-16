@@ -197,7 +197,7 @@ export default function LoginForm({
   mode,
   linkError,
 }: {
-  mode: "supabase" | "password" | "no-allowlist" | "unconfigured";
+  mode: "supabase" | "password" | "unconfigured";
   linkError?: boolean;
 }) {
   return (
@@ -210,14 +210,6 @@ export default function LoginForm({
 
       {mode === "supabase" && <SupabaseSignIn />}
       {mode === "password" && <PasswordForm />}
-      {mode === "no-allowlist" && (
-        <p className="text-sm leading-relaxed text-muted">
-          Sign-in is locked. No staff addresses are configured, so every account
-          would be refused. Set
-          <code className="mx-1 font-mono text-xs">ADMIN_EMAILS</code>
-          to the comma-separated staff addresses and redeploy.
-        </p>
-      )}
       {mode === "unconfigured" && (
         <p className="text-sm leading-relaxed text-muted">
           Sign-in is not configured for this deployment. Set

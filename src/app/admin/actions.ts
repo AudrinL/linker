@@ -137,9 +137,159 @@ export async function signInWithPassword(
   if (error) return failed();
 
   attempts.delete(key);
-  // Where they land is decided by the dashboard layout: an account still on
-  // its issued password is sent to change it before it sees anything.
+  // Where they land is decided downstream: a pending account goes to the
+  // waiting screen, an account still on an issued password goes to change it,
+  // and only an approved one reaches the dashboard.
   redirect("/admin");
+}
+
+/**
+ * Create an account.
+ *
+ * Open to anyone, and that is safe by construction: the trigger writes the new
+ * row as 'pending', and a pending account can read nothing. Approval is a
+ * separate, human decision made by a super admin.
+ */
+export async function signUp(
+  _prev: ActionState,
+  formData: FormData,
+): Promise<ActionState> {
+  if (!supabaseConfigured()) return { error: "Sign-up is not configured." };
+
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+  const fullName = String(formData.get("full_name") ?? "").trim();
+  const password = String(formData.get("password") ?? "");
+
+  if (!/^\S+@\S+\.\S{2,}$/.test(email)) return { error: "Enter a valid email address." };
+  if (!fullName) return { error: "Enter your name." };
+  if (password.length < 12) return { error: "Use a password of at least 12 characters." };
+
+  const headerList = await headers();
+  const host = headerList.get("host") ?? "localhost:3000";
+  const protocol = host.startsWith("localhost") ? "http" : "https";
+
+  const supabase = await createSupabaseServerClient();
+  const { error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      emailRedirectTo: `${protocol}://${host}/admin/auth/callback`,
+      // Picked up by the trigger and written into the staff row.
+      data: { full_name: fullName, [PASSWORD_CHANGED_AT]: new Date().toISOString() },
+    },
+  });
+
+  if (error) {
+    // "User already registered" is worth saying — it is the account holder in
+    // front of us, and hiding it just produces a confused second attempt.
+    return { error: error.message };
+  }
+
+  return { ok: true };
+}
+
+// ------------------------------------------------------------ user management
+
+async function requireSuperAdmin() {
+  const staff = await currentStaff();
+  if (!staff || staff.status !== "approved") redirect("/admin/login");
+  if (staff.role !== "super_admin") redirect("/admin");
+  return staff;
+}
+
+/**
+ * Approve, suspend, promote or demote another account.
+ *
+ * The database has the final say — RLS only permits these writes for an
+ * approved super admin — but the checks here give a decent error instead of a
+ * silent no-op, and stop a super admin removing their own access by accident.
+ */
+export async function updateStaffMember(
+  _prev: ActionState,
+  formData: FormData,
+): Promise<ActionState> {
+  const me = await requireSuperAdmin();
+
+  const id = String(formData.get("id") ?? "");
+  const status = String(formData.get("status") ?? "");
+  const role = String(formData.get("role") ?? "");
+  if (!id) return { error: "Missing account." };
+
+  const patch: { status?: string; role?: string } = {};
+  if (status && ["pending", "approved", "suspended"].includes(status)) patch.status = status;
+  if (role && ["super_admin", "staff"].includes(role)) patch.role = role;
+  if (Object.keys(patch).length === 0) return { error: "Nothing to change." };
+
+  // Locking yourself out is a one-click mistake with no way back except SQL.
+  if (id === me.id && (patch.role === "staff" || patch.status !== undefined)) {
+    return { error: "You cannot change your own role or status." };
+  }
+
+  const supabase = await createSupabaseServerClient();
+  const { error } = await supabase.from("staff").update(patch).eq("id", id);
+  if (error) return { error: error.message };
+
+  revalidatePath("/admin/users");
+  return { ok: true };
+}
+
+/**
+ * Register someone who does not have an account yet.
+ *
+ * This is the "create an account" action. It records the address and the role
+ * it should have; the person completes the signup form themselves and is
+ * approved the moment they do. The alternative — minting the auth user here —
+ * would mean this app holding a key that can read and rewrite every table,
+ * and an administrator knowing a colleague's password.
+ */
+export async function inviteStaff(
+  _prev: ActionState,
+  formData: FormData,
+): Promise<ActionState> {
+  const me = await requireSuperAdmin();
+
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+  const role = String(formData.get("role") ?? "staff");
+
+  if (!/^\S+@\S+\.\S{2,}$/.test(email)) return { error: "Enter a valid email address." };
+  if (!["super_admin", "staff"].includes(role)) return { error: "Unknown role." };
+
+  const supabase = await createSupabaseServerClient();
+
+  // Someone who already has an account is managed on the list below, not
+  // invited again — say so rather than writing an invite that never fires.
+  const { data: existing } = await supabase
+    .from("staff")
+    .select("id")
+    .eq("email", email)
+    .maybeSingle();
+  if (existing) return { error: "That address already has an account." };
+
+  const { error } = await supabase
+    .from("staff_invites")
+    .upsert({ email, role, invited_by: me.id, accepted_at: null });
+
+  if (error) {
+    if (error.message.includes("staff_invites")) {
+      return { error: "Run migration 0002_staff_invites.sql in Supabase first." };
+    }
+    return { error: error.message };
+  }
+
+  revalidatePath("/admin/users");
+  return { ok: true };
+}
+
+export async function revokeInvite(formData: FormData): Promise<void> {
+  await requireSuperAdmin();
+
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+  if (!email) return;
+
+  const supabase = await createSupabaseServerClient();
+  await supabase.from("staff_invites").delete().eq("email", email);
+
+  revalidatePath("/admin/users");
 }
 
 /**
