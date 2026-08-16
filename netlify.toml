@@ -1,0 +1,20 @@
+# Netlify configuration.
+#
+# Deliberately minimal: the build command, publish directory and Next.js
+# runtime plugin stay under the site's UI settings, and anything set here
+# would override them. The only job of this file is the secrets-scanning
+# exemption below.
+
+[build.environment]
+  # Netlify scans the build output for the value of every environment
+  # variable and fails the deploy when it finds one, on the assumption it is
+  # a leaked secret. These two are public by design — Next.js inlines any
+  # NEXT_PUBLIC_ value into the browser bundle, which is the whole point of
+  # the prefix, and the Supabase publishable key carries no privilege beyond
+  # what row-level security allows. Without this exemption the deploy fails,
+  # the previous build stays live, and /admin/login goes on reporting itself
+  # unconfigured because *that* build never saw the variables.
+  #
+  # Nothing else is exempted. A real secret appearing in the bundle should
+  # still fail the build.
+  SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY"

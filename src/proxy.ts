@@ -18,8 +18,13 @@ import { createServerClient } from "@supabase/ssr";
 export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
 
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+  // The bracketed reads are the fallback for a deployment whose build ran
+  // before the variables were set — see `publicEnv` in lib/supabase/server.
+  const url =
+    process.env.NEXT_PUBLIC_SUPABASE_URL || process.env["NEXT_PUBLIC_SUPABASE_URL"];
+  const key =
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+    process.env["NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY"];
   // Not configured — local development on the password fallback. Nothing to
   // refresh, so get out of the request's way.
   if (!url || !key) return response;
