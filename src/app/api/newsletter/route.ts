@@ -5,13 +5,18 @@
  * Keyed on the address, so re-subscribing is a no-op rather than a duplicate
  * row or a visible error.
  *
- * A plain insert, with the duplicate caught below — deliberately not an upsert.
- * PostgREST's upsert is refused by row-level security here even in its
- * `ignore-duplicates` form (42501, verified against the live project), and the
- * fix is not to widen the policy: a working upsert would need `anon` to hold
- * UPDATE on this table, which would let anyone who guessed an address rewrite
- * that row and unsubscribe a real subscriber. Insert-only keeps the privilege
- * as narrow as the feature actually needs.
+ * An upsert, so someone who unsubscribed and changed their mind comes back on
+ * the list. Insert-only looked safer but told that person "you're signed up"
+ * and left them unsubscribed.
+ *
+ * It needs the UPDATE privilege granted in 0006, which is column-level and
+ * paired with a policy allowing only `unsubscribed = false` — an anonymous
+ * write can re-subscribe an address but never unsubscribe one, so a walk
+ * through a list of addresses cannot empty the mailing list.
+ *
+ * `unsubscribed` is sent explicitly rather than left to the column default:
+ * on the conflict path there is no default to apply, and omitting it would
+ * make the re-subscribe a no-op again.
  */
 
 import { createSupabaseServerClient } from "@/lib/supabase/server";
@@ -39,10 +44,16 @@ export async function POST(request: Request) {
 
   try {
     const supabase = await createSupabaseServerClient();
-    const { error } = await supabase.from("subscribers").insert(checked.value);
+    const { error } = await supabase
+      .from("subscribers")
+      .upsert(
+        { ...checked.value, unsubscribed: false },
+        { onConflict: "email" },
+      );
 
-    // 23505 is unique_violation: they are already on the list. That is the
-    // successful outcome of "subscribe me", not an error to show them.
+    // 23505 would mean the upsert fell through to a plain conflict — kept as a
+    // success because "you are already on the list" is the outcome the person
+    // asked for either way.
     if (error && error.code !== "23505") {
       console.error("subscribe failed:", error.message);
       return Response.json(
