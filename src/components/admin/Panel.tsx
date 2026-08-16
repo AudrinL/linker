@@ -47,20 +47,23 @@ export function EmptyState({ children }: { children: React.ReactNode }) {
 }
 
 /**
- * Shown whenever a page cannot reach the API. Says which URL failed, because
- * the usual cause is `API_BASE_URL` pointing somewhere that is not running.
+ * Shown whenever a page cannot load its data.
+ *
+ * There is no separate API to be down any more — the data comes from Supabase
+ * — so the guidance names the two things that actually cause this now: the
+ * migrations not having been run against this project, and an account whose
+ * approval was withdrawn while it was signed in.
  */
-export function ApiDown({ baseUrl, detail }: { baseUrl: string; detail?: string }) {
+export function ApiDown({ detail }: { detail?: string }) {
   return (
     <div className="rounded-[var(--radius-md)] border border-ember/25 bg-ember/[0.05] p-6">
-      <h2 className="text-sm font-medium text-ember">The API is not responding</h2>
+      <h2 className="text-sm font-medium text-ember">This could not be loaded</h2>
       <p className="mt-2 text-sm text-mist">
-        Nothing could be loaded from <code className="font-mono text-xs">{baseUrl}</code>
-        {detail ? ` — ${detail}` : "."}
+        The database did not answer{detail ? ` — ${detail}` : "."}
       </p>
       <p className="mt-3 text-xs text-muted">
-        Check that the backend is running and that <code>API_BASE_URL</code> and{" "}
-        <code>ADMIN_API_KEY</code> are set for this environment.
+        Check that the migrations in <code>supabase/migrations</code> have been run
+        against this project, and that your account is still approved.
       </p>
     </div>
   );

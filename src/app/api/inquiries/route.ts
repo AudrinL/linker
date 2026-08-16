@@ -1,17 +1,20 @@
 /**
- * Server-side proxy for the public contact form.
+ * Public contact form intake.
  *
- * The browser posts here, not to the API directly: it keeps `API_BASE_URL` off
- * the client, leaves room to attach a server-held credential later without
- * touching the form, and means the site's CORS surface stays a single origin.
+ * The browser posts here rather than to Supabase directly. That keeps the
+ * site's CORS surface a single origin, keeps the honeypot and the size cap on
+ * the server where a bot cannot skip them, and leaves the replies phrased for
+ * a visitor rather than as database errors.
  *
- * Validation stays in FastAPI — duplicating it here would give two answers to
- * the same question. This handler forwards and translates the result.
+ * The insert runs as `anon`, which row-level security allows to write this
+ * table and not to read it — a visitor can submit an inquiry and cannot see
+ * anyone else's.
  */
 
-import { API_BASE_URL } from "@/lib/admin/api";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { asObject, checkInquiry, isBot } from "@/lib/intake";
 
-/** Matches the backend's own cap, so an oversized body fails here first. */
+/** Same cap the old API enforced, applied before the body is read. */
 const MAX_BODY_BYTES = 256 * 1024;
 
 export async function POST(request: Request) {
@@ -27,29 +30,29 @@ export async function POST(request: Request) {
     return Response.json({ ok: false, error: "Invalid request." }, { status: 400 });
   }
 
-  try {
-    const upstream = await fetch(`${API_BASE_URL}/inquiries`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-      cache: "no-store",
-    });
+  const body = asObject(payload);
+  if (!body) {
+    return Response.json({ ok: false, error: "Invalid request." }, { status: 400 });
+  }
 
-    if (!upstream.ok) {
-      // 422 means the applicant's own input was rejected; anything else is
-      // ours to fix, and either way they get a plain sentence, not a stack.
+  // Answer a bot exactly as we would a real submission, and store nothing.
+  if (isBot(body)) return Response.json({ ok: true }, { status: 202 });
+
+  const checked = checkInquiry(body);
+  if (!checked.ok) {
+    return Response.json({ ok: false, error: checked.error }, { status: 422 });
+  }
+
+  try {
+    const supabase = await createSupabaseServerClient();
+    const { error } = await supabase.from("inquiries").insert(checked.value);
+    if (error) {
+      console.error("inquiry insert failed:", error.message);
       return Response.json(
-        {
-          ok: false,
-          error:
-            upstream.status === 422
-              ? "Please check the details and try again."
-              : "We could not send that just now.",
-        },
-        { status: upstream.status === 422 ? 422 : 502 },
+        { ok: false, error: "We could not send that just now." },
+        { status: 502 },
       );
     }
-
     return Response.json({ ok: true }, { status: 202 });
   } catch {
     return Response.json(

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { API_BASE_URL, adminApi, requireSession } from "@/lib/admin/api";
+import { adminApi, requireSession } from "@/lib/admin/api";
 import { formatDate } from "@/lib/admin/format";
 import { ApiDown, EmptyState, PageHeader, Panel } from "@/components/admin/Panel";
 
@@ -18,7 +18,7 @@ export default async function BlogAdminPage() {
     return (
       <>
         <PageHeader title="Journal" />
-        <ApiDown baseUrl={API_BASE_URL} detail={failure} />
+        <ApiDown detail={failure} />
       </>
     );
   }

@@ -1,4 +1,4 @@
-import { API_BASE_URL, adminApi, requireSession } from "@/lib/admin/api";
+import { adminApi, requireSession } from "@/lib/admin/api";
 import { formatDate } from "@/lib/admin/format";
 import { ApiDown, EmptyState, PageHeader, Panel } from "@/components/admin/Panel";
 
@@ -17,7 +17,7 @@ export default async function SubscribersPage() {
     return (
       <>
         <PageHeader title="Subscribers" />
-        <ApiDown baseUrl={API_BASE_URL} detail={failure} />
+        <ApiDown detail={failure} />
       </>
     );
   }

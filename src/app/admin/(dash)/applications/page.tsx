@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Suspense } from "react";
-import { API_BASE_URL, adminApi, requireSession } from "@/lib/admin/api";
+import { adminApi, requireSession } from "@/lib/admin/api";
 import { SERVICE_LABELS, type Service } from "@/lib/admin/types";
 import { relativeTime } from "@/lib/admin/format";
 import { ApiDown, EmptyState, PageHeader, Panel } from "@/components/admin/Panel";
@@ -36,7 +36,7 @@ export default async function ApplicationsPage({
     return (
       <>
         <PageHeader title="Applications" />
-        <ApiDown baseUrl={API_BASE_URL} detail={failure} />
+        <ApiDown detail={failure} />
       </>
     );
   }

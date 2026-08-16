@@ -48,8 +48,17 @@ export type Staff = {
 };
 
 /**
- * The bearer token sent to the FastAPI backend. Server-only: this module is
- * never imported from a Client Component.
+ * Secret behind the local-only shared-password fallback.
+ *
+ * This was the bearer token for the FastAPI backend. That backend is gone —
+ * the dashboard reads Supabase directly now, authenticated as the signed-in
+ * member of staff — so the key no longer authorises anything on its own and is
+ * not needed by any deployment. All that remains is its second job: seeding
+ * `ADMIN_PASSWORD` and `SESSION_SECRET` when neither is set, so the offline
+ * dev login works with nothing configured.
+ *
+ * Every caller is behind `passwordLoginAllowed()`, which is false in
+ * production, so this cannot throw on a deployed site.
  */
 export function adminApiKey(): string {
   const key = process.env.ADMIN_API_KEY;

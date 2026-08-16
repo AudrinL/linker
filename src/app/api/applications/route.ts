@@ -1,12 +1,16 @@
 /**
- * Server-side proxy for the multi-step application funnels.
+ * Multi-step application funnel intake.
  *
  * Same reasoning as `api/inquiries` — see the note there. Kept separate rather
- * than one generic passthrough so neither route can be used to reach an
- * arbitrary backend path.
+ * than one generic handler so neither route can be pointed at another table.
+ *
+ * The applicant's own reference (`LWT-XXXXXX`) is generated in the browser and
+ * shown on the success screen; it is stored as sent so staff and applicant
+ * quote the same number.
  */
 
-import { API_BASE_URL } from "@/lib/admin/api";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { asObject, checkApplication, isBot } from "@/lib/intake";
 
 const MAX_BODY_BYTES = 256 * 1024;
 
@@ -23,27 +27,28 @@ export async function POST(request: Request) {
     return Response.json({ ok: false, error: "Invalid request." }, { status: 400 });
   }
 
-  try {
-    const upstream = await fetch(`${API_BASE_URL}/applications`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-      cache: "no-store",
-    });
+  const body = asObject(payload);
+  if (!body) {
+    return Response.json({ ok: false, error: "Invalid request." }, { status: 400 });
+  }
 
-    if (!upstream.ok) {
+  if (isBot(body)) return Response.json({ ok: true }, { status: 202 });
+
+  const checked = checkApplication(body);
+  if (!checked.ok) {
+    return Response.json({ ok: false, error: checked.error }, { status: 422 });
+  }
+
+  try {
+    const supabase = await createSupabaseServerClient();
+    const { error } = await supabase.from("applications").insert(checked.value);
+    if (error) {
+      console.error("application insert failed:", error.message);
       return Response.json(
-        {
-          ok: false,
-          error:
-            upstream.status === 422
-              ? "Please check the details and try again."
-              : "We could not save that just now.",
-        },
-        { status: upstream.status === 422 ? 422 : 502 },
+        { ok: false, error: "We could not save that just now." },
+        { status: 502 },
       );
     }
-
     return Response.json({ ok: true }, { status: 202 });
   } catch {
     return Response.json(
