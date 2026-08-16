@@ -1,29 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import SplitLines from "@/components/motion/SplitLines";
 import MagneticButton from "@/components/ui/MagneticButton";
+import { heroStats } from "@/lib/content";
 import { prefersReducedMotion } from "@/lib/utils";
-
-const marks = [
-  { label: "Available Jobs", href: "/jobs" },
-  { label: "Work Abroad", href: "/work-abroad" },
-  { label: "Study Abroad", href: "/study-abroad" },
-  { label: "Visa Support", href: "/visa-support" },
-  { label: "Flight Tickets", href: "/flight-tickets" },
-];
-
-const trustStats = [
-  { value: "2,400+", label: "people placed" },
-  { value: "96%", label: "visa success rate" },
-  { value: "38", label: "countries" },
-  { value: "11 yrs", label: "since 2014" },
-];
 
 /**
  * The opening frame.
@@ -145,46 +130,46 @@ export default function Hero() {
             </MagneticButton>
           </div>
 
-          <p className="mt-4 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-white/40">
-            Free consultation · No upfront fee · We reply within one working day
+          {/* Both of these sit over the bright part of the plate, so they hold
+              at /75 rather than the /40 they were set at, where they were
+              unreadable against the sky. */}
+          <p className="mt-4 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-white/75">
+            Free consultation · No upfront fee · Reply within one working day
           </p>
 
-          <div className="mt-9 flex flex-wrap gap-x-8 gap-y-3">
-            {trustStats.map((s) => (
-              <div key={s.label} className="flex items-baseline gap-2">
-                <span className="font-display text-xl tracking-tight text-white">{s.value}</span>
-                <span className="text-[0.68rem] font-medium uppercase tracking-[0.15em] text-white/40">{s.label}</span>
+          {/* A fixed two-column grid: as a wrapping flex row these four broke
+              into ragged, uneven lines on narrow screens. */}
+          <dl className="mt-9 grid max-w-lg grid-cols-2 gap-x-8 gap-y-3.5">
+            {heroStats.map((s) => (
+              <div key={s.label}>
+                <dt className="sr-only">{s.label}</dt>
+                {/* Stacked on phones: side by side, the longer labels wrapped
+                    mid-phrase against the value. */}
+                <dd className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:gap-2">
+                  <span className="font-display text-xl tracking-tight text-white">{s.value}</span>
+                  <span aria-hidden className="text-[0.68rem] font-medium uppercase tracking-[0.15em] text-white/75">{s.label}</span>
+                </dd>
               </div>
             ))}
-          </div>
+          </dl>
         </div>
       </div>
 
-      {/* Service marquee along the fold */}
-      <div className="relative z-10 border-t border-mist/12">
-        <div className="shell flex items-center justify-between gap-8 py-5">
-          <ul className="hide-scrollbar flex items-center gap-7 overflow-x-auto">
-            {marks.map((m) => (
-              <li key={m.label} className="shrink-0">
-                <Link
-                  href={m.href}
-                  className="text-[0.72rem] font-medium uppercase tracking-[0.2em] text-mist/85 transition-colors duration-300 hover:text-gold"
-                >
-                  {m.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-
-          <div
-            aria-hidden
-            className="hidden shrink-0 items-center gap-2.5 text-[0.68rem] uppercase tracking-[0.24em] text-muted lg:flex"
-          >
-            Scroll
-            <span className="relative block h-8 w-px overflow-hidden bg-mist/20">
-              <span className="absolute inset-x-0 top-0 h-3 animate-[scrollcue_2.2s_ease-in-out_infinite] bg-gold" />
-            </span>
-          </div>
+      {/* Scroll cue.
+          This replaces a full-width strip of service links that sat here. That
+          strip repeated, in dark `mist` type on dark photography, the same four
+          doors the tile grid presents in full immediately below it — so it was
+          both illegible and redundant, and removing it lets the hero end on the
+          proof numbers instead of a second navigation. */}
+      <div
+        aria-hidden
+        className="relative z-10 hidden items-center justify-end gap-2.5 pb-8 text-[0.68rem] uppercase tracking-[0.24em] text-white/70 lg:flex"
+      >
+        <div className="shell flex items-center justify-end gap-2.5">
+          Scroll
+          <span className="relative block h-8 w-px overflow-hidden bg-white/25">
+            <span className="absolute inset-x-0 top-0 h-3 animate-[scrollcue_2.2s_ease-in-out_infinite] bg-gold" />
+          </span>
         </div>
       </div>
 

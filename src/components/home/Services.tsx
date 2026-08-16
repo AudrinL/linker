@@ -53,14 +53,14 @@ export default function Services() {
 
   return (
     <section id="services" className="relative bg-abyss">
-      <div className="shell relative z-10 pb-8 pt-28 sm:pt-36">
+      <div className="shell relative z-10 pb-8 pt-28 sm:pt-40">
         <Reveal className="max-w-3xl">
           <div className="flex items-center gap-3.5">
             <span className="h-px w-10 shrink-0 bg-gold/70" />
             <span className="eyebrow">What we do</span>
           </div>
           <h2 className="mt-7 text-headline font-display">
-            Three services.
+            Four services.
             <br />
             <em className="italic text-gradient-cool">One team</em> behind them.
           </h2>

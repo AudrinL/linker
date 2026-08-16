@@ -17,14 +17,17 @@ function DesktopNavItem({ item, pathname }: { item: NavItem, pathname: string })
 
   return (
     <div
-      className="relative"
+      className="relative shrink-0"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <Link
         href={item.href}
         className={cn(
-          "relative flex items-center gap-1 rounded-full px-3.5 py-2 text-[0.82rem] font-medium tracking-tight transition-colors duration-300",
+          // `shrink-0`/`whitespace-nowrap`: the header row is a flex container,
+          // so without these the two-word labels wrap to a second line anywhere
+          // the bar is tight rather than letting the row overflow honestly.
+          "relative flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-2 text-[0.82rem] font-medium tracking-tight transition-colors duration-300",
           active ? "text-gold" : "text-mist hover:text-bone",
         )}
       >
@@ -35,7 +38,7 @@ function DesktopNavItem({ item, pathname }: { item: NavItem, pathname: string })
           </svg>
         )}
         {active && (
-          <span className="absolute inset-x-3.5 -bottom-0.5 h-px bg-gold/70" />
+          <span className="absolute inset-x-2.5 -bottom-0.5 h-px bg-gold/70" />
         )}
       </Link>
       
@@ -198,10 +201,15 @@ export default function Nav() {
         <div className="shell">
           <div
             className={cn(
-              "flex items-center justify-between gap-6 rounded-full transition-all duration-700",
+              // The bar always carries a frosted ground. Its type is `mist` and
+              // `bone` — dark by design — and on the home hero it sits over a
+              // bright sunset plate, where an unfilled bar left the links
+              // effectively invisible. Frosting it condenses on scroll rather
+              // than appearing from nothing.
+              "flex items-center justify-between gap-4 rounded-full transition-all duration-700",
               scrolled
                 ? "glass-strong px-4 py-2.5 sm:px-5"
-                : "border border-transparent px-1 py-2",
+                : "glass px-3 py-2 sm:px-4",
             )}
             style={{ transitionTimingFunction: "var(--ease-out-expo)" }}
           >
@@ -231,7 +239,7 @@ export default function Nav() {
               </span>
             </Link>
 
-            <nav className="hidden items-center gap-0.5 lg:flex">
+            <nav className="hidden items-center gap-0.5 xl:flex">
               <DesktopNavItem item={{ label: "Home", href: "/" }} pathname={pathname} />
               {nav.map((item) => (
                 <DesktopNavItem key={item.href} item={item} pathname={pathname} />
@@ -241,7 +249,7 @@ export default function Nav() {
             <div className="flex items-center gap-2">
               <Link
                 href="/contact"
-                className="hidden rounded-full bg-gold px-5 py-2.5 text-[0.82rem] font-medium tracking-tight text-white transition-colors duration-500 hover:bg-bone md:inline-block"
+                className="hidden shrink-0 whitespace-nowrap rounded-full bg-gold px-5 py-2.5 text-[0.82rem] font-medium tracking-tight text-white transition-colors duration-500 hover:bg-bone md:inline-block"
               >
                 Start your journey
               </Link>
@@ -250,7 +258,7 @@ export default function Nav() {
                 onClick={() => setOpen((v) => !v)}
                 aria-label={open ? "Close menu" : "Open menu"}
                 aria-expanded={open}
-                className="relative z-[70] grid size-11 place-items-center rounded-full border border-mist/20 transition-colors duration-300 hover:border-gold/60 lg:hidden"
+                className="relative z-[70] grid size-11 place-items-center rounded-full border border-mist/20 transition-colors duration-300 hover:border-gold/60 xl:hidden"
               >
                 <span className="relative block h-3 w-5">
                   <span
@@ -279,7 +287,7 @@ export default function Nav() {
         ref={panel}
         aria-hidden={!open}
         className={cn(
-          "fixed inset-0 z-[60] overflow-y-auto bg-abyss/97 backdrop-blur-2xl transition-opacity duration-500 lg:hidden",
+          "fixed inset-0 z-[60] overflow-y-auto bg-abyss/97 backdrop-blur-2xl transition-opacity duration-500 xl:hidden",
           open
             ? "pointer-events-auto opacity-100"
             : "pointer-events-none opacity-0",

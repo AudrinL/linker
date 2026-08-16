@@ -14,8 +14,11 @@ export default function ClosingCTA() {
   return (
     <section className="relative isolate grain overflow-hidden">
       <div className="absolute inset-0 -z-10">
+        {/* `move abroad.jpg` now carries the study-abroad panel above, so the
+            closing frame takes the balloons — which also returns the page to
+            the sunset sky it opened on. */}
         <Image
-          src="/assets/move%20abroad.jpg"
+          src="/img/safari-balloons.png"
           alt=""
           fill
           quality={82}
@@ -33,7 +36,7 @@ export default function ClosingCTA() {
         <div className="vignette absolute inset-0" />
       </div>
 
-      <div className="shell relative py-32 sm:py-44">
+      <div className="shell relative py-28 sm:py-40">
         <div className="mx-auto max-w-3xl text-center">
           <Reveal className="flex items-center justify-center gap-3.5">
             <span className="h-px w-10 shrink-0 bg-gold/70" />
@@ -51,7 +54,7 @@ export default function ClosingCTA() {
 
           <Reveal delay={0.15}>
             <p className="mx-auto mt-8 max-w-xl text-lede text-white/75">
-              One conversation is usually enough to know whether we can help 
+              One conversation is usually enough to know whether we can help,
               and we will tell you honestly if we cannot. No fee to ask.
             </p>
           </Reveal>

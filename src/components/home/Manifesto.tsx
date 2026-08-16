@@ -46,7 +46,7 @@ export default function Manifesto() {
   return (
     <section
       ref={root}
-      className="relative overflow-hidden bg-abyss py-32 sm:py-44"
+      className="relative overflow-hidden bg-abyss py-28 sm:py-40"
     >
       {/* Faint route texture, barely there */}
       <div

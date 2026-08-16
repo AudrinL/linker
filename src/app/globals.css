@@ -174,13 +174,18 @@
   }
 
   /* — The signature warm wash: the swoosh, read left to right —
-       Large display type only, which is why it may use `flare` directly. */
+       Every stop must stay legible on the `abyss` canvas, because this class
+       always lands on it. Measured against #f3f7f9: `flare` is 2.97:1 and
+       `amber` 1.9:1, so both fail even the 3:1 large-text floor and neither may
+       appear here — the ramp runs navy to `gold` (4.67:1) instead. `flare` and
+       `amber` keep their place in `text-gradient-warm-dark`, over photography,
+       where the ground is dark enough to carry them. */
   .text-gradient-warm {
     background: linear-gradient(
       104deg,
       var(--color-bone) 0%,
-      var(--color-flare) 52%,
-      var(--color-amber) 82%
+      color-mix(in oklab, var(--color-bone) 35%, var(--color-gold)) 48%,
+      var(--color-gold) 88%
     );
     -webkit-background-clip: text;
     background-clip: text;
@@ -200,12 +205,14 @@
     color: transparent;
   }
 
+  /* Same constraint as the warm wash: `cyan` measures 2.76:1 on the canvas, so
+     the cool ramp stops at `azure` (4.17:1). */
   .text-gradient-cool {
     background: linear-gradient(
       104deg,
       var(--color-bone) 0%,
-      var(--color-azure) 58%,
-      var(--color-cyan) 100%
+      var(--color-deep) 42%,
+      var(--color-azure) 100%
     );
     -webkit-background-clip: text;
     background-clip: text;

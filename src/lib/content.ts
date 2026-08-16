@@ -3,12 +3,25 @@
  * so pages stay layout-only and the client can revise text in one place.
  */
 
+/**
+ * The four pillars, and the single source of truth for how the business
+ * describes itself. The home page previously named its offering three
+ * incompatible ways — a five-item hero strip, a four-item tile grid and a
+ * "Three services" panel stack — so a visitor could not form a model of what
+ * is sold. Everything that enumerates services now maps this array, and the
+ * order matches the site navigation.
+ */
 export type Service = {
   slug: string;
   index: string;
+  /** Long-form title for the panel stack. */
   title: string;
+  /** Short label used by the tile grid and anywhere the pillar is listed. */
+  label: string;
   kicker: string;
   blurb: string;
+  /** One line, tile-length. */
+  summary: string;
   points: string[];
   image: string;
   href: string;
@@ -19,25 +32,47 @@ export const services: Service[] = [
     slug: "recruitment",
     index: "01",
     title: "Work abroad",
+    label: "Work Abroad",
     kicker: "International Recruitment",
     blurb:
       "We place skilled and semi-skilled professionals with vetted employers across the Gulf, Europe and North America, and we stay with you from first interview to first payslip.",
+    summary: "Find international employment with vetted employers.",
     points: [
       "Employer matching & interview preparation",
       "Work permit and contract processing",
       "Pre-departure briefing and orientation",
       "Ongoing support after you arrive",
     ],
-    image: "/assets/work%20abroad%20(2).jpg",
-    href: "/work-abroad/recruitment",
+    image: "/img/recruitment-worker.png",
+    href: "/work-abroad",
+  },
+  {
+    slug: "study-abroad",
+    index: "02",
+    title: "Study abroad",
+    label: "Study Abroad",
+    kicker: "Admissions & Student Visas",
+    blurb:
+      "Universities and colleges matched to the qualifications you actually hold and the budget you actually have, with the admission file and the student visa handled as one process.",
+    summary: "Reach universities and colleges worldwide.",
+    points: [
+      "University and course matching",
+      "Admission file preparation",
+      "Student visa applications",
+      "Accommodation and arrival guidance",
+    ],
+    image: "/assets/move%20abroad.jpg",
+    href: "/study-abroad",
   },
   {
     slug: "visa-services",
-    index: "02",
+    index: "03",
     title: "Cross borders",
+    label: "Visa Support",
     kicker: "Visa Services",
     blurb:
       "Work, study and tourist visas prepared with the precision that gets applications approved the first time. We handle the paperwork so you can plan the life on the other side of it.",
+    summary: "Get your application and documents right first time.",
     points: [
       "Work, study and tourist visa applications",
       "Document review and certified translation",
@@ -49,11 +84,13 @@ export const services: Service[] = [
   },
   {
     slug: "travel-services",
-    index: "03",
+    index: "04",
     title: "Travel well",
+    label: "Flights & Travel",
     kicker: "Flights, Hotels & Packages",
     blurb:
       "Competitive fares, considered hotels and itineraries built around how you actually want to travel, with a real person on the other end of the phone when plans change.",
+    summary: "Book flights, hotels and tailored packages.",
     points: [
       "International and regional flight booking",
       "Hotel and lodge reservations worldwide",
@@ -67,12 +104,23 @@ export const services: Service[] = [
 
 /* ------------------------------------------------------------------ */
 
+/**
+ * One source for the four numbers. The hero used to carry its own hardcoded
+ * copy of these, already drifting from this list in both wording and order.
+ * `short` is the hero's compressed label; `label` is the full one Proof uses.
+ */
 export const stats = [
-  { value: 2400, suffix: "+", label: "Travellers & candidates placed" },
-  { value: 38, suffix: "", label: "Countries we operate across" },
-  { value: 96, suffix: "%", label: "Visa application success rate" },
-  { value: 11, suffix: " yrs", label: "Connecting Africa to the world" },
+  { value: 2400, suffix: "+", short: "people placed", label: "Travellers & candidates placed" },
+  { value: 38, suffix: "", short: "countries", label: "Countries we operate across" },
+  { value: 96, suffix: "%", short: "visa success rate", label: "Visa application success rate" },
+  { value: 11, suffix: " yrs", short: "since 2014", label: "Connecting Africa to the world" },
 ];
+
+/** Pre-rendered display strings for the hero, which shows them without a counter. */
+export const heroStats = stats.map((s) => ({
+  value: `${s.value.toLocaleString("en-GB")}${s.suffix}`,
+  label: s.short,
+}));
 
 /* ------------------------------------------------------------------ */
 

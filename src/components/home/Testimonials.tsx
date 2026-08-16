@@ -8,11 +8,17 @@ import { cn } from "@/lib/utils";
 /**
  * Testimonials as editorial pull-quotes rather than review cards: one story at
  * a time, set large, with the roster of names doubling as the navigation.
- * Slots for video testimonials later — the layout already reserves the frame.
+ *
+ * The roster was a tall right-hand column, which is the right shape for five or
+ * six stories and the wrong one for two — it left most of its height empty
+ * beside a seven-line quote, with an orphaned rule down the side. It now sits
+ * under the quote as a row and only claims the column once there are enough
+ * names to fill it, so the section stays composed at either count.
  */
 export default function Testimonials() {
   const [active, setActive] = useState(0);
   const t = testimonials[active];
+  const asColumn = testimonials.length >= 4;
 
   return (
     <section className="relative overflow-hidden bg-ink py-28 sm:py-40">
@@ -31,7 +37,12 @@ export default function Testimonials() {
           <span className="eyebrow">In their words</span>
         </Reveal>
 
-        <div className="mt-14 grid gap-14 lg:grid-cols-[1.5fr_1fr] lg:gap-20">
+        <div
+          className={cn(
+            "mt-14 grid gap-14",
+            asColumn ? "lg:grid-cols-[1.5fr_1fr] lg:gap-20" : "max-w-4xl",
+          )}
+        >
           <div>
             <blockquote>
               <p
@@ -56,9 +67,16 @@ export default function Testimonials() {
             </blockquote>
           </div>
 
-          <ul className="flex flex-col justify-center gap-1 lg:border-l lg:border-mist/12 lg:pl-10">
+          <ul
+            className={cn(
+              "gap-1",
+              asColumn
+                ? "flex flex-col justify-center lg:border-l lg:border-mist/12 lg:pl-10"
+                : "flex flex-wrap border-t border-mist/12 pt-6",
+            )}
+          >
             {testimonials.map((item, i) => (
-              <li key={item.name}>
+              <li key={item.name} className={cn(!asColumn && "min-w-[15rem] flex-1")}>
                 <button
                   onClick={() => setActive(i)}
                   aria-current={i === active}
