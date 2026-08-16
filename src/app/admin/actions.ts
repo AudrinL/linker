@@ -395,8 +395,12 @@ export async function login(
   try {
     valid = checkPassword(password);
   } catch {
-    // adminApiKey() throws when the deployment has no key configured.
-    return { error: "The dashboard is not configured. Set ADMIN_API_KEY." };
+    // The dev fallback needs a secret to compare and sign with, and falls back
+    // to ADMIN_API_KEY when neither ADMIN_PASSWORD nor SESSION_SECRET is set.
+    // With all three unset there is nothing to check against.
+    return {
+      error: "Local sign-in needs ADMIN_PASSWORD (or ADMIN_API_KEY) in .env.",
+    };
   }
 
   if (!valid) {
@@ -453,7 +457,7 @@ export async function updateRecord(
       error:
         error instanceof ApiError
           ? `Could not save (${error.status}): ${error.message}`
-          : "Could not reach the API.",
+          : "Could not reach the database.",
     };
   }
 
@@ -513,12 +517,19 @@ export async function savePost(
 
   const slug = String(formData.get("slug") ?? "").trim();
   const original = String(formData.get("original_slug") ?? "").trim();
+  // Cleared optional fields fall back to the defaults rather than being stored
+  // as empty strings. The column defaults cannot do this: an empty string is a
+  // value, so Postgres never applies them, and the journal would show a post
+  // with no author and a blank read time.
+  const orDefault = (key: string, fallback: string) =>
+    String(formData.get(key) ?? "").trim() || fallback;
+
   const body = {
     title: String(formData.get("title") ?? "").trim(),
     excerpt: String(formData.get("excerpt") ?? "").trim(),
-    category: String(formData.get("category") ?? "News").trim(),
-    author: String(formData.get("author") ?? "").trim(),
-    read_time: String(formData.get("read_time") ?? "").trim(),
+    category: orDefault("category", "News"),
+    author: orDefault("author", "Linker World Travel"),
+    read_time: orDefault("read_time", "5 min read"),
     hero_image: String(formData.get("hero_image") ?? "").trim() || null,
     tags: String(formData.get("tags") ?? "")
       .split(",")
@@ -549,7 +560,7 @@ export async function savePost(
       error:
         error instanceof ApiError
           ? `Could not save (${error.status}): ${error.message}`
-          : "Could not reach the API.",
+          : "Could not reach the database.",
     };
   }
 
@@ -557,10 +568,40 @@ export async function savePost(
   redirect(`/admin/blog/${original || slug}`);
 }
 
-export async function deletePost(formData: FormData): Promise<void> {
+/**
+ * Delete a post.
+ *
+ * Returns an ActionState rather than void so a refusal is visible. A delete can
+ * fail for a reason the person needs to see — the row is already gone, or
+ * row-level security declined it because their approval was withdrawn — and as
+ * a bare void action every one of those became an error page or, worse, a
+ * redirect to a list still showing the post.
+ */
+export async function deletePost(
+  _prev: ActionState,
+  formData: FormData,
+): Promise<ActionState> {
   await requireSession();
+
   const slug = String(formData.get("slug") ?? "");
-  if (slug) await adminApi.deletePost(slug);
+  if (!slug) return { error: "Missing post." };
+
+  try {
+    await adminApi.deletePost(slug);
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 404) {
+      return { error: "That post no longer exists." };
+    }
+    return {
+      error:
+        error instanceof ApiError
+          ? `Could not delete (${error.status}): ${error.message}`
+          : "Could not reach the database.",
+    };
+  }
+
   revalidatePath("/admin/blog");
+  // Outside the try: redirect() signals by throwing, and catching it here would
+  // turn a successful delete into an error message.
   redirect("/admin/blog");
 }

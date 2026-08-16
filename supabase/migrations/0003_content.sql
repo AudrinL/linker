@@ -24,6 +24,12 @@
 --
 -- security definer so the policies below can consult `staff` without needing a
 -- select policy on it, and without recursing.
+--
+-- The schema is created by 0001; repeated here so running this file against a
+-- project where that step was skipped fails on the missing `staff` table, with
+-- a message that says so, rather than on a missing schema.
+create schema if not exists private;
+
 create or replace function private.is_approved_staff()
 returns boolean
 language sql

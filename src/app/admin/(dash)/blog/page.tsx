@@ -41,8 +41,9 @@ export default async function BlogAdminPage() {
       <Panel>
         {posts.length === 0 ? (
           <EmptyState>
-            No posts yet. The public journal reads from this list once a post is
-            published.
+            No posts yet. Posts written here are stored and can be published,
+            but the public journal still renders the fixed set in
+            src/lib/blog.ts — wiring it to this list is a separate change.
           </EmptyState>
         ) : (
           <ul className="divide-y divide-mist/10">

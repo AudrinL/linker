@@ -5,12 +5,13 @@
  * Keyed on the address, so re-subscribing is a no-op rather than a duplicate
  * row or a visible error.
  *
- * `ignoreDuplicates` makes this INSERT ... ON CONFLICT DO NOTHING, which needs
- * only the insert privilege. A true upsert would need `anon` to hold UPDATE on
- * this table, and that is a hole: anyone who guessed an address could then
- * rewrite that row and unsubscribe a real subscriber. The cost is that someone
- * who previously unsubscribed stays unsubscribed until staff clear the flag,
- * which is the right way round for a mailing list.
+ * A plain insert, with the duplicate caught below — deliberately not an upsert.
+ * PostgREST's upsert is refused by row-level security here even in its
+ * `ignore-duplicates` form (42501, verified against the live project), and the
+ * fix is not to widen the policy: a working upsert would need `anon` to hold
+ * UPDATE on this table, which would let anyone who guessed an address rewrite
+ * that row and unsubscribe a real subscriber. Insert-only keeps the privilege
+ * as narrow as the feature actually needs.
  */
 
 import { createSupabaseServerClient } from "@/lib/supabase/server";
@@ -38,10 +39,11 @@ export async function POST(request: Request) {
 
   try {
     const supabase = await createSupabaseServerClient();
-    const { error } = await supabase
-      .from("subscribers")
-      .upsert(checked.value, { onConflict: "email", ignoreDuplicates: true });
-    if (error) {
+    const { error } = await supabase.from("subscribers").insert(checked.value);
+
+    // 23505 is unique_violation: they are already on the list. That is the
+    // successful outcome of "subscribe me", not an error to show them.
+    if (error && error.code !== "23505") {
       console.error("subscribe failed:", error.message);
       return Response.json(
         { ok: false, error: "We could not sign you up just now." },

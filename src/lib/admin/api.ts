@@ -29,6 +29,21 @@ import type {
 /** How far back the overview sparkline reaches. Matches the old API. */
 const TREND_DAYS = 14;
 
+/**
+ * Explicit ceiling on any query that returns rows.
+ *
+ * PostgREST already caps a response at 1000 rows by default. Relying on that
+ * silently is how a list quietly stops showing everything and a total quietly
+ * starts lying, with nothing in the code to point at. Stating it here makes the
+ * cap deliberate: the headline counters are read with `count` instead of by
+ * measuring an array, so they stay exact however many rows there are, and only
+ * the lists themselves are bounded.
+ *
+ * When the queues outgrow this, the fix is pagination on the list pages, not a
+ * larger number.
+ */
+const MAX_ROWS = 1000;
+
 export class ApiError extends Error {
   constructor(
     readonly status: number,
@@ -161,20 +176,62 @@ export const adminApi = {
   stats: async (): Promise<Stats> => {
     const supabase = await db();
 
-    const [applications, inquiries, posts, subscribers] = await Promise.all([
-      supabase.from("applications").select("service, status, created_at"),
-      supabase.from("inquiries").select("service, status, created_at"),
-      supabase.from("posts").select("published"),
-      supabase.from("subscribers").select("email"),
+    /** Exact row count, taken from the response header rather than an array. */
+    const countOf = (
+      table: string,
+      apply: (q: ReturnType<typeof buildCount>) => typeof q = (q) => q,
+    ) => apply(buildCount(table));
+
+    function buildCount(table: string) {
+      return supabase.from(table).select("*", { count: "exact", head: true });
+    }
+
+    const [
+      appsTotal,
+      appsNew,
+      inqTotal,
+      inqNew,
+      subsTotal,
+      postsTotal,
+      postsLive,
+      applications,
+      inquiries,
+    ] = await Promise.all([
+      countOf("applications"),
+      countOf("applications", (q) => q.eq("status", "new")),
+      countOf("inquiries"),
+      countOf("inquiries", (q) => q.eq("status", "new")),
+      countOf("subscribers"),
+      countOf("posts"),
+      countOf("posts", (q) => q.eq("published", true)),
+      // Rows, for the breakdowns and the sparkline. Newest first so the
+      // fourteen-day window is always inside the bound.
+      supabase
+        .from("applications")
+        .select("service, status, created_at")
+        .order("created_at", { ascending: false })
+        .limit(MAX_ROWS),
+      supabase
+        .from("inquiries")
+        .select("service, status, created_at")
+        .order("created_at", { ascending: false })
+        .limit(MAX_ROWS),
     ]);
 
     const firstError =
-      applications.error ?? inquiries.error ?? posts.error ?? subscribers.error;
+      appsTotal.error ??
+      appsNew.error ??
+      inqTotal.error ??
+      inqNew.error ??
+      subsTotal.error ??
+      postsTotal.error ??
+      postsLive.error ??
+      applications.error ??
+      inquiries.error;
     if (firstError) fail(firstError.message);
 
     const apps = applications.data ?? [];
     const inqs = inquiries.data ?? [];
-    const allPosts = posts.data ?? [];
 
     const by_service: Record<string, number> = {};
     const by_status: Record<string, number> = {};
@@ -202,13 +259,13 @@ export const adminApi = {
     }
 
     return {
-      applications_total: apps.length,
-      applications_new: apps.filter((a) => a.status === "new").length,
-      inquiries_total: inqs.length,
-      inquiries_new: inqs.filter((i) => i.status === "new").length,
-      subscribers_total: (subscribers.data ?? []).length,
-      posts_total: allPosts.length,
-      posts_published: allPosts.filter((p) => p.published).length,
+      applications_total: appsTotal.count ?? 0,
+      applications_new: appsNew.count ?? 0,
+      inquiries_total: inqTotal.count ?? 0,
+      inquiries_new: inqNew.count ?? 0,
+      subscribers_total: subsTotal.count ?? 0,
+      posts_total: postsTotal.count ?? 0,
+      posts_published: postsLive.count ?? 0,
       by_service,
       by_status,
       recent_days,
@@ -222,7 +279,8 @@ export const adminApi = {
     let query = supabase
       .from("applications")
       .select("*")
-      .order("created_at", { ascending: false });
+      .order("created_at", { ascending: false })
+      .limit(MAX_ROWS);
 
     const status = params.get("status");
     const service = params.get("service");
@@ -287,7 +345,8 @@ export const adminApi = {
     let query = supabase
       .from("inquiries")
       .select("*")
-      .order("created_at", { ascending: false });
+      .order("created_at", { ascending: false })
+      .limit(MAX_ROWS);
 
     const status = params.get("status");
     const service = params.get("service");
@@ -345,7 +404,8 @@ export const adminApi = {
     const { data, error } = await supabase
       .from("subscribers")
       .select("*")
-      .order("created_at", { ascending: false });
+      .order("created_at", { ascending: false })
+      .limit(MAX_ROWS);
     if (error) fail(error.message);
     return (data ?? []).map(toSubscriber);
   },
@@ -356,8 +416,12 @@ export const adminApi = {
     const { data, error } = await supabase
       .from("posts")
       .select("*")
-      .order("published_at", { ascending: false, nullsFirst: false })
-      .order("created_at", { ascending: false });
+      // Drafts have no publish date, so they would sort to the end on the
+      // first key alone — `nullsFirst` puts the unfinished work at the top,
+      // where a CMS list should show it.
+      .order("published_at", { ascending: false, nullsFirst: true })
+      .order("created_at", { ascending: false })
+      .limit(MAX_ROWS);
     if (error) fail(error.message);
     return (data ?? []).map(toPost);
   },
@@ -419,25 +483,21 @@ export const adminApi = {
 
   deletePost: async (slug: string): Promise<void> => {
     const supabase = await db();
-    const { error } = await supabase.from("posts").delete().eq("slug", slug);
+    // `select()` so the deleted rows come back. Without it a delete that
+    // matched nothing — wrong slug, or refused by row-level security — is
+    // indistinguishable from a successful one, and the caller redirects to a
+    // list still showing the post it thinks it removed.
+    const { data, error } = await supabase
+      .from("posts")
+      .delete()
+      .eq("slug", slug)
+      .select("slug");
     if (error) fail(error.message);
+    if (!data || data.length === 0) fail("Post not found", 404);
   },
 };
 
-/**
- * Is the data layer reachable at all? Used by the dashboard's empty states.
- *
- * `head: true` asks for the count and no rows, so this stays cheap enough to
- * call on a page that is already about to fail.
- */
-export async function apiReachable(): Promise<boolean> {
-  try {
-    const supabase = await db();
-    const { error } = await supabase
-      .from("posts")
-      .select("slug", { count: "exact", head: true });
-    return !error;
-  } catch {
-    return false;
-  }
-}
+// `apiReachable()` was removed along with the FastAPI backend. It answered
+// "is the other service up", which no longer has a meaning: every page already
+// reports its own failure through `ApiDown`, and a separate probe would just be
+// a second round trip that can disagree with the query beside it.

@@ -69,9 +69,15 @@ export default async function SubscribersPage() {
         )}
       </Panel>
 
+      {/*
+        The "expires after 180 days" line that used to sit here described the
+        old DynamoDB TTL. Postgres has no TTL, so that expiry only happens if
+        supabase/migrations/0004_retention.sql has been run — and telling staff
+        their mailing list prunes itself when it does not is worse than saying
+        nothing.
+      */}
       <p className="mt-4 text-xs text-muted">
-        {subscribers.length} subscriber{subscribers.length === 1 ? "" : "s"}. Records
-        expire automatically after 180 days of inactivity.
+        {subscribers.length} subscriber{subscribers.length === 1 ? "" : "s"}.
       </p>
     </>
   );

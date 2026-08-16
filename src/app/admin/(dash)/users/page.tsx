@@ -26,9 +26,6 @@ export default async function UsersPage() {
   const { data, error } = await supabase
     .from("staff")
     .select("id, email, full_name, role, status, created_at")
-    // Pending first: the whole point of this screen is the queue of people
-    // waiting to be let in.
-    .order("status", { ascending: true })
     .order("created_at", { ascending: false });
 
   // Outstanding invitations — accepted ones drop off, having become accounts.
@@ -45,7 +42,24 @@ export default async function UsersPage() {
   const protocol = host.startsWith("localhost") ? "http" : "https";
   const signupUrl = `${protocol}://${host}/admin/signup`;
 
-  const members = (data ?? []) as StaffMember[];
+  /**
+   * Pending first — the whole point of this screen is the queue of people
+   * waiting to be let in.
+   *
+   * Sorted here rather than in the query. `order("status")` sorts the column
+   * alphabetically, which puts *approved* at the top and buries the queue; the
+   * wanted order is by meaning, and PostgREST cannot express that. The list is
+   * one row per member of staff, so sorting it in memory costs nothing.
+   */
+  const RANK: Record<string, number> = { pending: 0, approved: 1, suspended: 2 };
+  const members = ((data ?? []) as StaffMember[])
+    .slice()
+    .sort(
+      (a, b) =>
+        (RANK[a.status] ?? 3) - (RANK[b.status] ?? 3) ||
+        b.created_at.localeCompare(a.created_at),
+    );
+
   const pending = members.filter((m) => m.status === "pending").length;
 
   return (
