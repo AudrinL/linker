@@ -5,18 +5,16 @@
  * Keyed on the address, so re-subscribing is a no-op rather than a duplicate
  * row or a visible error.
  *
- * An upsert, so someone who unsubscribed and changed their mind comes back on
- * the list. Insert-only looked safer but told that person "you're signed up"
- * and left them unsubscribed.
+ * The write goes through `subscribe_email` (migration 0007) rather than a
+ * table insert. An upsert done directly needs SELECT on `subscribers`, because
+ * `ON CONFLICT DO UPDATE` has to read the row it collides with — and SELECT is
+ * exactly what a visitor must not have on the mailing list. The function runs
+ * as its owner, so the caller needs no rights on the table at all.
  *
- * It needs the UPDATE privilege granted in 0006, which is column-level and
- * paired with a policy allowing only `unsubscribed = false` — an anonymous
- * write can re-subscribe an address but never unsubscribe one, so a walk
- * through a list of addresses cannot empty the mailing list.
- *
- * `unsubscribed` is sent explicitly rather than left to the column default:
- * on the conflict path there is no default to apply, and omitting it would
- * make the re-subscribe a no-op again.
+ * It also means this route cannot express anything except "subscribe this
+ * address": `unsubscribed` is hard-coded inside the function, so neither this
+ * handler nor anyone calling the endpoint directly can use it to unsubscribe
+ * somebody.
  */
 
 import { createSupabaseServerClient } from "@/lib/supabase/server";
@@ -44,16 +42,14 @@ export async function POST(request: Request) {
 
   try {
     const supabase = await createSupabaseServerClient();
-    const { error } = await supabase
-      .from("subscribers")
-      .upsert(
-        { ...checked.value, unsubscribed: false },
-        { onConflict: "email" },
-      );
+    const { error } = await supabase.rpc("subscribe_email", {
+      p_email: checked.value.email,
+      p_source: checked.value.source,
+    });
 
-    // 23505 would mean the upsert fell through to a plain conflict — kept as a
-    // success because "you are already on the list" is the outcome the person
-    // asked for either way.
+    // 23505 would mean a duplicate slipped past the function's own conflict
+    // handling — still the outcome the person asked for, so it is not an error
+    // to show them.
     if (error && error.code !== "23505") {
       console.error("subscribe failed:", error.message);
       return Response.json(
