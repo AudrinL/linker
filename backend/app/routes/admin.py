@@ -7,6 +7,8 @@ cheaper than the index it would take to avoid it, and it keeps every filter the
 dashboard offers working against both store backends identically.
 """
 
+import csv
+import io
 from collections import Counter
 from datetime import timedelta
 
@@ -36,6 +38,18 @@ TREND_DAYS = 14
 def _matches(haystack: list[str | None], needle: str) -> bool:
     q = needle.lower()
     return any(q in (h or "").lower() for h in haystack)
+
+
+# Characters a spreadsheet treats as the start of a formula rather than text.
+# Tab and carriage return are here because Excel strips leading whitespace
+# before deciding, so "\t=cmd" is still a formula.
+_FORMULA_PREFIXES = ("=", "+", "-", "@", "\t", "\r")
+
+
+def _csv_safe(value: str | None) -> str:
+    """Neutralise a spreadsheet formula without altering how the cell reads."""
+    text = str(value or "")
+    return f"'{text}" if text[:1] in _FORMULA_PREFIXES else text
 
 
 # ------------------------------------------------------------------- overview
@@ -167,13 +181,32 @@ def list_subscribers(store: Store = Depends(get_store)) -> list[Subscriber]:
 
 @router.get("/subscribers.csv")
 def export_subscribers(store: Store = Depends(get_store)) -> Response:
-    rows = ["email,source,created_at"]
-    rows += [
-        f'"{s.email}","{s.source or ""}",{s.created_at.isoformat()}'
-        for s in store.list_subscribers()
-    ]
+    """
+    Export the mailing list.
+
+    Both columns are attacker-controlled: anyone may POST to /newsletter with
+    whatever `source` they like. So the file is built with `csv.writer` rather
+    than an f-string — it escapes embedded quotes, which hand-rolled quoting
+    did not, and a single `"` in `source` was enough to forge extra columns.
+
+    `_csv_safe` covers the other half: staff open this in Excel, and a cell
+    beginning `=`, `+`, `-` or `@` is evaluated as a formula on open. That is
+    remote code execution on a staff laptop by way of a newsletter sign-up.
+    Prefixing an apostrophe makes the cell literal text; Excel hides the
+    apostrophe, so the column still reads normally.
+    """
+    buffer = io.StringIO()
+    # QUOTE_ALL so a comma inside a value can never shift the columns, and
+    # \r\n because that is what RFC 4180 specifies and what Excel expects.
+    writer = csv.writer(buffer, quoting=csv.QUOTE_ALL, lineterminator="\r\n")
+    writer.writerow(["email", "source", "created_at"])
+    for s in store.list_subscribers():
+        writer.writerow(
+            [_csv_safe(s.email), _csv_safe(s.source), s.created_at.isoformat()]
+        )
+
     return Response(
-        "\n".join(rows),
+        buffer.getvalue(),
         media_type="text/csv",
         headers={"Content-Disposition": 'attachment; filename="subscribers.csv"'},
     )

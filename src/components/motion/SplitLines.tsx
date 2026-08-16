@@ -7,7 +7,14 @@ import { useGSAP } from "@gsap/react";
 import { cn, prefersReducedMotion } from "@/lib/utils";
 
 type SplitLinesProps = {
-  /** Each string becomes one masked line. Keep breaks intentional. */
+  /**
+   * Each string becomes one masked line. Keep breaks intentional.
+   *
+   * **Rendered as raw HTML** — the `<em>` spans in the headlines are the whole
+   * reason. So these must be author-written literals only. Never pass a blog
+   * title, a form value, or anything else that reached the app from outside
+   * it: this prop is a stored-XSS sink the moment it stops being hardcoded.
+   */
   lines: string[];
   className?: string;
   lineClassName?: string;

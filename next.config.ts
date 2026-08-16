@@ -11,7 +11,12 @@ const nextConfig: NextConfig = {
   compress: true,
 
   /**
-   * Headers for the staff dashboard.
+   * Response headers.
+   *
+   * Order matters: where two blocks set the same key, the *last* one wins. The
+   * site-wide baseline therefore comes first and the stricter `/admin` rules
+   * after it, so the dashboard keeps `no-referrer` and `DENY` rather than
+   * having them relaxed back to the public defaults.
    *
    * Netlify's CDN sits in front of this app. A cached `/admin` response would
    * mean one member of staff's applicant list being served to whoever asks
@@ -24,6 +29,42 @@ const nextConfig: NextConfig = {
    */
   async headers() {
     return [
+      {
+        /**
+         * Site-wide baseline. The public pages carry the application funnels,
+         * which collect passport-adjacent details, so they get the same floor
+         * of protection as the dashboard.
+         *
+         * No `Content-Security-Policy` here on purpose. GSAP and Framer Motion
+         * both inject inline styles at runtime and Next.js inlines its own
+         * bootstrap script, so a blocking policy written blind would break the
+         * homepage. Adding one is a separate job: ship it as
+         * `Content-Security-Policy-Report-Only` first, read the violations,
+         * then switch the header name once the report is quiet.
+         */
+        source: "/:path*",
+        headers: [
+          // Two years, and eligible for the browser preload list. Only safe
+          // because every environment this ships to is HTTPS-only.
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains; preload",
+          },
+          // Stops a browser second-guessing Content-Type — the vector that
+          // turns an uploaded or proxied file into executable script.
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          // Full URL to same-origin, bare origin cross-origin: enough for
+          // analytics and referral tracking, without leaking form paths.
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          // Nothing on this site uses these, so nothing embedded in it should.
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=(), payment=()",
+          },
+          // The public pages may be framed by us and nobody else.
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+        ],
+      },
       {
         source: "/admin/:path*",
         headers: [

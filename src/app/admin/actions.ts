@@ -25,17 +25,65 @@ import { STATUSES, type Status } from "@/lib/admin/types";
 export type ActionState = { error?: string; ok?: boolean };
 
 /**
- * Crude per-instance throttle on failed logins. Netlify runs several instances
- * so this is not a hard limit — API Gateway's throttling is the real backstop.
- * It exists to make an online guessing attempt slow enough to be pointless.
+ * Crude per-instance throttle on failed logins.
+ *
+ * Netlify runs several instances so this is not a hard limit — Supabase's own
+ * auth rate limiting is the real backstop. It exists to make an online guessing
+ * attempt slow enough to be pointless.
+ *
+ * The bucket is per address *and* per client IP. It used to be one global
+ * bucket, which was wrong in both directions: five wrong guesses from anybody
+ * locked out every member of staff for a minute — a one-line denial of service
+ * on the dashboard — while a real attacker just spread their guesses across
+ * instances and barely noticed. Keying on the pair means a locked bucket
+ * affects exactly the address being attacked from the address attacking it.
  */
 const attempts = new Map<string, { count: number; until: number }>();
 const LOCKOUT_MS = 60_000;
 const MAX_ATTEMPTS = 5;
+/** Bounds the map, which is otherwise a slow memory leak on a long-lived instance. */
+const MAX_TRACKED = 5_000;
 
-function throttleKey() {
-  // One shared login, so the bucket is global rather than per-identity.
-  return "admin";
+/**
+ * The client's address.
+ *
+ * `x-nf-client-connection-ip` is set by Netlify's edge from the real TCP peer
+ * and cannot be forged by the caller. `x-forwarded-for` can be, so it is only
+ * a local-development fallback — trusting it in production would let an
+ * attacker rotate the header and get a fresh bucket per request.
+ */
+async function clientIp(): Promise<string> {
+  const headerList = await headers();
+  return (
+    headerList.get("x-nf-client-connection-ip") ??
+    headerList.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+    "unknown"
+  );
+}
+
+async function throttleKey(identity: string): Promise<string> {
+  return `${identity}|${await clientIp()}`;
+}
+
+/** True when this bucket is currently locked out. */
+function throttled(key: string): boolean {
+  const record = attempts.get(key);
+  return Boolean(record && record.count >= MAX_ATTEMPTS && Date.now() < record.until);
+}
+
+function recordFailure(key: string): void {
+  if (attempts.size >= MAX_TRACKED) {
+    // Drop everything already expired before growing further. If that clears
+    // nothing, the map is genuinely under load — stop tracking rather than
+    // grow without bound, and let Supabase's own limits carry it.
+    const now = Date.now();
+    for (const [k, v] of attempts) if (v.until <= now) attempts.delete(k);
+    if (attempts.size >= MAX_TRACKED) return;
+  }
+
+  const record = attempts.get(key);
+  const fresh = record && Date.now() < record.until ? record.count : 0;
+  attempts.set(key, { count: fresh + 1, until: Date.now() + LOCKOUT_MS });
 }
 
 /**
@@ -58,15 +106,14 @@ export async function sendMagicLink(
     return { error: "Enter a valid email address." };
   }
 
-  const key = throttleKey();
-  const record = attempts.get(key);
-  if (record && record.count >= MAX_ATTEMPTS && Date.now() < record.until) {
+  const key = await throttleKey(email);
+  if (throttled(key)) {
     return { error: "Too many attempts. Try again in a minute." };
   }
-  attempts.set(key, {
-    count: (record && Date.now() < record.until ? record.count : 0) + 1,
-    until: Date.now() + LOCKOUT_MS,
-  });
+  // Every request counts here, not just failures: the reply is identical
+  // either way, so there is no "failure" to detect, and the thing being
+  // rationed is outbound mail to that address.
+  recordFailure(key);
 
   // Built from the request's own host so the link works on localhost, on a
   // Netlify preview and in production without a hardcoded URL per environment.
@@ -114,27 +161,23 @@ export async function signInWithPassword(
     return { error: "Sign-in is not configured." };
   }
 
-  const key = throttleKey();
-  const record = attempts.get(key);
-  if (record && record.count >= MAX_ATTEMPTS && Date.now() < record.until) {
-    return { error: "Too many attempts. Try again in a minute." };
-  }
-
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
   const password = String(formData.get("password") ?? "");
   if (!email || !password) return { error: "Enter your email and password." };
 
-  const failed = () => {
-    attempts.set(key, {
-      count: (record && Date.now() < record.until ? record.count : 0) + 1,
-      until: Date.now() + LOCKOUT_MS,
-    });
-    return { error: "Those details are not correct." };
-  };
+  // Keyed on the address being tried, so the bucket has to be built after the
+  // form is read rather than before it.
+  const key = await throttleKey(email);
+  if (throttled(key)) {
+    return { error: "Too many attempts. Try again in a minute." };
+  }
 
   const supabase = await createSupabaseServerClient();
   const { error } = await supabase.auth.signInWithPassword({ email, password });
-  if (error) return failed();
+  if (error) {
+    recordFailure(key);
+    return { error: "Those details are not correct." };
+  }
 
   attempts.delete(key);
   // Where they land is decided downstream: a pending account goes to the
@@ -338,9 +381,10 @@ export async function login(
     return { error: "Password sign-in is disabled. Use the email link." };
   }
 
-  const key = throttleKey();
-  const record = attempts.get(key);
-  if (record && record.count >= MAX_ATTEMPTS && Date.now() < record.until) {
+  // No address to key on — this path is the single shared development
+  // password — so the client's own IP is the whole bucket.
+  const key = await throttleKey("password-fallback");
+  if (throttled(key)) {
     return { error: "Too many attempts. Try again in a minute." };
   }
 
@@ -356,8 +400,7 @@ export async function login(
   }
 
   if (!valid) {
-    const next = record && Date.now() < record.until ? record.count + 1 : 1;
-    attempts.set(key, { count: next, until: Date.now() + LOCKOUT_MS });
+    recordFailure(key);
     return { error: "That password is not correct." };
   }
 
