@@ -26,7 +26,26 @@ export const SESSION_COOKIE = "lwt_admin";
 /** Eight hours — a working day, so a shift is not logged out mid-task. */
 const SESSION_MAX_AGE = 8 * 60 * 60;
 
-export type Staff = { email: string; via: "supabase" | "password" };
+export type Role = "super_admin" | "staff";
+export type AccountStatus = "pending" | "approved" | "suspended";
+
+export type Staff = {
+  id: string;
+  email: string;
+  fullName: string | null;
+  role: Role;
+  status: AccountStatus;
+  via: "supabase" | "password";
+  /**
+   * True until the account has set its own password through the dashboard.
+   *
+   * A temporary password is issued by an administrator, which means at least
+   * two people know it and it has probably travelled through a chat window.
+   * Until it is replaced, the account is treated as not yet fully theirs and
+   * every dashboard route bounces to the change-password screen.
+   */
+  mustChangePassword: boolean;
+};
 
 /**
  * The bearer token sent to the FastAPI backend. Server-only: this module is
@@ -39,40 +58,15 @@ export function adminApiKey(): string {
 }
 
 /**
- * The addresses allowed into the dashboard. Required — not optional.
+ * The `ADMIN_EMAILS` environment allowlist is gone.
  *
- * An empty list denies everyone. That looks harsh until you follow the path it
- * closes: the publishable key is public by design, so anyone can create an
- * account directly against the Supabase project unless sign-ups are disabled
- * there. `shouldCreateUser: false` stops *this* login form creating accounts,
- * but it cannot stop an account that already exists from requesting a link and
- * receiving a genuine session.
- *
- * "Authenticated" therefore does not mean "staff". This list is what means
- * staff, and it is the one check that does not depend on a setting in a
- * dashboard nobody re-reads. Fail closed: a missing list locks the office out
- * for as long as it takes to set an environment variable, which is a far better
- * afternoon than the alternative.
+ * It was the right answer while there was nowhere to record who works here.
+ * Now the `staff` table is that record: a new account arrives as 'pending' and
+ * can see nothing until a super admin approves it, which is a stronger version
+ * of the same guarantee — open sign-ups are safe because signing up grants
+ * nothing. It also survives someone editing an environment variable, and it
+ * lets access be revoked without a redeploy.
  */
-export function allowlist(): string[] {
-  return (process.env.ADMIN_EMAILS ?? "")
-    .split(",")
-    .map((email) => email.trim().toLowerCase())
-    .filter(Boolean);
-}
-
-function isAllowed(email: string | undefined): email is string {
-  if (!email) return false;
-  const allowed = allowlist();
-  if (allowed.length === 0) {
-    console.error(
-      "ADMIN_EMAILS is not set — refusing all dashboard sign-ins. " +
-        "Set it to the comma-separated staff addresses.",
-    );
-    return false;
-  }
-  return allowed.includes(email.toLowerCase());
-}
 
 /**
  * Pull the email out of a verified claims payload.
@@ -81,12 +75,32 @@ function isAllowed(email: string | undefined): email is string {
  * nesting: some versions hand back `{ claims }`, others the payload itself.
  * Both are read rather than betting on one and failing closed at 3am.
  */
-function emailFromClaims(data: unknown): string | undefined {
-  if (!data || typeof data !== "object") return undefined;
+function claimsOf(data: unknown): Record<string, unknown> {
+  if (!data || typeof data !== "object") return {};
   const outer = data as Record<string, unknown>;
-  const claims = (outer.claims ?? outer) as Record<string, unknown>;
-  const email = claims.email;
+  return (outer.claims ?? outer) as Record<string, unknown>;
+}
+
+function emailFromClaims(data: unknown): string | undefined {
+  const email = claimsOf(data).email;
   return typeof email === "string" ? email : undefined;
+}
+
+function subFromClaims(data: unknown): string | undefined {
+  const sub = claimsOf(data).sub;
+  return typeof sub === "string" ? sub : undefined;
+}
+
+/**
+ * Marker written when the account sets its own password. Its presence is the
+ * whole test — absent means "still on the password someone else issued".
+ */
+export const PASSWORD_CHANGED_AT = "password_changed_at";
+
+function hasChangedPassword(data: unknown): boolean {
+  const metadata = claimsOf(data).user_metadata;
+  if (!metadata || typeof metadata !== "object") return false;
+  return Boolean((metadata as Record<string, unknown>)[PASSWORD_CHANGED_AT]);
 }
 
 // ------------------------------------------------------------------ Supabase
@@ -100,8 +114,41 @@ async function supabaseStaff(): Promise<Staff | null> {
   const { data, error } = await supabase.auth.getClaims();
   if (error) return null;
 
+  const id = subFromClaims(data);
   const email = emailFromClaims(data);
-  return isAllowed(email) ? { email, via: "supabase" } : null;
+  if (!id || !email) return null;
+
+  // Role and status come from the database, never from the token. A JWT is
+  // reissued on refresh but a demotion or suspension must bite immediately —
+  // reading the row on each request is what makes "remove access now" true.
+  const { data: row, error: rowError } = await supabase
+    .from("staff")
+    .select("id, email, full_name, role, status")
+    .eq("id", id)
+    .maybeSingle();
+
+  if (rowError) {
+    // Almost always the migration not having been run. Deny, loudly.
+    console.error(
+      "Could not read the staff table — has supabase/migrations/0001_staff_accounts.sql been run?",
+      rowError.message,
+    );
+    return null;
+  }
+
+  // Authenticated but no staff row: the trigger did not fire, or the row was
+  // removed. Either way this is not a member of staff.
+  if (!row) return null;
+
+  return {
+    id,
+    email: row.email ?? email,
+    fullName: row.full_name ?? null,
+    role: row.role as Role,
+    status: row.status as AccountStatus,
+    via: "supabase",
+    mustChangePassword: !hasChangedPassword(data),
+  };
 }
 
 export async function signOutSupabase(): Promise<void> {
@@ -187,13 +234,29 @@ export async function currentStaff(): Promise<Staff | null> {
   if (passwordLoginAllowed()) {
     const store = await cookies();
     if (isValidToken(store.get(SESSION_COOKIE)?.value)) {
-      return { email: "local development", via: "password" };
+      // The dev fallback has no account behind it — nothing to change, and it
+      // is treated as a super admin so the whole dashboard stays reachable
+      // while working offline.
+      return {
+        id: "local",
+        email: "local development",
+        fullName: null,
+        role: "super_admin",
+        status: "approved",
+        via: "password",
+        mustChangePassword: false,
+      };
     }
   }
 
   return null;
 }
 
+/** A session alone is not access — only an approved account may see data. */
+export function isApproved(staff: Staff | null): staff is Staff {
+  return staff !== null && staff.status === "approved";
+}
+
 export async function hasSession(): Promise<boolean> {
-  return (await currentStaff()) !== null;
+  return isApproved(await currentStaff());
 }

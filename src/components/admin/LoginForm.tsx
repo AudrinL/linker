@@ -2,7 +2,13 @@
 
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
-import { login, sendMagicLink, type ActionState } from "@/app/admin/actions";
+import { useState } from "react";
+import {
+  login,
+  sendMagicLink,
+  signInWithPassword,
+  type ActionState,
+} from "@/app/admin/actions";
 
 const field =
   "w-full rounded-[var(--radius-xs)] border border-mist/20 bg-ink px-4 py-3 text-sm outline-none transition-colors focus:border-gold";
@@ -70,6 +76,55 @@ function MagicLinkForm() {
   );
 }
 
+/** Email + password — the route for an account set up with a temporary one. */
+function SupabasePasswordForm() {
+  const [state, action] = useActionState<ActionState, FormData>(
+    signInWithPassword,
+    {},
+  );
+
+  return (
+    <form action={action} className="space-y-4">
+      <div>
+        <label htmlFor="pw-email" className="mb-2 block text-xs font-medium text-mist">
+          Work email
+        </label>
+        <input
+          id="pw-email"
+          name="email"
+          type="email"
+          autoComplete="email"
+          required
+          autoFocus
+          className={field}
+        />
+      </div>
+
+      <div>
+        <label htmlFor="pw" className="mb-2 block text-xs font-medium text-mist">
+          Password
+        </label>
+        <input
+          id="pw"
+          name="password"
+          type="password"
+          autoComplete="current-password"
+          required
+          className={field}
+        />
+      </div>
+
+      {state.error && (
+        <p role="alert" className="text-sm text-ember">
+          {state.error}
+        </p>
+      )}
+
+      <Submit idle="Sign in" busy="Checking…" />
+    </form>
+  );
+}
+
 /** Shared-password fallback. Local development only; refused in production. */
 function PasswordForm() {
   const [state, action] = useActionState<ActionState, FormData>(login, {});
@@ -107,6 +162,37 @@ function PasswordForm() {
   );
 }
 
+/**
+ * Password first, because the account most likely to be signing in for the
+ * first time was handed a temporary one. The link is the everyday route once
+ * people are set up, and the one to use if a password is forgotten.
+ */
+function SupabaseSignIn() {
+  const [tab, setTab] = useState<"password" | "link">("password");
+
+  return (
+    <div>
+      <div className="mb-5 flex gap-1 rounded-full bg-abyss p-1">
+        {(["password", "link"] as const).map((value) => (
+          <button
+            key={value}
+            type="button"
+            onClick={() => setTab(value)}
+            aria-pressed={tab === value}
+            className={`flex-1 rounded-full px-3 py-2 text-xs transition-colors duration-300 ${
+              tab === value ? "bg-bone text-white" : "text-mist hover:text-bone"
+            }`}
+          >
+            {value === "password" ? "Password" : "Email link"}
+          </button>
+        ))}
+      </div>
+
+      {tab === "password" ? <SupabasePasswordForm /> : <MagicLinkForm />}
+    </div>
+  );
+}
+
 export default function LoginForm({
   mode,
   linkError,
@@ -122,7 +208,7 @@ export default function LoginForm({
         </p>
       )}
 
-      {mode === "supabase" && <MagicLinkForm />}
+      {mode === "supabase" && <SupabaseSignIn />}
       {mode === "password" && <PasswordForm />}
       {mode === "no-allowlist" && (
         <p className="text-sm leading-relaxed text-muted">

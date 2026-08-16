@@ -12,8 +12,9 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { ApiError, adminApi, requireSession } from "@/lib/admin/api";
 import {
-  allowlist,
+  PASSWORD_CHANGED_AT,
   checkPassword,
+  currentStaff,
   endSession,
   passwordLoginAllowed,
   startSession,
@@ -73,34 +74,110 @@ export async function sendMagicLink(
   const host = headerList.get("host") ?? "localhost:3000";
   const protocol = host.startsWith("localhost") ? "http" : "https";
 
-  // Check the allowlist before sending anything. A link mailed to a
-  // non-staff address is a live credential sitting in a stranger's inbox,
-  // even though currentStaff() would reject the resulting session — so the
-  // link is never created in the first place.
-  const allowed = allowlist();
-  if (allowed.includes(email)) {
-    const supabase = await createSupabaseServerClient();
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: {
-        emailRedirectTo: `${protocol}://${host}/admin/auth/callback`,
-        // Staff accounts are created by an administrator, never by signing in.
-        shouldCreateUser: false,
-      },
-    });
+  const supabase = await createSupabaseServerClient();
+  const { error } = await supabase.auth.signInWithOtp({
+    email,
+    options: {
+      emailRedirectTo: `${protocol}://${host}/admin/auth/callback`,
+      // Sign-in never creates an account — that is what /admin/signup is for.
+      // Supabase therefore only mails an address that already registered, and
+      // the resulting session still sees nothing until a super admin approves.
+      shouldCreateUser: false,
+    },
+  });
 
-    if (error) {
-      // Log the reason; the reply below is identical either way.
-      console.error("magic link failed:", error.message);
-    }
-  } else if (allowed.length === 0) {
-    console.error("ADMIN_EMAILS is not set — no sign-in link was sent.");
+  if (error) {
+    // Log the reason; the reply below is identical either way.
+    console.error("magic link failed:", error.message);
   }
 
   return {
     ok: true,
     error: undefined,
   };
+}
+
+/**
+ * Email + password sign-in.
+ *
+ * Exists for the temporary password an administrator issues when setting up an
+ * account. The allowlist is checked first so a password belonging to some
+ * other account on the same Supabase project is never even tried, and the
+ * failure message is identical for "wrong password", "no such user" and "not
+ * staff" — three different truths, one reply.
+ */
+export async function signInWithPassword(
+  _prev: ActionState,
+  formData: FormData,
+): Promise<ActionState> {
+  if (!supabaseConfigured()) {
+    return { error: "Sign-in is not configured." };
+  }
+
+  const key = throttleKey();
+  const record = attempts.get(key);
+  if (record && record.count >= MAX_ATTEMPTS && Date.now() < record.until) {
+    return { error: "Too many attempts. Try again in a minute." };
+  }
+
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+  const password = String(formData.get("password") ?? "");
+  if (!email || !password) return { error: "Enter your email and password." };
+
+  const failed = () => {
+    attempts.set(key, {
+      count: (record && Date.now() < record.until ? record.count : 0) + 1,
+      until: Date.now() + LOCKOUT_MS,
+    });
+    return { error: "Those details are not correct." };
+  };
+
+  const supabase = await createSupabaseServerClient();
+  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  if (error) return failed();
+
+  attempts.delete(key);
+  // Where they land is decided by the dashboard layout: an account still on
+  // its issued password is sent to change it before it sees anything.
+  redirect("/admin");
+}
+
+/**
+ * Replace the password and record that it happened.
+ *
+ * `password_changed_at` is what lifts the block. It is written in the same
+ * call that sets the password, so the two cannot drift apart.
+ */
+export async function changePassword(
+  _prev: ActionState,
+  formData: FormData,
+): Promise<ActionState> {
+  const staff = await currentStaff();
+  if (!staff) redirect("/admin/login");
+
+  const password = String(formData.get("password") ?? "");
+  const confirm = String(formData.get("confirm") ?? "");
+
+  if (password.length < 12) {
+    return { error: "Use at least 12 characters." };
+  }
+  if (password !== confirm) {
+    return { error: "The two passwords do not match." };
+  }
+
+  const supabase = await createSupabaseServerClient();
+  const { error } = await supabase.auth.updateUser({
+    password,
+    data: { [PASSWORD_CHANGED_AT]: new Date().toISOString() },
+  });
+
+  if (error) {
+    // Supabase rejects a password identical to the current one, which is the
+    // most likely failure here and worth saying plainly.
+    return { error: error.message };
+  }
+
+  redirect("/admin");
 }
 
 export async function login(

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 import { adminApi, requireSession } from "@/lib/admin/api";
 import { currentStaff } from "@/lib/admin/session";
 import { site } from "@/lib/site";
@@ -17,6 +18,11 @@ export default async function DashboardLayout({
 }) {
   await requireSession();
   const staff = await currentStaff();
+
+  // An account still on the password it was issued sees nothing until it picks
+  // its own. Enforced here, in the layout every dashboard page renders inside,
+  // rather than in the proxy — same reasoning as the auth check itself.
+  if (staff?.mustChangePassword) redirect("/admin/account/password");
 
   // Unread counts in the nav, so staff can see there is work waiting without
   // opening each section. A backend that is down must not blank the shell —
