@@ -1,0 +1,84 @@
+# Supabase project configuration.
+#
+# Version-controlled for the same reason the migrations in ./migrations are:
+# the auth setup is part of how the product behaves, and clicking it into the
+# dashboard leaves no record of what was set or why.
+#
+# Apply with:
+#
+#   supabase link --project-ref eryvdggjapnuqbsozhpi
+#   RESEND_API_KEY=re_xxx supabase config push
+#
+# WARNING: `config push` replaces the linked project's auth configuration with
+# what is in this file. Anything configured in the dashboard and not written
+# down here is reset to the CLI default. Reconcile the dashboard against this
+# file before the first push.
+
+project_id = "eryvdggjapnuqbsozhpi"
+
+[auth]
+# Base URL for links Supabase generates when a flow does not supply its own.
+# TODO(client): point at the Netlify URL until linkerworldtravel.com resolves —
+# the domain currently has no nameservers, so links built on it go nowhere.
+site_url = "https://www.linkerworldtravel.com"
+
+# Every host a sign-in link is allowed to return to. `sendMagicLink` and
+# `signUp` build `emailRedirectTo` from the *request* host (see
+# src/app/admin/actions.ts), so each environment that serves /admin/login has
+# to appear here or Supabase rejects the redirect.
+additional_redirect_urls = [
+  "http://localhost:3000/admin/auth/callback",
+  "https://www.linkerworldtravel.com/admin/auth/callback",
+  # TODO(client): add the Netlify site URL, e.g.
+  # "https://<site-name>.netlify.app/admin/auth/callback",
+]
+
+enable_signup = true
+minimum_password_length = 12    # matches the check in signUp()
+
+[auth.email]
+enable_signup = true
+
+# Required, not optional. SignUpForm tells the new user to "confirm your email
+# address using the message we just sent" — with this false Supabase confirms
+# the account silently and sends nothing, so that screen is a lie and the
+# person waits for mail that was never generated.
+enable_confirmations = true
+
+double_confirm_changes = true
+secure_password_change = true
+
+# The default is 1s, which is really a local-development value. 10s is long
+# enough to stop a double-clicked button sending twice.
+max_frequency = "10s"
+
+[auth.rate_limit]
+# THE ACTUAL BUG.
+#
+# Supabase's built-in email service allows 2 messages per hour per project and
+# is documented as being for development only — it is not a deliverable mail
+# service. A handful of staff signing in by magic link exhausts that in
+# minutes, and every request after it fails silently: sendMagicLink() logs the
+# error server-side and deliberately returns the same "check your email" reply
+# either way, so nothing surfaces in the UI.
+#
+# This limit only lifts once a custom SMTP provider is configured below.
+email_sent = 100
+
+[auth.email.smtp]
+# Resend's SMTP interface. The username really is the literal string "resend";
+# the API key is the password.
+enabled = true
+host = "smtp.resend.com"
+port = 587
+user = "resend"
+
+# Read from the environment at push time and never stored in this file. Keep
+# it that way: this file is committed.
+pass = "env(RESEND_API_KEY)"
+
+# The From: address. Resend will only accept this once the sending domain is
+# verified in Resend (DKIM + SPF records), which is blocked until
+# linkerworldtravel.com has nameservers.
+admin_email = "info@linkerworldtravel.com"
+sender_name = "Linker World Travel"
