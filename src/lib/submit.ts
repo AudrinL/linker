@@ -68,9 +68,15 @@ export function recordInquiry(input: {
   service: string;
   message: string;
   source?: string;
+  /**
+   * Honeypot. Forwarded untouched so the API can drop bot submissions; forms
+   * that do not render the trap simply leave it undefined.
+   */
+  website?: string;
 }): Promise<boolean> {
   return post("/api/inquiries", {
     name: input.name,
+    website: input.website,
     // The form accepts either an email or a phone number, but the API requires
     // a valid address. This placeholder keeps a phone-only inquiry from being
     // dropped; the real number is right there in the record.

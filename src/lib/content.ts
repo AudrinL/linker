@@ -186,3 +186,32 @@ export const values = [
     copy: "Plans break at inconvenient hours. Our clients reach a real person, not a ticket number.",
   },
 ];
+
+/* ------------------------------------------------------------------ */
+
+/**
+ * How working with us actually goes, in three steps.
+ *
+ * This exists to answer the question that stops most visitors from making
+ * contact: "what happens if I call, and what will it cost me to find out?"
+ * The honest answer — a free conversation, a straight assessment, no money
+ * until there is a plan — is the strongest thing the company has to say, so
+ * the home page now says it plainly instead of implying it.
+ */
+export const steps = [
+  {
+    n: "01",
+    title: "Tell us where you want to go",
+    copy: "One conversation, free of charge. We ask about your qualifications, your budget and when you want to travel.",
+  },
+  {
+    n: "02",
+    title: "We tell you honestly what is possible",
+    copy: "A clear recommendation and a real cost, before you pay anything. If your plan will not succeed, we say so.",
+  },
+  {
+    n: "03",
+    title: "We handle it, start to finish",
+    copy: "Employer matching, admission files, visa applications and flights — one consultant, all the way to the day you land.",
+  },
+];

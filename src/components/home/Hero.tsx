@@ -1,184 +1,142 @@
-"use client";
-
 import Image from "next/image";
-import { useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-import SplitLines from "@/components/motion/SplitLines";
-import MagneticButton from "@/components/ui/MagneticButton";
-import { heroStats } from "@/lib/content";
-import { prefersReducedMotion } from "@/lib/utils";
+import Link from "next/link";
+import { site } from "@/lib/site";
+import { whatsappLink } from "@/lib/utils";
 
 /**
  * The opening frame.
  *
- * On load the plate is held slightly over-scaled and drifts back to rest while
- * the headline is uncovered line by line — the effect of a camera settling.
- * On scroll the plate continues to recede and dim as the copy lifts away,
- * so the hero hands off to the next section instead of simply scrolling off.
+ * Deliberately a Server Component. The previous hero was a client component
+ * running a GSAP entrance and a scrubbed ScrollTrigger timeline, with the
+ * headline rendered through `SplitLines` — which keeps every line at
+ * `opacity: 0` until hydration. The single most valuable thing on the page
+ * therefore could not paint until JavaScript arrived. It is now plain server
+ * HTML with a CSS load animation, so the headline is the first thing drawn.
+ *
+ * It also asks for one thing. The old hero offered two equal buttons, four
+ * statistics and a scroll cue; the ask now is a free consultation, with
+ * WhatsApp beside it for the many visitors who prefer to start there.
  */
 export default function Hero() {
-  const root = useRef<HTMLElement>(null);
-  const plate = useRef<HTMLDivElement>(null);
-  const copy = useRef<HTMLDivElement>(null);
-
-  useGSAP(
-    () => {
-      if (prefersReducedMotion()) return;
-      gsap.registerPlugin(ScrollTrigger);
-
-      // Entrance: the camera settles.
-      gsap.fromTo(
-        plate.current,
-        { scale: 1.16, filter: "brightness(0.55)" },
-        {
-          scale: 1,
-          filter: "brightness(1)",
-          duration: 2.4,
-          ease: "expo.out",
-        },
-      );
-
-      // Scroll: plate recedes, copy lifts, everything dims toward the fold.
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: root.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: 0.8,
-        },
-      });
-
-      tl.to(plate.current, { scale: 1.14, yPercent: 8, ease: "none" }, 0)
-        .to(copy.current, { yPercent: -34, opacity: 0, ease: "none" }, 0);
-    },
-    { scope: root },
-  );
-
   return (
-    <section
-      ref={root}
-      className="relative isolate grain flex min-h-dvh flex-col justify-end overflow-hidden"
-    >
-      {/* Photographic plate */}
-      <div ref={plate} className="absolute inset-0 -z-10 will-change-transform">
+    <section className="relative isolate grain flex min-h-[86svh] flex-col justify-end overflow-hidden">
+      <div className="absolute inset-0 -z-10">
         <Image
           src="/assets/hero%20image.png"
-          alt="Travel across Africa and beyond: the world Linker World Travel opens to you"
+          alt=""
           fill
           priority
           quality={88}
           sizes="100vw"
           className="object-cover object-center"
         />
-        {/* Grade: deepen the shadows, keep the amber, seat it in the palette.
-            Dense at the base where the copy sits, clear above so the
-            photography stays the hero. */}
+        {/* Grade: dense at the base where the copy sits, clear above so the
+            photography still carries the section. */}
         <div
           aria-hidden
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to top, color-mix(in oklab, var(--color-bone) 78%, transparent) 0%, color-mix(in oklab, var(--color-bone) 48%, transparent) 28%, transparent 58%), linear-gradient(to right, color-mix(in oklab, var(--color-bone) 42%, transparent) 0%, transparent 48%)",
+              "linear-gradient(to top, color-mix(in oklab, var(--color-bone) 82%, transparent) 0%, color-mix(in oklab, var(--color-bone) 52%, transparent) 30%, transparent 62%), linear-gradient(to right, color-mix(in oklab, var(--color-bone) 46%, transparent) 0%, transparent 52%)",
           }}
         />
         <div className="vignette absolute inset-0" />
       </div>
 
-      <div className="shell relative z-10 flex flex-1 items-end pb-9 pt-20 sm:pb-12">
-        <div ref={copy} className="max-w-4xl">
-          <div className="flex items-center gap-3.5 overflow-hidden">
+      <div className="shell relative z-10 pb-14 pt-28 sm:pb-20">
+        <div className="max-w-3xl">
+          <div className="settle flex items-center gap-3.5">
             <span className="h-px w-10 shrink-0 bg-gold/70" />
-            <span className="eyebrow">Kigali · Rwanda · Est. 2014</span>
+            <span className="text-[0.6875rem] font-medium uppercase tracking-[0.22em] text-white/90">
+              Kigali · Rwanda · Since 2014
+            </span>
           </div>
 
-          <SplitLines
-            as="h1"
-            immediate
-            delay={0.35}
-            className="mt-5 text-display font-display text-white"
-            lines={[
-              "Your journey to",
-              'the <em class="italic text-gradient-warm-dark">world</em>',
-              "starts here.",
-            ]}
-          />
+          <h1
+            className="settle mt-6 text-display font-display text-white"
+            style={{ animationDelay: "0.08s" }}
+          >
+            Go abroad.
+            <br />
+            We handle{" "}
+            <em className="whitespace-nowrap italic text-gradient-warm-dark">
+              the rest.
+            </em>
+          </h1>
 
-          <p className="mt-6 max-w-xl text-lede text-white/80">
-            We help you find opportunities to work, study, travel and build your
-            future internationally, from the first conversation to the day you
-            land.
+          <p
+            className="settle mt-7 max-w-xl text-lede text-white/85"
+            style={{ animationDelay: "0.16s" }}
+          >
+            Overseas jobs, university places, visas and flights — arranged end
+            to end from our Kigali office, by one consultant who stays with you
+            from the first call to the day you land.
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-3.5">
-            <MagneticButton href="/contact">
-              Start your journey
+          <div
+            className="settle mt-9 flex flex-col gap-3.5 sm:flex-row sm:items-center"
+            style={{ animationDelay: "0.24s" }}
+          >
+            <Link
+              href="#start"
+              className="inline-flex items-center justify-center gap-2.5 rounded-full bg-gold px-8 py-4 text-[0.95rem] font-semibold tracking-tight text-white shadow-[0_14px_40px_-12px_rgba(189,74,8,0.6)] transition-colors duration-300 hover:bg-white hover:text-bone"
+            >
+              Get a free consultation
               <svg
                 viewBox="0 0 16 16"
-                className="size-3.5 transition-transform duration-500 group-hover:translate-x-1"
+                className="size-3.5"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="1.6"
+                strokeWidth="1.8"
                 aria-hidden
               >
                 <path d="M2 8h11M9 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-            </MagneticButton>
-            <MagneticButton href="/#services" variant="outline">
-              Explore our services
-            </MagneticButton>
+            </Link>
+
+            <a
+              href={whatsappLink(
+                site.whatsapp,
+                `Hello ${site.name}, I would like to speak to a consultant about `,
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2.5 rounded-full border border-white/35 bg-bone/30 px-8 py-4 text-[0.95rem] font-medium tracking-tight text-white backdrop-blur-md transition-colors duration-300 hover:border-white/70"
+            >
+              <svg viewBox="0 0 24 24" className="size-4 fill-current" aria-hidden>
+                <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm5.8 14.02c-.25.69-1.44 1.32-1.99 1.4-.53.08-1.17.11-1.89-.12-.44-.14-1-.32-1.72-.64-3.03-1.31-5.01-4.36-5.16-4.56-.15-.2-1.23-1.64-1.23-3.13s.78-2.22 1.06-2.53c.28-.31.61-.38.81-.38l.58.01c.19.01.44-.07.68.52.25.6.86 2.08.93 2.23.08.15.13.33.03.53-.1.2-.15.33-.29.5-.15.18-.31.39-.44.53-.15.15-.3.31-.13.6.17.3.75 1.23 1.6 2 1.1.98 2.03 1.28 2.33 1.43.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.39-.25.66-.15.27.1 1.71.81 2 .96.3.15.49.22.56.35.07.12.07.72-.18 1.41z" />
+              </svg>
+              Message on WhatsApp
+            </a>
           </div>
 
-          {/* Both of these sit over the bright part of the plate, so they hold
-              at /75 rather than the /40 they were set at, where they were
-              unreadable against the sky. */}
-          <p className="mt-4 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-white/75">
-            Free consultation · No upfront fee · Reply within one working day
-          </p>
-
-          {/* A fixed two-column grid: as a wrapping flex row these four broke
-              into ragged, uneven lines on narrow screens. */}
-          <dl className="mt-9 grid max-w-lg grid-cols-2 gap-x-8 gap-y-3.5">
-            {heroStats.map((s) => (
-              <div key={s.label}>
-                <dt className="sr-only">{s.label}</dt>
-                {/* Stacked on phones: side by side, the longer labels wrapped
-                    mid-phrase against the value. */}
-                <dd className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:gap-2">
-                  <span className="font-display text-xl tracking-tight text-white">{s.value}</span>
-                  <span aria-hidden className="text-[0.68rem] font-medium uppercase tracking-[0.15em] text-white/75">{s.label}</span>
-                </dd>
-              </div>
+          {/* The three objections that stop people calling, answered before
+              they are asked. */}
+          <ul
+            className="settle mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-[0.78rem] font-medium text-white/85"
+            style={{ animationDelay: "0.32s" }}
+          >
+            {[
+              "Free consultation",
+              "No upfront fee",
+              "Reply within one working day",
+            ].map((item) => (
+              <li key={item} className="flex items-center gap-2">
+                <svg
+                  viewBox="0 0 24 24"
+                  className="size-4 shrink-0 stroke-amber"
+                  fill="none"
+                  strokeWidth="2.4"
+                  aria-hidden
+                >
+                  <path d="M4 12.5l5 5L20 7" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                {item}
+              </li>
             ))}
-          </dl>
+          </ul>
         </div>
       </div>
-
-      {/* Scroll cue.
-          This replaces a full-width strip of service links that sat here. That
-          strip repeated, in dark `mist` type on dark photography, the same four
-          doors the tile grid presents in full immediately below it — so it was
-          both illegible and redundant, and removing it lets the hero end on the
-          proof numbers instead of a second navigation. */}
-      <div
-        aria-hidden
-        className="relative z-10 hidden items-center justify-end gap-2.5 pb-8 text-[0.68rem] uppercase tracking-[0.24em] text-white/70 lg:flex"
-      >
-        <div className="shell flex items-center justify-end gap-2.5">
-          Scroll
-          <span className="relative block h-8 w-px overflow-hidden bg-white/25">
-            <span className="absolute inset-x-0 top-0 h-3 animate-[scrollcue_2.2s_ease-in-out_infinite] bg-gold" />
-          </span>
-        </div>
-      </div>
-
-      <style>{`
-        @keyframes scrollcue {
-          0%   { transform: translateY(-100%); }
-          100% { transform: translateY(320%); }
-        }
-      `}</style>
     </section>
   );
 }

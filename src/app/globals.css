@@ -363,3 +363,50 @@
     transform: none !important;
   }
 }
+
+/* ============================================================
+   Zero-JS entrance motion (home page).
+
+   The home page previously hid its headline, copy and every card behind
+   GSAP and Framer Motion: the rest state was `opacity: 0` in CSS, so
+   nothing was readable until JavaScript hydrated. On a slow phone — which
+   is most of this audience — that is a blank hero during the exact seconds
+   a visitor decides whether to stay.
+
+   These two primitives invert that. The content is visible in the server
+   HTML and the animation is pure enhancement: `.rise` only animates where
+   scroll-driven timelines exist, and `.settle` is a plain load animation
+   that ends where the element already sits. Remove the CSS and the page
+   still reads perfectly.
+   ============================================================ */
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@layer utilities {
+  /* Scroll-linked. Unsupported browsers (Safari < 26) simply show the
+     element, which is why the rest state is never hidden. */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .rise {
+        animation: rise-in linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 52%;
+      }
+    }
+  }
+
+  /* Plays once on load. Used for the hero, which is above the fold and so
+     has nothing to wait for. */
+  .settle {
+    animation: rise-in 0.85s var(--ease-out-expo) both;
+  }
+}
